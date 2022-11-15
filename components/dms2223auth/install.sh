@@ -12,3 +12,4 @@ rm -R "${TEMP_DIR}"
 
 # Create admin:admin user
 dms2223auth-create-admin
+dms2223auth-create-user
