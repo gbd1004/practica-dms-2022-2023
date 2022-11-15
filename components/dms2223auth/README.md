@@ -16,7 +16,7 @@ pip3 install .
 # Initialize the administrator user admin (password: admin)
 dms2223auth-create-admin
 ```
-
+# Gonzalo
 ## Configuration
 
 Configuration will be loaded from the default user configuration directory, subpath `dms2223auth/config.yml`. This path is thus usually `${HOME}/.config/dms2223auth/config.yml` in most Linux distros.
