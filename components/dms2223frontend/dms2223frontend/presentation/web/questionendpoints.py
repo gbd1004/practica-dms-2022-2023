@@ -6,7 +6,7 @@
 
 from typing import Text, Union
 
-from flask import redirect, url_for, session, render_template
+from flask import redirect, url_for, session, render_template, request
 
 from werkzeug.wrappers import Response
 
@@ -20,7 +20,7 @@ from .webauth import WebAuth
 
 
 
-class DiscussionEndpoints():
+class QuestionEndpoints():
 
     """ Monostate class responsible of handling the discussion web endpoint requests.
 
@@ -102,7 +102,7 @@ class DiscussionEndpoints():
 
         	#Añadir el resto de la estructura que metamos en la base de datos
 
-        	qid=int(qid), content=string(content))
+        	qid=int(qid), content=content)
 
         
 

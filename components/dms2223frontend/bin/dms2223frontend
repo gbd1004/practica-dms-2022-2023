@@ -17,10 +17,7 @@ from dms2223frontend.data.config import FrontendConfiguration
 from dms2223frontend.data.rest import AuthService, BackendService
 
 from dms2223frontend.presentation.web import \
-
-    AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints
-
-
+AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints, QuestionEndpoints
 
 cfg: FrontendConfiguration = FrontendConfiguration()
 
