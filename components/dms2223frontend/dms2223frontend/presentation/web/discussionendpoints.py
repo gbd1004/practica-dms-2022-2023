@@ -6,7 +6,7 @@
 
 from typing import Text, Union
 
-from flask import redirect, url_for, session, render_template
+from flask import redirect, url_for, session, render_template, request
 
 from werkzeug.wrappers import Response
 
@@ -56,7 +56,7 @@ class DiscussionEndpoints():
 
         if Role.DISCUSSION.name not in session['roles']:
 
-            return redirect(url_for('get_home'))S
+            return redirect(url_for('get_home'))
 
         name = session['user']
 
@@ -108,7 +108,7 @@ class DiscussionEndpoints():
 
         	#Añadir el resto de la estructura que metamos en la base de datos
 
-        	did=int(did), content=string(content))
+        	did=int(did), content=content)
 
         
 
