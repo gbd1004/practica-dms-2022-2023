@@ -1,0 +1,35 @@
+{% extends "base_logged_in.html" %}
+
+{% block title %}{% block subtitle %}{% endblock %}Question{% endblock %}
+
+{% block contentheading %} <!-- Título de la pregunta obtenido de la BBDD: {{'name'}} --> {% endblock %}
+
+{% block maincontent %}
+
+    <!-- Otros detalles sobre la pregunta -->
+
+    {% block questioncontent %}
+
+        <!--  contenido de la pregunta {{'content'}} -->
+
+         <!-- Meter la lista de questions (definir lista en macros?)
+
+	    {% for answer in answers.html ??? %}
+
+		    <li>
+
+		    	{{'name'}}
+
+		    	{{'content}}
+
+		    	botton para votar y para reportar
+
+		    </li>
+
+	    {% endfor %}
+
+	 -->
+
+    {% endblock %}
+
+{% endblock %}

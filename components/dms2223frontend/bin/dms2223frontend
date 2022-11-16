@@ -1,91 +1,235 @@
 #!/usr/bin/env python3
 
+
+
 from flask import Flask
+
 import inspect
+
 import os
+
 from typing import Dict
+
 import dms2223frontend
+
 from dms2223frontend.data.config import FrontendConfiguration
+
 from dms2223frontend.data.rest import AuthService, BackendService
+
 from dms2223frontend.presentation.web import \
+
     AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints
 
+
+
 cfg: FrontendConfiguration = FrontendConfiguration()
+
 cfg.load_from_file(cfg.default_config_file())
+
 auth_service_cfg: Dict = cfg.get_auth_service()
+
 auth_service: AuthService = AuthService(
+
     auth_service_cfg['host'], auth_service_cfg['port'],
+
     apikey_header='X-ApiKey-Auth',
+
     apikey_secret=auth_service_cfg['apikey_secret']
-)
-backend_service_cfg: Dict = cfg.get_backend_service()
-backend_service: BackendService = BackendService(
-    backend_service_cfg['host'], backend_service_cfg['port'],
-    apikey_header='X-ApiKey-Backend',
-    apikey_secret=backend_service_cfg['apikey_secret']
+
 )
 
-app = Flask(
-    __name__,
-    static_folder=os.path.dirname(
-        inspect.getfile(dms2223frontend)) + '/static',
-    template_folder=os.path.dirname(
-        inspect.getfile(dms2223frontend)) + '/templates'
+backend_service_cfg: Dict = cfg.get_backend_service()
+
+backend_service: BackendService = BackendService(
+
+    backend_service_cfg['host'], backend_service_cfg['port'],
+
+    apikey_header='X-ApiKey-Backend',
+
+    apikey_secret=backend_service_cfg['apikey_secret']
+
 )
+
+
+
+app = Flask(
+
+    __name__,
+
+    static_folder=os.path.dirname(
+
+        inspect.getfile(dms2223frontend)) + '/static',
+
+    template_folder=os.path.dirname(
+
+        inspect.getfile(dms2223frontend)) + '/templates'
+
+)
+
 app.secret_key = bytes(cfg.get_app_secret_key(), 'ascii')
 
 
+
+
+
 @app.route("/login", methods=['GET'])
+
 def get_login():
+
     return SessionEndpoints.get_login(auth_service)
 
+
+
 @app.route("/login", methods=['POST'])
+
 def post_login():
+
     return SessionEndpoints.post_login(auth_service)
 
+
+
 @app.route("/logout", methods=['GET'])
+
 def get_logout():
+
     return SessionEndpoints.get_logout()
 
+
+
 @app.route("/home", methods=['GET'])
+
 def get_home():
+
     return CommonEndpoints.get_home(auth_service)
 
+
+
 @app.route("/discussion", methods=['GET'])
+
 def get_discussion():
+
     return DiscussionEndpoints.get_discussion(auth_service)
 
+
+
 @app.route("/moderator", methods=['GET'])
+
 def get_moderator():
+
     return ModeratorEndpoints.get_moderator(auth_service)
 
+
+
 @app.route("/admin", methods=['GET'])
+
 def get_admin():
+
     return AdminEndpoints.get_admin(auth_service)
 
+
+
 @app.route("/admin/users", methods=['GET'])
+
 def get_admin_users():
+
     return AdminEndpoints.get_admin_users(auth_service)
 
+
+
 @app.route("/admin/users/new", methods=['GET'])
+
 def get_admin_users_new():
+
     return AdminEndpoints.get_admin_users_new(auth_service)
 
+
+
 @app.route("/admin/users/new", methods=['POST'])
+
 def post_admin_users_new():
+
     return AdminEndpoints.post_admin_users_new(auth_service)
 
+
+
 @app.route("/admin/users/edit", methods=['GET'])
+
 def get_admin_users_edit():
+
     return AdminEndpoints.get_admin_users_edit(auth_service)
 
+
+
 @app.route("/admin/users/edit", methods=['POST'])
+
 def post_admin_users_edit():
+
     return AdminEndpoints.post_admin_users_edit(auth_service)
 
+    
+
+  
+
+  
+
+# Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  
+
+@app.route("/discussion/questions", methods=['GET'])
+
+def get_questions():
+
+    return QuestionEndpoints.get_questions(auth_service)
+
+
+
+@app.route("/discussion/questions", methods=['POST'])
+
+def new_question():
+
+    return QuestionEndpoints.new_question(auth_service) 
+
+    
+
+# Lo mismo para las respuestas
+
+@app.route("/discussion/questions/answers", methods=['GET'])
+
+def get_answer():
+
+    return QuestionEndpoints.get_answers(auth_service)
+
+
+
+@app.route("/discussion/questions/answers", methods=['POST'])
+
+def new_answer():
+
+    return QuestionEndpoints.new_answer(auth_service) 
+
+    
+
+    
+
+    
+
+    
+
+
+
+    
+
+    
+
+
+
 if __name__ == '__main__':
+
     app.run(
+
         host=cfg.get_service_host(),
+
         port=cfg.get_service_port(),
+
         debug=cfg.get_debug_flag()
+
     )

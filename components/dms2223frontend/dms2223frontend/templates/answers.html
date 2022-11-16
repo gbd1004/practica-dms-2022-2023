@@ -1,0 +1,21 @@
+{% extends "base_logged_in.html" %}
+
+{% block title %}{% block subtitle %}{% endblock %}Answers{% endblock %}
+
+{% block contentheading %} <!-- Título de la respuesta obtenido de la BBDD: {{'name'}} --> {% endblock %}
+
+{% block maincontent %}
+
+    <!-- Otros detalles sobre la respuesta -->
+
+    {% block questioncontent %}
+
+        <!--  contenido de la respuesta {{'content'}} -->
+
+         <!-- Meter la lista de answer (definir lista en macros?)
+
+	 -->
+
+    {% endblock %}
+
+{% endblock %}

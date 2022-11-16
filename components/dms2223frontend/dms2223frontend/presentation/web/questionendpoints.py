@@ -20,10 +20,6 @@ from .webauth import WebAuth
 
 
 
-
-
-
-
 class DiscussionEndpoints():
 
     """ Monostate class responsible of handling the discussion web endpoint requests.
@@ -32,43 +28,9 @@ class DiscussionEndpoints():
 
     @staticmethod
 
-    def get_discussion(auth_service: AuthService) -> Union[Response, Text]:
+    def get_questions(auth_service: AuthService) -> Union[Response, Text]:
 
-        """ Handles the GET requests to the discussion root endpoint.
-
-
-
-        Args:
-
-            - auth_service (AuthService): The authentication service.
-
-
-
-        Returns:
-
-            - Union[Response,Text]: The generated response to the request.
-
-        """
-
-        if not WebAuth.test_token(auth_service):
-
-            return redirect(url_for('get_login'))
-
-        if Role.DISCUSSION.name not in session['roles']:
-
-            return redirect(url_for('get_home'))S
-
-        name = session['user']
-
-        return render_template('discussion.html', name=name, roles=session['roles'])
-
-    
-
-    @staticmethod
-
-    def new_discussion(auth_service: AuthService) -> Union[Response, Text]:
-
-        """ Handles the POST requests to discussion root endpoint.
+        """ Handles the GET requests to the question root endpoint.
 
 
 
@@ -94,25 +56,53 @@ class DiscussionEndpoints():
 
         name = session['user']
 
+        return render_template('questions.html', name=name, roles=session['roles'])
+
         
 
-        # Obtenemos los nuevos datos introducidos
+    @staticmethod
 
-        did = request.form.get('did')
+    def new_question(auth_service: AuthService) -> Union[Response, Text]:
+
+        """ Handles the POST requests to the question root endpoint.
+
+
+
+        Args:
+
+            - auth_service (AuthService): The authentication service.
+
+
+
+        Returns:
+
+            - Union[Response,Text]: The generated response to the request.
+
+        """
+
+        if not WebAuth.test_token(auth_service):
+
+            return redirect(url_for('get_login'))
+
+        if Role.DISCUSSION.name not in session['roles']:
+
+            return redirect(url_for('get_home'))
+
+        name = session['user']
+
+                # Obtenemos los nuevos datos introducidos
+
+        qid = request.form.get('qid')
 
         content = request.form.get('content')
 
         
 
-        return render_template('discussion.html', name=name, roles=session['roles'],
+        return render_template('questions.html', name=name, roles=session['roles'],
 
         	#Añadir el resto de la estructura que metamos en la base de datos
 
-        	did=int(did), content=string(content))
-
-        
-
-        # NOTA: ¿Añadir un redirect a /discussions?
+        	qid=int(qid), content=string(content))
 
         
 
@@ -120,12 +110,5 @@ class DiscussionEndpoints():
 
 
 
-        
 
-        
 
-        
-
-        
-
-        
