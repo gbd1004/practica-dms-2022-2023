@@ -1,0 +1,17 @@
+{% from "macros/question.html" import question %}
+{% macro list(ordered, items) %}
+    {%- if ordered -%}
+        <ol>
+    {%- else -%}
+        <ul>
+    {%- endif -%}
+    {%- for item in items -%}
+        {{ question(item) }}
+        {# <li>{{ item }}</li> #}
+    {%- endfor -%}
+    {%- if ordered -%}
+        </ol>
+    {%- else -%}
+        </ul>
+    {%- endif -%}
+{% endmacro %}

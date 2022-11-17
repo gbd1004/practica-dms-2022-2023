@@ -1,3 +1,7 @@
+{% from "macros/list.html" import list %}
+
+{% from "macros/buttons.html" import button %}
+
 {% extends "base_logged_in.html" %}
 
 {% block title %}{% block subtitle %}{% endblock %}Discussion{% endblock %}
@@ -7,6 +11,8 @@
 {% block maincontent %}
 
     {% block discussioncontent %}
+
+    <p> Discusiones </p>
 
     <!-- Meter la lista de questions (definir lista en macros?)
 
@@ -21,6 +27,9 @@
     {% endfor %}
 
     -->
+
+        {{ list(True, questions) }}
+        <!-- {{ button('bluebg', 'discussion.html', 'Ver respuestas (no funciona)', '#') }} -->
 
     {% endblock %}
 
