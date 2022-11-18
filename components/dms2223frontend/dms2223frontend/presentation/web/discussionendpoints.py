@@ -6,8 +6,11 @@ from flask import redirect, url_for, session, render_template, request
 from werkzeug.wrappers import Response
 from dms2223common.data import Role
 from dms2223frontend.data.rest.authservice import AuthService
-from dms2223common.data.rest import questionsdb
+# Se importan del backend las preguntas
+from dms2223backend.presentation import questionsdb
 from .webauth import WebAuth
+
+
 
 
 
@@ -18,10 +21,8 @@ class DiscussionEndpoints():
     @staticmethod
     def get_discussion(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
-
         Args:
             - auth_service (AuthService): The authentication service.
-
         Returns:
             - Union[Response,Text]: The generated response to the request.
         """
@@ -30,15 +31,13 @@ class DiscussionEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        return render_template('discussion.html', name=name, roles=session['roles'], questions=questionsdb.QuestionsDB().get_questions()[0]['questions'])
+        return render_template('discussion.html', name=name, roles=session['roles'], questions=questionsdb.QuestionsDB().get_questions())
     
     @staticmethod
     def new_discussion(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to discussion root endpoint.
-
         Args:
             - auth_service (AuthService): The authentication service.
-
         Returns:
             - Union[Response,Text]: The generated response to the request.
         """
@@ -47,16 +46,16 @@ class DiscussionEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        
+
         # Obtenemos los nuevos datos introducidos
-        did = request.form.get('did')
-        content = request.form.get('content')
-        
-        return render_template('discussion.html', name=name, roles=session['roles'],
-        	#Añadir el resto de la estructura que metamos en la base de datos
-        	did=int(did), content=content)
+        title = request.form.get('title')
+        body = request.form.get('body')
+        entrada = {{'title':title},{'body':body}}
+        # Devolvemos la entrada en forma de JSON para la base de datos temportal
+        return render_template('discussion.html', name=name, roles=session['roles'],questions=questionsdb.QuestionsDB().new_question(entrada))
         
         # NOTA: ¿Añadir un redirect a /discussions?
+
         
 
 

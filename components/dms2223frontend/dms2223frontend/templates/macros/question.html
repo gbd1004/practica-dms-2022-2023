@@ -2,7 +2,8 @@
 {% macro question(question) %}
     <div style="border:1px solid black;">
         <p> qid: {{ question['qid']}}</p>
-        <p> Name: {{ question['name']}}</p>    
+        <p> Name: {{ question['title']}}</p>
+        <p> Fecha: {{ question['timestamp']}}</p>  
         <p>{{ button('bluebg', '#', 'Ver respuestas (no funciona)',) }}</p>
         
     </div>

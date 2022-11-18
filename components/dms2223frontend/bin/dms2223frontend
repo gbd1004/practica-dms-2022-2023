@@ -3,21 +3,14 @@
 
 
 from flask import Flask
-
 import inspect
-
 import os
-
 from typing import Dict
-
 import dms2223frontend
-
 from dms2223frontend.data.config import FrontendConfiguration
-
 from dms2223frontend.data.rest import AuthService, BackendService
-
-from dms2223frontend.presentation.web import \
-AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints, QuestionEndpoints
+from dms2223frontend.presentation.web import AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints
+#, QuestionEndpoints
 
 cfg: FrontendConfiguration = FrontendConfiguration()
 
@@ -168,7 +161,7 @@ def post_admin_users_edit():
   
 
   
-
+"""
 # Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  
 
 @app.route("/discussion/questions", methods=['GET'])
@@ -202,7 +195,7 @@ def get_answer():
 def new_answer():
 
     return QuestionEndpoints.new_answer(auth_service) 
-
+"""
     
 
     
