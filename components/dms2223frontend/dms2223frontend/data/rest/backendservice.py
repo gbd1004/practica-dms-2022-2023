@@ -1,6 +1,7 @@
 """ BackendService class module.
 """
 
+from typing import Optional
 import requests
 from dms2223common.data import Role
 from dms2223common.data.rest import ResponseData
@@ -37,3 +38,44 @@ class BackendService():
         return f'http://{self.__host}:{self.__port}{self.__api_base_path}'
 
     # TODO: Implement
+
+    def new_question(self, token: Optional[str], title: str, body: str):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.post(
+            self.__base_url() + '/questions',
+            json={
+                'title': title,
+                'body': body
+            },
+            # TODO: Aqui no se muy bien que poner
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
+
+    def get_questions(self, token: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/questions',
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+            response_data.set_content([])
+        return response_data.get_content()
+

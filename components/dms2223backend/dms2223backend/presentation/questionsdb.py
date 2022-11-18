@@ -43,15 +43,17 @@ class QuestionsDB():
 	#---------------------------------------------------#
 
 	# Question GET (list)
+	# def get_questions(self):
+	# 	# Array de objetos: schema QuestionCoreModel
+	# 	lista = []
+	# 	for q in self.QUESTIONS_DB.values():
+	# 		lista.append['qid']
+	# 		lista.append['title']
+	# 		lista.append['timestamp']
+	# 	# Se devuelve la lista
+	# 	return {'questions': lista}, HTTPStatus.OK
 	def get_questions(self):
-		# Array de objetos: schema QuestionCoreModel
-		lista = []
-		for q in self.QUESTIONS_DB.values():
-			lista.append['qid']
-			lista.append['title']
-			lista.append['timestamp']
-		# Se devuelve la lista
-		return {'questions': lista}, HTTPStatus.OK
+		return self.QUESTIONS_DB, HTTPStatus.OK
 
 
 	# Question POST

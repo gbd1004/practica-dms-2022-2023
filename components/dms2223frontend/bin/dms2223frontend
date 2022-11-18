@@ -98,7 +98,7 @@ def get_home():
 
 def get_discussion():
 
-    return DiscussionEndpoints.get_discussion(auth_service)
+    return DiscussionEndpoints.get_discussion(backend_service, auth_service)
 
 
 
