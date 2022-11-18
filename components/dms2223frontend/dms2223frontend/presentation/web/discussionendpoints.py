@@ -10,7 +10,8 @@ from dms2223frontend.data.rest.authservice import AuthService
 # from dms2223backend.presentation import questionsdb
 from dms2223frontend.data.rest.backendservice import BackendService
 from .webauth import WebAuth
-
+from dms2223common.data.rest import ResponseData
+from .webutils import WebUtils
 
 
 
@@ -31,8 +32,11 @@ class DiscussionEndpoints():
             return redirect(url_for('get_login'))
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
+            
         name = session['user']
-        return render_template('discussion.html', name=name, roles=session['roles'], questions=backend_service.get_questions(session.get('token')))
+        response: ResponseData = backend_service.get_questions(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        return render_template('discussion.html', name=name, roles=session['roles'], questions=response.get_content())
     
     @staticmethod
     def new_discussion(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:

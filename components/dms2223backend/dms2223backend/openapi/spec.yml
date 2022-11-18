@@ -66,7 +66,7 @@ paths:
         Only question stubs are returned. Full information for each question
         should be fetched separately.
       # operationId: TODO: Set to the fully-qualified name of the function handling the operati
-      operationId: dms2223backend.presentation.questions.get_questions
+      operationId: dms2223backend.presentation.questionsdb.get_questions
       responses:
         '200':
           description: A list of questions.
@@ -94,7 +94,7 @@ paths:
         The owner of the question will be automatically retrieved from the
         user token against the authorization server.
       # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      operationId: dms2223backend.presentation.questions.new_question
+      operationId: dms2223backend.presentation.questionsdb.new_question
       requestBody:
         content:
           'application/json':
@@ -128,7 +128,7 @@ paths:
     get:
       summary: Gets a single question
       # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      operationId: dms2223backend.presentation.questions.get_question
+      operationId: dms2223backend.presentation.questionsdb.get_question
       parameters:
         - $ref: '#/components/parameters/QuestionIdPathParam'
       responses:
@@ -159,1241 +159,1241 @@ paths:
         - user_token: []
           api_key: []
 
-  /questions/{qid}/answers:
-
-    get:
-      summary: Gets the answers for a question
-      description: |
-        Fetches the full answers for a given question.
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      operationID: dms2223backend.presentation.answers.get_answers
-      parameters:
-        - $ref: '#/components/parameters/QuestionIdPathParam'
-      responses:
-        '200':
-          description: The answers for a question.
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/AnswersListModel'
-              example:
-                - id: 1
-                  qid: 1
-                  timestamp: 1665575089
-                  body: I would suggest four members.
-                  owner:
-                    username: user3
-                  votes: 4
-                  user_votes:
-                    user3: true
-                    user4: true
-                    user5: true
-                    user6: true
-                  comments:
-                    - id: 2
-                      aid: 1
-                      timestamp: 1665575389
-                      body: Evaluation criteria may be relaxed due to the tight number of members
-                      sentiment: POSITIVE
-                      owner:
-                        username: user4
-                      votes: 2
-                      user_votes:
-                        user6: true
-                        user5: true
-                    - id: 1
-                      aid: 1
-                      timestamp: 1665575289
-                      body: Enough to distribute the workload equitatively
-                      sentiment: POSITIVE
-                      owner:
-                        username: user4
-                      votes: 1
-                      user_votes:
-                        user6: true
-                    - id: 3
-                      aid: 1
-                      timestamp: 1665577389
-                      body: The deadline may be too close for the workload and a group this "small"
-                      sentiment: NEGATIVE
-                      owner:
-                        username: user4
-                      votes: 0
-                      user_votes: []
-                - id: 2
-                  qid: 1
-                  timestamp: 1665675089
-                  body: Five members.
-                  owner:
-                    username: user2
-                  votes: 2
-                  user_votes:
-                    user1: true
-                    user2: true
-                  comments:
-                    - id: 4
-                      aid: 2
-                      timestamp: 1665777389
-                      body: The teacher may be stricter if groups are too large
-                      sentiment: NEGATIVE
-                      owner:
-                        username: user4
-                      votes: 0
-                      user_votes: []
-        '404':
-          description: The question does not exist.
-          content:
-            'text/plain':
-              schema:
-                type: string
-              example: 'The question with qid 5 does not exist.'
-      tags:
-        - discussion
-        - questions
-        - answers
-      security:
-        - user_token: []
-          api_key: []
-
-    post:
-      summary: Answers a question
-      description: |
-        This operation creates an answer for an existing question.
-        The owner of the answer will be automatically retrieved from the
-        user token against the authorization server.
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      operationId: cdms2223backend.presentation.answers.new_answer
-      parameters:
-        - $ref: '#/components/parameters/QuestionIdPathParam'
-      requestBody:
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/AnswerCreationModel'
-            example:
-              qid: 1
-              body: I would suggest four members.
-      responses:
-        '201':
-          description: The created answer.
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/AnswerFullModel'
-              example:
-                id: 1
-                qid: 1
-                timestamp: 1665575089
-                body: I would suggest four members.
-                owner:
-                  username: user3
-                votes: 0
-                user_votes: {}
-                comments: []
-        '404':
-          description: The question does not exist.
-          content:
-            'text/plain':
-              schema:
-                type: string
-              example: 'The question with qid 5 does not exist.'
-      tags:
-        - discussion
-        - questions
-        - answers
-      security:
-        - user_token: []
-          api_key: []
+  # /questions/{qid}/answers:
+
+  #   get:
+  #     summary: Gets the answers for a question
+  #     description: |
+  #       Fetches the full answers for a given question.
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     operationID: dms2223backend.presentation.answers.get_answers
+  #     parameters:
+  #       - $ref: '#/components/parameters/QuestionIdPathParam'
+  #     responses:
+  #       '200':
+  #         description: The answers for a question.
+  #         content:
+  #           'application/json':
+  #             schema:
+  #               $ref: '#/components/schemas/AnswersListModel'
+  #             example:
+  #               - id: 1
+  #                 qid: 1
+  #                 timestamp: 1665575089
+  #                 body: I would suggest four members.
+  #                 owner:
+  #                   username: user3
+  #                 votes: 4
+  #                 user_votes:
+  #                   user3: true
+  #                   user4: true
+  #                   user5: true
+  #                   user6: true
+  #                 comments:
+  #                   - id: 2
+  #                     aid: 1
+  #                     timestamp: 1665575389
+  #                     body: Evaluation criteria may be relaxed due to the tight number of members
+  #                     sentiment: POSITIVE
+  #                     owner:
+  #                       username: user4
+  #                     votes: 2
+  #                     user_votes:
+  #                       user6: true
+  #                       user5: true
+  #                   - id: 1
+  #                     aid: 1
+  #                     timestamp: 1665575289
+  #                     body: Enough to distribute the workload equitatively
+  #                     sentiment: POSITIVE
+  #                     owner:
+  #                       username: user4
+  #                     votes: 1
+  #                     user_votes:
+  #                       user6: true
+  #                   - id: 3
+  #                     aid: 1
+  #                     timestamp: 1665577389
+  #                     body: The deadline may be too close for the workload and a group this "small"
+  #                     sentiment: NEGATIVE
+  #                     owner:
+  #                       username: user4
+  #                     votes: 0
+  #                     user_votes: []
+  #               - id: 2
+  #                 qid: 1
+  #                 timestamp: 1665675089
+  #                 body: Five members.
+  #                 owner:
+  #                   username: user2
+  #                 votes: 2
+  #                 user_votes:
+  #                   user1: true
+  #                   user2: true
+  #                 comments:
+  #                   - id: 4
+  #                     aid: 2
+  #                     timestamp: 1665777389
+  #                     body: The teacher may be stricter if groups are too large
+  #                     sentiment: NEGATIVE
+  #                     owner:
+  #                       username: user4
+  #                     votes: 0
+  #                     user_votes: []
+  #       '404':
+  #         description: The question does not exist.
+  #         content:
+  #           'text/plain':
+  #             schema:
+  #               type: string
+  #             example: 'The question with qid 5 does not exist.'
+  #     tags:
+  #       - discussion
+  #       - questions
+  #       - answers
+  #     security:
+  #       - user_token: []
+  #         api_key: []
+
+  #   post:
+  #     summary: Answers a question
+  #     description: |
+  #       This operation creates an answer for an existing question.
+  #       The owner of the answer will be automatically retrieved from the
+  #       user token against the authorization server.
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     operationId: cdms2223backend.presentation.answers.new_answer
+  #     parameters:
+  #       - $ref: '#/components/parameters/QuestionIdPathParam'
+  #     requestBody:
+  #       content:
+  #         'application/json':
+  #           schema:
+  #             $ref: '#/components/schemas/AnswerCreationModel'
+  #           example:
+  #             qid: 1
+  #             body: I would suggest four members.
+  #     responses:
+  #       '201':
+  #         description: The created answer.
+  #         content:
+  #           'application/json':
+  #             schema:
+  #               $ref: '#/components/schemas/AnswerFullModel'
+  #             example:
+  #               id: 1
+  #               qid: 1
+  #               timestamp: 1665575089
+  #               body: I would suggest four members.
+  #               owner:
+  #                 username: user3
+  #               votes: 0
+  #               user_votes: {}
+  #               comments: []
+  #       '404':
+  #         description: The question does not exist.
+  #         content:
+  #           'text/plain':
+  #             schema:
+  #               type: string
+  #             example: 'The question with qid 5 does not exist.'
+  #     tags:
+  #       - discussion
+  #       - questions
+  #       - answers
+  #     security:
+  #       - user_token: []
+  #         api_key: []
 
-  /questions/{qid}/reports:
+  # /questions/{qid}/reports:
 
-    post:
+  #   post:
 
-      summary: Reports a question
+  #     summary: Reports a question
 
-      description: |
+  #     description: |
 
-        This operation will report a question to be reviewed by a moderator.
+  #       This operation will report a question to be reviewed by a moderator.
 
 
 
-        The owner of the report will be automatically retrieved from the
+  #       The owner of the report will be automatically retrieved from the
 
-        user token against the authorization server.
+  #       user token against the authorization server.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      operationId: dms2223backend.presentation.questions.new_report
+  #     operationId: dms2223backend.presentation.questionsdb.new_report
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/QuestionIdPathParam'
+  #       - $ref: '#/components/parameters/QuestionIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/QuestionReportCreationModel'
+  #             $ref: '#/components/schemas/QuestionReportCreationModel'
 
-            example:
+  #           example:
 
-              reason: Promotes hate speech
+  #             reason: Promotes hate speech
 
-      responses:
+  #     responses:
 
-        '201':
+  #       '201':
 
-          description: The created report.
+  #         description: The created report.
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/QuestionReportFullModel'
+  #               $ref: '#/components/schemas/QuestionReportFullModel'
 
-              example:
+  #             example:
 
-                id: 1
+  #               id: 1
 
-                qid: 2
+  #               qid: 2
 
-                reason: Promotes hate speech
+  #               reason: Promotes hate speech
 
-                status: PENDING
+  #               status: PENDING
 
-                owner:
+  #               owner:
 
-                  username: user4
+  #                 username: user4
 
-                timestamp: 1665922785
+  #               timestamp: 1665922785
 
-        '404':
+  #       '404':
 
-          description: The question does not exist.
+  #         description: The question does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The question with qid 5 does not exist.'
+  #             example: 'The question with qid 5 does not exist.'
 
-      tags:
+  #     tags:
 
-        - discussion
+  #       - discussion
 
-        - moderation
+  #       - moderation
 
-        - questions
+  #       - questions
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /questions/reports:
+  # /questions/reports:
 
-    get:
+  #   get:
 
-      summary: Get a list of question reports.
+  #     summary: Get a list of question reports.
 
-      description: |
+  #     description: |
 
-        This operation gets a listing of question reports.
+  #       This operation gets a listing of question reports.
 
 
 
-        Several parameters can be used to filter out the reports according to
+  #       Several parameters can be used to filter out the reports according to
 
-        their status.
+  #       their status.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      operationID: dms2223backend.presentation.questions.get_reports
+  #     operationID: dms2223backend.presentation.questionsdb.get_reports
 
-      parameters:
+  #     parameters:
 
-        - name: pending
+  #       - name: pending
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the pending reports from the listing.
+  #           Set to `false` to exclude the pending reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-        - name: accepted
+  #       - name: accepted
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the accepted reports from the listing.
+  #           Set to `false` to exclude the accepted reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-        - name: rejected
+  #       - name: rejected
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the rejected reports from the listing.
+  #           Set to `false` to exclude the rejected reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-      responses:
+  #     responses:
 
-        '200':
+  #       '200':
 
-          description: Listing of question reports
+  #         description: Listing of question reports
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/QuestionReportsListModel'
+  #               $ref: '#/components/schemas/QuestionReportsListModel'
 
-              example:
+  #             example:
 
-                - id: 1
+  #               - id: 1
 
-                  qid: 2
+  #                 qid: 2
 
-                  reason: Promotes hate speech
+  #                 reason: Promotes hate speech
 
-                  status: ACCEPTED
+  #                 status: ACCEPTED
 
-                  owner:
+  #                 owner:
 
-                    username: user4
+  #                   username: user4
 
-                  timestamp: 1665922785
+  #                 timestamp: 1665922785
 
-                - id: 2
+  #               - id: 2
 
-                  qid: 4
+  #                 qid: 4
 
-                  reason: Not a question
+  #                 reason: Not a question
 
-                  status: REJECTED
+  #                 status: REJECTED
 
-                  owner:
+  #                 owner:
 
-                    username: user5
+  #                   username: user5
 
-                  timestamp: 1665922785
+  #                 timestamp: 1665922785
 
-                - id: 3
+  #               - id: 3
 
-                  qid: 4
+  #                 qid: 4
 
-                  reason: Question is too vague
+  #                 reason: Question is too vague
 
-                  status: PENDING
+  #                 status: PENDING
 
-                  owner:
+  #                 owner:
 
-                    username: user5
+  #                   username: user5
 
-                  timestamp: 1665922785
+  #                 timestamp: 1665922785
 
-      tags:
+  #     tags:
 
-        - moderation
+  #       - moderation
 
-        - questions
+  #       - questions
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /questions/reports/{qrid}:
+  # /questions/reports/{qrid}:
 
-    put:
+  #   put:
 
-      summary: Change the status of a question report
+  #     summary: Change the status of a question report
 
-      description: |
+  #     description: |
 
-        Use this operation to change the status of a question report.
+  #       Use this operation to change the status of a question report.
 
 
 
-        When a report on a question is accepted, the linked question should be
+  #       When a report on a question is accepted, the linked question should be
 
-        hidden so neither the question nor its answers and comments are visible.
+  #       hidden so neither the question nor its answers and comments are visible.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      operationID: dms2223backend.presentation.questions.set_report_status
+  #     operationID: dms2223backend.presentation.questionsdb.set_report_status
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/QuestionReportIdPathParam'
+  #       - $ref: '#/components/parameters/QuestionReportIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/ReportStatusChangeModel'
+  #             $ref: '#/components/schemas/ReportStatusChangeModel'
 
-            example:
+  #           example:
 
-              status: ACCEPTED
+  #             status: ACCEPTED
 
-      responses:
+  #     responses:
 
-        '204':
+  #       '204':
 
-          $ref: '#/components/responses/ReportStatusChanged'
+  #         $ref: '#/components/responses/ReportStatusChanged'
 
-        '404':
+  #       '404':
 
-          description: The question report does not exist.
+  #         description: The question report does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The question report with qrid 25 does not exist.'
+  #             example: 'The question report with qrid 25 does not exist.'
 
-      tags:
+  #     tags:
 
-        - moderation
+  #       - moderation
 
-        - questions
+  #       - questions
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /answers/{aid}/votes:
+  # /answers/{aid}/votes:
 
-    post:
+  #   post:
 
-      summary: Upvote an answer
+  #     summary: Upvote an answer
 
-      description: |
+  #     description: |
 
-        This operation will cast a vote on an answer.
+  #       This operation will cast a vote on an answer.
 
 
 
-        The user voting will be automatically retrieved from the user token
+  #       The user voting will be automatically retrieved from the user token
 
-        against the authorization server.
+  #       against the authorization server.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
       
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/AnswerIdPathParam'
+  #       - $ref: '#/components/parameters/AnswerIdPathParam'
 
-      responses:
+  #     responses:
 
-        '201':
+  #       '201':
 
-          $ref: '#/components/responses/VoteCast'
+  #         $ref: '#/components/responses/VoteCast'
 
-        '404':
+  #       '404':
 
-          description: The answer does not exist.
+  #         description: The answer does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The answer with aid 50 does not exist.'
+  #             example: 'The answer with aid 50 does not exist.'
 
-        '409':
+  #       '409':
 
-          $ref: '#/components/responses/VoteAlreadyCast'
+  #         $ref: '#/components/responses/VoteAlreadyCast'
 
-      tags:
+  #     tags:
 
-        - discussion
+  #       - discussion
 
-        - answers
+  #       - answers
 
-        - votes
+  #       - votes
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /answers/{aid}/comments:
+  # /answers/{aid}/comments:
 
-    post:
+  #   post:
 
-      summary: Comments an answer
+  #     summary: Comments an answer
 
-      description: |
+  #     description: |
 
-        This operation creates a comment for an existing answer.
+  #       This operation creates a comment for an existing answer.
 
 
 
-        The owner of the comment will be automatically retrieved from the user
+  #       The owner of the comment will be automatically retrieved from the user
 
-        token against the authorization server.
+  #       token against the authorization server.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/AnswerIdPathParam'
+  #       - $ref: '#/components/parameters/AnswerIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/CommentCreationModel'
+  #             $ref: '#/components/schemas/CommentCreationModel'
 
-            example:
+  #           example:
 
-              body: Evaluation criteria may be relaxed due to the tight number of members
+  #             body: Evaluation criteria may be relaxed due to the tight number of members
 
-              sentiment: POSITIVE
+  #             sentiment: POSITIVE
 
-      responses:
+  #     responses:
 
-        '201':
+  #       '201':
 
-          description: The created comment.
+  #         description: The created comment.
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/CommentFullModel'
+  #               $ref: '#/components/schemas/CommentFullModel'
 
-              example:
+  #             example:
 
-                id: 2
+  #               id: 2
 
-                aid: 1
+  #               aid: 1
 
-                timestamp: 1665575389
+  #               timestamp: 1665575389
 
-                body: Evaluation criteria may be relaxed due to the tight number of members
+  #               body: Evaluation criteria may be relaxed due to the tight number of members
 
-                sentiment: POSITIVE
+  #               sentiment: POSITIVE
 
-                owner:
+  #               owner:
 
-                  username: user4
+  #                 username: user4
 
-                votes: 0
+  #               votes: 0
 
-                user_votes: {}
+  #               user_votes: {}
 
-        '404':
+  #       '404':
 
-          description: The answer does not exist.
+  #         description: The answer does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The answer with aid 50 does not exist.'
+  #             example: 'The answer with aid 50 does not exist.'
 
-      tags:
+  #     tags:
 
-        - discussion
+  #       - discussion
 
-        - answers
+  #       - answers
 
-        - comments
+  #       - comments
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /answers/{aid}/reports:
+  # /answers/{aid}/reports:
 
-    post:
+  #   post:
 
-      summary: Reports an answer
+  #     summary: Reports an answer
 
-      description: |
+  #     description: |
 
-        This operation will report an answer to be reviewed by a moderator.
+  #       This operation will report an answer to be reviewed by a moderator.
 
 
 
-        The owner of the report will be automatically retrieved from the
+  #       The owner of the report will be automatically retrieved from the
 
-        user token against the authorization server.
+  #       user token against the authorization server.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/AnswerIdPathParam'
+  #       - $ref: '#/components/parameters/AnswerIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/AnswerReportCreationModel'
+  #             $ref: '#/components/schemas/AnswerReportCreationModel'
 
-            example:
+  #           example:
 
-              reason: Unrelated to the question
+  #             reason: Unrelated to the question
 
-      responses:
+  #     responses:
 
-        '201':
+  #       '201':
 
-          description: The created report.
+  #         description: The created report.
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/AnswerReportFullModel'
+  #               $ref: '#/components/schemas/AnswerReportFullModel'
 
-              example:
+  #             example:
 
-                id: 1
+  #               id: 1
 
-                aid: 7
+  #               aid: 7
 
-                reason: Unrelated to the question
+  #               reason: Unrelated to the question
 
-                status: PENDING
+  #               status: PENDING
 
-                owner:
+  #               owner:
 
-                  username: user4
+  #                 username: user4
 
-                timestamp: 1665922785
+  #               timestamp: 1665922785
 
-        '404':
+  #       '404':
 
-          description: The answer does not exist.
+  #         description: The answer does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The answer with aid 50 does not exist.'
+  #             example: 'The answer with aid 50 does not exist.'
 
-      tags:
+  #     tags:
 
-        - discussion
+  #       - discussion
 
-        - moderation
+  #       - moderation
 
-        - answers
+  #       - answers
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /answers/reports:
+  # /answers/reports:
 
-    get:
+  #   get:
 
-      summary: Get a list of answer reports.
+  #     summary: Get a list of answer reports.
 
-      description: |
+  #     description: |
 
-        This operation gets a listing of answer reports.
+  #       This operation gets a listing of answer reports.
 
 
 
-        Several parameters can be used to filter out the reports according to
+  #       Several parameters can be used to filter out the reports according to
 
-        their status.
+  #       their status.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - name: pending
+  #       - name: pending
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the pending reports from the listing.
+  #           Set to `false` to exclude the pending reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-        - name: accepted
+  #       - name: accepted
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the accepted reports from the listing.
+  #           Set to `false` to exclude the accepted reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-        - name: rejected
+  #       - name: rejected
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the rejected reports from the listing.
+  #           Set to `false` to exclude the rejected reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-      responses:
+  #     responses:
 
-        '200':
+  #       '200':
 
-          description: Listing of answer reports
+  #         description: Listing of answer reports
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/AnswerReportsListModel'
+  #               $ref: '#/components/schemas/AnswerReportsListModel'
 
-              example:
+  #             example:
 
-                - id: 1
+  #               - id: 1
 
-                  aid: 7
+  #                 aid: 7
 
-                  reason: Unrelated to the question
+  #                 reason: Unrelated to the question
 
-                  status: ACCEPTED
+  #                 status: ACCEPTED
 
-                  owner:
+  #                 owner:
 
-                    username: user4
+  #                   username: user4
 
-                  timestamp: 1665922785
+  #                 timestamp: 1665922785
 
-      tags:
+  #     tags:
 
-        - moderation
+  #       - moderation
 
-        - answers
+  #       - answers
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /answers/reports/{arid}:
+  # /answers/reports/{arid}:
 
-    put:
+  #   put:
 
-      summary: Change the status of an answer report
+  #     summary: Change the status of an answer report
 
-      description: |
+  #     description: |
 
-        Use this operation to change the status of an answer report.
+  #       Use this operation to change the status of an answer report.
 
 
 
-        When a report on an answer is accepted, the linked answer should be
+  #       When a report on an answer is accepted, the linked answer should be
 
-        hidden so neither the answer nor its comments are visible.
+  #       hidden so neither the answer nor its comments are visible.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/AnswerReportIdPathParam'
+  #       - $ref: '#/components/parameters/AnswerReportIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/ReportStatusChangeModel'
+  #             $ref: '#/components/schemas/ReportStatusChangeModel'
 
-            example:
+  #           example:
 
-              status: REJECTED
+  #             status: REJECTED
 
-      responses:
+  #     responses:
 
-        '204':
+  #       '204':
 
-          $ref: '#/components/responses/ReportStatusChanged'
+  #         $ref: '#/components/responses/ReportStatusChanged'
 
-        '404':
+  #       '404':
 
-          description: The answer report does not exist.
+  #         description: The answer report does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The answer report with arid 25 does not exist.'
+  #             example: 'The answer report with arid 25 does not exist.'
 
-      tags:
+  #     tags:
 
-        - moderation
+  #       - moderation
 
-        - answers
+  #       - answers
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /comments/{cid}/votes:
+  # /comments/{cid}/votes:
 
-    post:
+  #   post:
 
-      summary: Upvote a comment
+  #     summary: Upvote a comment
 
-      description: |
+  #     description: |
 
-        This operation will cast a vote on a comment.
+  #       This operation will cast a vote on a comment.
 
 
 
-        The user voting will be automatically retrieved from the user token
+  #       The user voting will be automatically retrieved from the user token
 
-        against the authorization server.
+  #       against the authorization server.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/CommentIdPathParam'
+  #       - $ref: '#/components/parameters/CommentIdPathParam'
 
-      responses:
+  #     responses:
 
-        '201':
+  #       '201':
 
-          $ref: '#/components/responses/VoteCast'
+  #         $ref: '#/components/responses/VoteCast'
 
-        '404':
+  #       '404':
 
-          description: The comment does not exist.
+  #         description: The comment does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The comment with cid 75 does not exist.'
+  #             example: 'The comment with cid 75 does not exist.'
 
-        '409':
+  #       '409':
 
-          $ref: '#/components/responses/VoteAlreadyCast'
+  #         $ref: '#/components/responses/VoteAlreadyCast'
 
-      tags:
+  #     tags:
 
-        - discussion
+  #       - discussion
 
-        - comments
+  #       - comments
 
-        - votes
+  #       - votes
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /comments/{cid}/reports:
+  # /comments/{cid}/reports:
 
-    post:
+  #   post:
 
-      summary: Reports a comment
+  #     summary: Reports a comment
 
-      description: |
+  #     description: |
 
-        This operation will report a comment to be reviewed by a moderator.
+  #       This operation will report a comment to be reviewed by a moderator.
 
 
 
-        The owner of the report will be automatically retrieved from the
+  #       The owner of the report will be automatically retrieved from the
 
-        user token against the authorization server.
+  #       user token against the authorization server.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/CommentIdPathParam'
+  #       - $ref: '#/components/parameters/CommentIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/CommentReportCreationModel'
+  #             $ref: '#/components/schemas/CommentReportCreationModel'
 
-            example:
+  #           example:
 
-              reason: Ambiguous sentiment
+  #             reason: Ambiguous sentiment
 
-      responses:
+  #     responses:
 
-        '201':
+  #       '201':
 
-          description: The created report.
+  #         description: The created report.
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/CommentReportFullModel'
+  #               $ref: '#/components/schemas/CommentReportFullModel'
 
-              example:
+  #             example:
 
-                id: 1
+  #               id: 1
 
-                cid: 7
+  #               cid: 7
 
-                reason: Ambiguous sentiment
+  #               reason: Ambiguous sentiment
 
-                status: PENDING
+  #               status: PENDING
 
-                owner:
+  #               owner:
 
-                  username: user4
+  #                 username: user4
 
-                timestamp: 1665922785
+  #               timestamp: 1665922785
 
-        '404':
+  #       '404':
 
-          description: The comment does not exist.
+  #         description: The comment does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The comment with cid 75 does not exist.'
+  #             example: 'The comment with cid 75 does not exist.'
 
-      tags:
+  #     tags:
 
-        - discussion
+  #       - discussion
 
-        - moderation
+  #       - moderation
 
-        - comments
+  #       - comments
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /comments/reports:
+  # /comments/reports:
 
-    get:
+  #   get:
 
-      summary: Get a list of comment reports.
+  #     summary: Get a list of comment reports.
 
-      description: |
+  #     description: |
 
-        This operation gets a listing of comment reports.
+  #       This operation gets a listing of comment reports.
 
 
 
-        Several parameters can be used to filter out the reports according to
+  #       Several parameters can be used to filter out the reports according to
 
-        their status.
+  #       their status.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - name: pending
+  #       - name: pending
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the pending reports from the listing.
+  #           Set to `false` to exclude the pending reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-        - name: accepted
+  #       - name: accepted
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the accepted reports from the listing.
+  #           Set to `false` to exclude the accepted reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-        - name: rejected
+  #       - name: rejected
 
-          description: |
+  #         description: |
 
-            Set to `false` to exclude the rejected reports from the listing.
+  #           Set to `false` to exclude the rejected reports from the listing.
 
-          in: query
+  #         in: query
 
-          required: false
+  #         required: false
 
-          schema:
+  #         schema:
 
-            type: boolean
+  #           type: boolean
 
-            default: true
+  #           default: true
 
-      responses:
+  #     responses:
 
-        '200':
+  #       '200':
 
-          description: Listing of comment reports
+  #         description: Listing of comment reports
 
-          content:
+  #         content:
 
-            'application/json':
+  #           'application/json':
 
-              schema:
+  #             schema:
 
-                $ref: '#/components/schemas/CommentReportsListModel'
+  #               $ref: '#/components/schemas/CommentReportsListModel'
 
-              example:
+  #             example:
 
-                - id: 1
+  #               - id: 1
 
-                  cid: 7
+  #                 cid: 7
 
-                  reason: Ambiguous sentiment
+  #                 reason: Ambiguous sentiment
 
-                  status: ACCEPTED
+  #                 status: ACCEPTED
 
-                  owner:
+  #                 owner:
 
-                    username: user4
+  #                   username: user4
 
-                  timestamp: 1665922785
+  #                 timestamp: 1665922785
 
-      tags:
+  #     tags:
 
-        - moderation
+  #       - moderation
 
-        - comments
+  #       - comments
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
-  /comments/reports/{crid}:
+  # /comments/reports/{crid}:
 
-    put:
+  #   put:
 
-      summary: Change the status of a comment report
+  #     summary: Change the status of a comment report
 
-      description: |
+  #     description: |
 
-        Use this operation to change the status of a comment report.
+  #       Use this operation to change the status of a comment report.
 
 
 
-        When a report on a comment is accepted, the linked comment should be
+  #       When a report on a comment is accepted, the linked comment should be
 
-        hidden so it will not be visible.
+  #       hidden so it will not be visible.
 
-      # operationId: TODO: Set to the fully-qualified name of the function handling the operation
+  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
 
-      parameters:
+  #     parameters:
 
-        - $ref: '#/components/parameters/CommentReportIdPathParam'
+  #       - $ref: '#/components/parameters/CommentReportIdPathParam'
 
-      requestBody:
+  #     requestBody:
 
-        content:
+  #       content:
 
-          'application/json':
+  #         'application/json':
 
-            schema:
+  #           schema:
 
-              $ref: '#/components/schemas/ReportStatusChangeModel'
+  #             $ref: '#/components/schemas/ReportStatusChangeModel'
 
-            example:
+  #           example:
 
-              status: ACCEPTED
+  #             status: ACCEPTED
 
-      responses:
+  #     responses:
 
-        '204':
+  #       '204':
 
-          $ref: '#/components/responses/ReportStatusChanged'
+  #         $ref: '#/components/responses/ReportStatusChanged'
 
-        '404':
+  #       '404':
 
-          description: The comment report does not exist.
+  #         description: The comment report does not exist.
 
-          content:
+  #         content:
 
-            'text/plain':
+  #           'text/plain':
 
-              schema:
+  #             schema:
 
-                type: string
+  #               type: string
 
-              example: 'The comment report with crid 25 does not exist.'
+  #             example: 'The comment report with crid 25 does not exist.'
 
-      tags:
+  #     tags:
 
-        - moderation
+  #       - moderation
 
-        - comments
+  #       - comments
 
-        - reports
+  #       - reports
 
-      security:
+  #     security:
 
-        - user_token: []
+  #       - user_token: []
 
-          api_key: []
+  #         api_key: []
 
 
 
@@ -1917,6 +1917,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
       # x-bearerInfoFunc: TODO: Set to the fully-qualified name of the function handling the verification
+      # x-bearerInfoFunc: dms2223backend.presentation.security.verify_token
     api_key:
       description: |
         Secret shared between both the requestor and the service.

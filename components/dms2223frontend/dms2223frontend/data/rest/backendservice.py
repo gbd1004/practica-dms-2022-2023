@@ -1,6 +1,6 @@
 """ BackendService class module.
 """
-
+from sys import stdout
 from typing import Optional
 import requests
 from dms2223common.data import Role
@@ -77,5 +77,5 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
             response_data.set_content([])
-        return response_data.get_content()
+        return response_data
 
