@@ -1917,11 +1917,12 @@ components:
       scheme: bearer
       bearerFormat: JWT
       # x-bearerInfoFunc: TODO: Set to the fully-qualified name of the function handling the verification
-      # x-bearerInfoFunc: dms2223backend.presentation.security.verify_token
+      x-bearerInfoFunc: dms2223backend.presentation.security.verify_token
     api_key:
       description: |
         Secret shared between both the requestor and the service.
       type: apiKey
-      name: X-ApiKey-Auth
+      name: X-ApiKey-Backend
       in: header
       # x-apikeyInfoFunc: TODO: Set to the fully-qualified name of the function handling the verification
+      x-apikeyInfoFunc: dms2223backend.presentation.security.verify_api_key
