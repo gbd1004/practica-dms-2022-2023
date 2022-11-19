@@ -29,6 +29,7 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
+        
         return render_template('moderator.html', name=name, roles=session['roles'])
 
     @staticmethod

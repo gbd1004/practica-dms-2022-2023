@@ -1,8 +1,12 @@
+{% from "macros/list_reports.html" import list_reports %}
 {% extends "base_logged_in.html" %}
 {% block title %}{% block subtitle %}{% endblock %}Moderator{% endblock %}
 {% block contentheading %}Moderators panel{% endblock %}
 {% block maincontent %}
     {% block moderatorcontent %}
-    <p class="yellowbg">Under construction</p>
+        <p>Test :)</p>
+
+        {{ list_reports(reports) }}
+
     {% endblock %}
 {% endblock %}

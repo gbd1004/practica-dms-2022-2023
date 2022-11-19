@@ -1,12 +1,13 @@
-{% from "macros/question.html" import question %}
-{% macro list(ordered, items) %}
+{% from "macros/report.html" import report %}
+{% macro list_reports(ordered, items) %}
     {%- if ordered -%}
         <ol>
     {%- else -%}
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-    <li>{{ question(item) }}</li>
+        <p>b</p>
+        <li>{{ report(True, item) }}</li>
         {# <li>{{ item }}</li> #}
     {%- endfor -%}
     {%- if ordered -%}
