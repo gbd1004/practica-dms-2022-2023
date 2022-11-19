@@ -1,6 +1,6 @@
 from http import HTTPStatus
 import time
-from dms2223backend.data.db import ReportStatus
+from dms2223backend.data.reportstatus import ReportStatus
 
 from flask import current_app
 
