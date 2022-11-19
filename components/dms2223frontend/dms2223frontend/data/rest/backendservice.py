@@ -101,7 +101,7 @@ class BackendService():
     def get_answers(self, token: Optional[str], qid: int):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
-            self.__base_url() + f'/question/{qid}',
+            self.__base_url() + f'/questions/{qid}',
             headers={
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret

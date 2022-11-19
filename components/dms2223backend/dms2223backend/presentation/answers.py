@@ -1,5 +1,6 @@
 from http import HTTPStatus
 import time
+from dms2223backend.data.sentiment import Sentiment
 
 #------------------------#
 # BASE DE DATOS TEMPORAL #
@@ -7,8 +8,7 @@ import time
 
 # Definido en: AnswerFullModel
 ANSWERS_DB = {
-	1: {
-        #'id' : 1, ¿necesario?
+    1: {
         'qid': 1, # Foreign Key
         'timestamp': 2665574089.0,
         'body': 'Soy una respuesta',
@@ -21,12 +21,34 @@ ANSWERS_DB = {
             'user4': True,
             'user5': True,
             'user6': True
+        },
+        'coments': {
+            2: {
+                'aid':1,
+                'timestamp':1665575389,
+                'body': 'Soy un comentario',
+                'sentiment': Sentiment.POSITIVE.name,
+                'owner':{'username': 'user4'},
+                'votes': 2,
+                'user_votes':{
+                    'user5': True,
+                    'user6': True
+                }
+            },
+            1:{
+                'aid':1,
+                'timestamp':1665575289,
+                'body': 'Soy otro comentario',
+                'sentiment': Sentiment.POSITIVE.name,
+                'owner':{'username': 'user4'},
+                'votes': 1,
+                'user_votes':{
+                    'user6': True
+                }
+            }
         }
-        # TO DO -> comments:{}
     },
-
-	2: {
-        #'id' : 2, ¿necesario?
+    2: {
         'qid': 1, # Foreign Key
         'timestamp': 3665574089.0,
         'body': 'Soy otra respuesta',
@@ -39,10 +61,23 @@ ANSWERS_DB = {
             'user4': True,
             'user5': True,
             'user6': True
+        },
+        'coments': {
+            1:{
+                'aid':1,
+                'timestamp':1665575289,
+                'body': 'Soy otro comentario',
+                'sentiment': Sentiment.POSITIVE.name,
+                'owner':{'username': 'user4'},
+                'votes': 1,
+                'user_votes':{
+                    'user6': True
+                }
+            }
         }
-        # TO DO -> comments:{}
-		}	
+    }
 }
+
 
 
 
@@ -50,15 +85,14 @@ ANSWERS_DB = {
 # POSIBLES OPERACIONES:     (definidas en spec.yml) #
 #---------------------------------------------------#
 
-
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
 def get_answers(qid: int):
-	# Si la prgunta existe, se podrá tratar de obtener sus respuestas
-    lista = []
+    # Si la prgunta existe, se podrá tratar de obtener sus respuestas
+    lista = {}
     for a in ANSWERS_DB:
         if ANSWERS_DB[a]['qid'] == qid:
-            lista.append({a:ANSWERS_DB[a]})
+            lista[a]=ANSWERS_DB[a]
     # Si existen respuestas a la pregunta, se devollverá la pregunta completa
     if (len(lista) != 0):
         return lista, HTTPStatus.OK
@@ -85,21 +119,6 @@ def new_answer(qid:int, body:any):
             return ANSWERS_DB.get(new_id), HTTPStatus.CREATED
     return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
 
-	# NOTA: 
+	# NOTA:
 	# ¡Falta obtener usuario propietario! -> schema UserCoreModel: {'username' : string}
-	# Revisar user_token[] para obtenerlo 
-
-
-
-'''REEPORTS'''
-# Report POST
-def new_report(qid: int):
-	pass 
-
-# Report GET (list)
-def get_reports():
-	pass
-
-# Report{rid} POST
-def set_report_status(rid: int):
-	pass
+	# Revisar user_token[] para obtenerlo
