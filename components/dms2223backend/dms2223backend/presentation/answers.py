@@ -1,6 +1,6 @@
 from http import HTTPStatus
 import time
-from data.sentiment import Sentiment
+from dms2223backend.data.sentiment import Sentiment
 
 #------------------------#
 # BASE DE DATOS TEMPORAL #
@@ -27,7 +27,7 @@ ANSWERS_DB = {
                 'aid':1,
                 'timestamp':1665575389,
                 'body': 'Soy un comentario',
-                'sentiment': Sentiment.POSITIVE,
+                'sentiment': Sentiment.POSITIVE.name,
                 'owner':{'username': 'user4'},
                 'votes': 2,
                 'user_votes':{
@@ -39,7 +39,7 @@ ANSWERS_DB = {
                 'aid':1,
                 'timestamp':1665575289,
                 'body': 'Soy otro comentario',
-                'sentiment': Sentiment.POSITIVE,
+                'sentiment': Sentiment.POSITIVE.name,
                 'owner':{'username': 'user4'},
                 'votes': 1,
                 'user_votes':{
@@ -67,7 +67,7 @@ ANSWERS_DB = {
                 'aid':1,
                 'timestamp':1665575289,
                 'body': 'Soy otro comentario',
-                'sentiment': Sentiment.POSITIVE,
+                'sentiment': Sentiment.POSITIVE.name,
                 'owner':{'username': 'user4'},
                 'votes': 1,
                 'user_votes':{
@@ -87,7 +87,7 @@ ANSWERS_DB = {
 
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
-def get_answer(qid: int):
+def get_answers(qid: int):
     # Si la prgunta existe, se podrá tratar de obtener sus respuestas
     lista = {}
     for a in ANSWERS_DB:
