@@ -245,7 +245,7 @@ paths:
         The owner of the answer will be automatically retrieved from the
         user token against the authorization server.
       # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      operationId: cdms2223backend.presentation.answers.new_answer
+      operationId: dms2223backend.presentation.answers.new_answer
       parameters:
         - $ref: '#/components/parameters/QuestionIdPathParam'
       requestBody:
