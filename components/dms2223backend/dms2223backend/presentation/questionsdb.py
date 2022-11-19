@@ -56,7 +56,7 @@ QUESTIONS_DB = {
 # 	return {'questions': lista}, HTTPStatus.OK
 def get_questions():
 	with current_app.app_context():
-		return dict, HTTPStatus.OK
+		return QUESTIONS_DB, HTTPStatus.OK
 
 
 # Question POST

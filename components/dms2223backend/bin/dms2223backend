@@ -6,7 +6,7 @@ import dms2223backend
 import connexion
 import logging
 from flask import current_app
-from authlib.jose import JsonWebSignature
+# from authlib.jose import JsonWebSignature
 from flask.logging import default_handler
 from dms2223backend.data.config.backendconfiguration import BackendConfiguration
 
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     cfg: BackendConfiguration = BackendConfiguration()
     cfg.load_from_file(cfg.default_config_file())
     # db: Schema = Schema(cfg)
-    jws: JsonWebSignature = JsonWebSignature()
+    # jws: JsonWebSignature = JsonWebSignature()
 
     specification_dir = os.path.dirname(
         inspect.getfile(dms2223backend)) + '/openapi'
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     with flask_app.app_context():
         # current_app.db = db
         current_app.cfg = cfg
-        current_app.jws = jws
+        # current_app.jws = jws
 
     root_logger = logging.getLogger()
     root_logger.addHandler(default_handler)

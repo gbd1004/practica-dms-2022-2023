@@ -12,7 +12,7 @@ from dms2223frontend.data.rest.backendservice import BackendService
 from .webauth import WebAuth
 from dms2223common.data.rest import ResponseData
 from .webutils import WebUtils
-
+from flask import current_app
 
 
 
@@ -34,8 +34,10 @@ class DiscussionEndpoints():
             return redirect(url_for('get_home'))
             
         name = session['user']
+        current_app.logger.info(session.get('token'))
         response: ResponseData = backend_service.get_questions(session.get('token'))
         WebUtils.flash_response_messages(response)
+        current_app.logger.info(response.get_content())
         return render_template('discussion.html', name=name, roles=session['roles'], questions=response.get_content())
     
     @staticmethod
