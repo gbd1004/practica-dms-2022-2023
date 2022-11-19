@@ -2,6 +2,7 @@
 
 
 
+import time
 from flask import Flask
 import inspect
 import os
@@ -59,7 +60,9 @@ app = Flask(
 app.secret_key = bytes(cfg.get_app_secret_key(), 'ascii')
 
 
-
+@app.template_filter('ctime')
+def timectime(s):
+    return time.ctime(s)
 
 
 @app.route("/login", methods=['GET'])
@@ -160,9 +163,7 @@ def post_admin_users_edit():
 def get_questions_answers():
     return QuestionEndpoints.get_questions_answers(auth_service, backend_service)
 
-    
 
-  
 
   
 """
