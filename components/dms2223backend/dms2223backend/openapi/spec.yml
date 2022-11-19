@@ -150,7 +150,7 @@ paths:
       description: |
         Fetches the full answers for a given question.
       # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      oprationId: dms2223backend.presentation.answers.get_answers
+      operationId: dms2223backend.presentation.answers.get_answers
       parameters:
         - $ref: '#/components/parameters/QuestionIdPathParam'
       responses:
@@ -419,7 +419,7 @@ paths:
   #       When a report on a question is accepted, the linked question should be
   #       hidden so neither the question nor its answers and comments are visible.
   #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     oprationId: dms2223backend.presentation.questionsdb.set_report_status
+  #     operationId: dms2223backend.presentation.questionsdb.set_report_status
   #     parameters:
   #       - $ref: '#/components/parameters/QuestionReportIdPathParam'
   #     requestBody:
