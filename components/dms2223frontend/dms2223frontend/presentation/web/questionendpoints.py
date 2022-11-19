@@ -12,6 +12,9 @@ from dms2223frontend.data.rest.authservice import AuthService
 # Se importan del backend las preguntas
 from dms2223backend.presentation import questionsdb
 from .webauth import WebAuth
+from dms2223frontend.data.rest.backendservice import BackendService
+from dms2223common.data.rest import ResponseData
+from .webutils import WebUtils
 
 
 
@@ -23,7 +26,7 @@ class QuestionEndpoints():
 
     @staticmethod
 
-    def get_questions(auth_service: AuthService) -> Union[Response, Text]:
+    def get_answers(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
 
         """ Handles the GET requests to the question root endpoint.
         Args:
@@ -41,16 +44,21 @@ class QuestionEndpoints():
             return redirect(url_for('get_home'))
 
         name = session['user']
+        qid = request.get('qid')
 
-        return render_template('questions.html', name=name, roles=session['roles'])
-
+        response: ResponseData = backend_service.get_answers(session.get('token'), qid)
+        WebUtils.flash_response_messages(response)
+        answers = response.get_content().values()
         
+        # return render_template('answers.html', name=name, roles=session['roles'], answers=answers)
+        return render_template('answers.html', name=name, roles=session['roles'])
 
     @staticmethod
 
     def new_question(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the question root endpoint.
-        Args:
+        Ar
+        #gs:
             - auth_service (AuthService): The authentication service.
         Returns:
             - Union[Response,Text]: The generated response to the request.
