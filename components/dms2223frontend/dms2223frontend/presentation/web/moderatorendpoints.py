@@ -7,7 +7,9 @@ from werkzeug.wrappers import Response
 from dms2223common.data import Role
 from dms2223frontend.data.rest.authservice import AuthService
 from .webauth import WebAuth
-
+from dms2223frontend.data.rest.backendservice import BackendService
+from dms2223common.data.rest import ResponseData
+from .webutils import WebUtils
 
 class ModeratorEndpoints():
     """ Monostate class responsible of handing the moderator web endpoint requests.
@@ -28,3 +30,17 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
         name = session['user']
         return render_template('moderator.html', name=name, roles=session['roles'])
+
+    @staticmethod
+    def get_reports(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        name = session['user']
+        response: ResponseData = backend_service.get_reports(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        reports = response.get_content().values()
+
+        return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)

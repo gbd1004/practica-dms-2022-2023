@@ -1,6 +1,6 @@
 from http import HTTPStatus
 import time
-from enum import Enum
+from dms2223backend.data.db import ReportStatus
 
 from flask import current_app
 
@@ -8,10 +8,6 @@ from flask import current_app
 # BASE DE DATOS TEMPORAL #
 #------------------------#
 
-class Status(Enum):
-    PENDING = 0
-    ACCEPTED = 1
-    REJECTED = 2
 
 # Definido en: QuestionReportFullModel
 REPORTS_DB = {
@@ -20,7 +16,7 @@ REPORTS_DB = {
         'qid': 1, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'Porque si',
-        'status': Status.ACCEPTED,
+        'status': ReportStatus.ACCEPTED,
         'owner':{
             'username' : 'user2'
         }
@@ -31,7 +27,7 @@ REPORTS_DB = {
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'El que ha hecho el post me caia mal',
-        'status': Status.REJECTED,
+        'status': ReportStatus.REJECTED,
         'owner':{
             'username' : 'user1'
         }
@@ -42,7 +38,7 @@ REPORTS_DB = {
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'Feeling cute, might report later',
-        'status': Status.PENDING,
+        'status': ReportStatus.PENDING,
         'owner':{
             'username' : 'user2'
         }
