@@ -34,11 +34,10 @@ class DiscussionEndpoints():
             return redirect(url_for('get_home'))
             
         name = session['user']
-        current_app.logger.info(session.get('token'))
         response: ResponseData = backend_service.get_questions(session.get('token'))
         WebUtils.flash_response_messages(response)
-        current_app.logger.info(response.get_content())
-        return render_template('discussion.html', name=name, roles=session['roles'], questions=response.get_content())
+        questions = response.get_content().values()
+        return render_template('discussion.html', name=name, roles=session['roles'], questions=questions)
     
     @staticmethod
     def new_discussion(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:

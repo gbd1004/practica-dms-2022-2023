@@ -29,7 +29,7 @@ QUESTIONS_DB = {
 
 	2: {
 		'qid': 2,
-		'name': 'Pregunta2',
+		'title': 'Pregunta2',
 		'body': 'Contenido2',
 		'timestamp': 1665693009.12,
 		'owner': {
