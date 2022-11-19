@@ -16,7 +16,7 @@ REPORTS_DB = {
         'qid': 1, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'Porque si',
-        'status': ReportStatus.ACCEPTED,
+        'status': ReportStatus.ACCEPTED.name,
         'owner':{
             'username' : 'user2'
         }
@@ -27,7 +27,7 @@ REPORTS_DB = {
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'El que ha hecho el post me caia mal',
-        'status': ReportStatus.REJECTED,
+        'status': ReportStatus.REJECTED.name,
         'owner':{
             'username' : 'user1'
         }
@@ -38,7 +38,7 @@ REPORTS_DB = {
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'Feeling cute, might report later',
-        'status': ReportStatus.PENDING,
+        'status': ReportStatus.PENDING.name,
         'owner':{
             'username' : 'user2'
         }

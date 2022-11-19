@@ -106,7 +106,7 @@ def get_discussion():
 
 def get_moderator():
 
-    return ModeratorEndpoints.get_moderator(auth_service)
+    return ModeratorEndpoints.get_moderator(backend_service, auth_service)
 
 
 

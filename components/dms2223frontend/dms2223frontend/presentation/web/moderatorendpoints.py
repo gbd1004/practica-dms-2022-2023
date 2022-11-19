@@ -15,7 +15,7 @@ class ModeratorEndpoints():
     """ Monostate class responsible of handing the moderator web endpoint requests.
     """
     @staticmethod
-    def get_moderator(auth_service: AuthService) -> Union[Response, Text]:
+    def get_moderator(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the moderator root endpoint.
 
         Args:
@@ -28,10 +28,13 @@ class ModeratorEndpoints():
             return redirect(url_for('get_login'))
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
-        name = session['user']
-        
-        return render_template('moderator.html', name=name, roles=session['roles'])
 
+        name = session['user']
+        response: ResponseData = backend_service.get_reports(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        reports = response.get_content().values()
+
+        return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)
     @staticmethod
     def get_reports(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
         if not WebAuth.test_token(auth_service):

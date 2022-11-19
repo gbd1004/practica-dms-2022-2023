@@ -6,7 +6,14 @@
     {% block moderatorcontent %}
         <p>Test :)</p>
 
+        {%- if reports -%}
+            <p>Hay Reports</p>
+        {%- else -%}
+            <p>No hay reports</p>
+        {%- endif -%}
+
         {{ list_reports(reports) }}
 
+        <p>esto es otro test</p>
     {% endblock %}
 {% endblock %}
