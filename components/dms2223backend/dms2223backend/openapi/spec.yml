@@ -346,7 +346,7 @@ paths:
         Several parameters can be used to filter out the reports according to
         their status.
       # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-      operationID: dms2223backend.presentation.reports.get_reports
+      operationId: dms2223backend.presentation.reports.get_reports
       parameters:
         - name: pending
           description: |
