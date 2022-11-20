@@ -1,0 +1,18 @@
+{% from "macros/buttons.html" import button %}
+{% extends "base_logged_in.html" %}
+{% block title %}{% block subtitle %}{% endblock %}Crear pregunta{% endblock %}
+{% block contentheading %}Crear pregunta{% endblock %}
+{% block maincontent %}
+    {% block addquestion %}
+
+    <form>
+        <label for="fname">Título de la pregunta:</label><br>
+        <input type="text" id="titleText" name="titleText"><br>
+        <label for="lname">Cuerpo de la pregunta:</label><br>
+        <input type="text" id="bodyText" name="bodyText">
+    </form> 
+
+    <p>{{ button('bluebg', '#', 'Añadir pregunta', '#') }}</p>
+
+    {% endblock %}
+{% endblock %}

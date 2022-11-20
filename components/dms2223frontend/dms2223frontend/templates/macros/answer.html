@@ -6,9 +6,9 @@
         <p> Respuesta: {{ answer['body']}}</p>
         <p> Fecha: {{ answer['timestamp'] | ctime }}</p>  
         <p> Usuario que hizo la respuesta {{ answer['owner']['username'] }}</p>
-        <p>{{ list_comments(True, answer['comms'].values()) }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
         <p>{{ button('bluebg', "#", 'Reportar',) }}</p>
+        <p>{{ list_comments(True, answer['comms'].values()) }}</p>
     </div>
     
 {% endmacro %}

@@ -1,27 +1,17 @@
 {% from "macros/list_answers.html" import list_answers %}
-
-
+{% from "macros/buttons.html" import button %}
 {% extends "base_logged_in.html" %}
-
 {% block title %}Respuestas{% endblock %}
-
 {% block contentheading %} Answers {% endblock %}
-
 {% block maincontent %}
-
     <!-- Otros detalles sobre la respuesta -->
-
     {% block questioncontent %}
-
         <!--  contenido de la respuesta {{'content'}} -->
-
          <!-- Meter la lista de answer (definir lista en macros?)
-
 	 -->
         <p> Respuesta </p>
+        {{ button('bluebg', '/new_answer', 'Añadir respuesta', '#') }}
         
         {{ list_answers(True, answers, question) }}
-
     {% endblock %}
-
 {% endblock %}

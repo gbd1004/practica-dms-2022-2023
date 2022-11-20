@@ -80,11 +80,11 @@ class QuestionEndpoints():
         content = request.form.get('content')
 
         
-        return render_template('questions.html', name=name, roles=session['roles'],
+        return render_template('new_question.html', name=name, roles=session['roles'],
 
         	#Añadir el resto de la estructura que metamos en la base de datos
 
-        	qid=int(qid), content=content)
+        	qid=qid, content=content)
 
         
 

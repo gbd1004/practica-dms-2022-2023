@@ -1,39 +1,21 @@
 {% from "macros/list_questions.html" import list_questions %}
-
 {% from "macros/buttons.html" import button %}
-
 {% extends "base_logged_in.html" %}
-
 {% block title %}{% block subtitle %}{% endblock %}Discussion{% endblock %}
-
 {% block contentheading %}Discussions panel{% endblock %}
-
 {% block maincontent %}
-
     {% block discussioncontent %}
-
     <p> Discusiones </p>
-
+    {{ button('bluebg', '/new_question', 'Añadir pregunta', '#') }}
     <!-- Meter la lista de questions (definir lista en macros?)
-
     {% for question in questions %}
-
 	    <li>
-
 	    	<a href="">enlace que te lleva a la pregunta como tal</a>
-
 	    </li>
-
     {% endfor %}
-
     -->
-
         {{ list_questions(False, questions) }}
         <!-- {{ button('bluebg', 'discussion.html', 'Ver respuestas (no funciona)', '#') }} -->
-
     {% endblock %}
-
 {% endblock %}
-
-
 

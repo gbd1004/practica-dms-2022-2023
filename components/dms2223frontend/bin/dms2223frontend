@@ -89,6 +89,15 @@ def post_admin_users_edit():
 def get_questions_answers():
     return AnswerEndpoints.get_answers(backend_service, auth_service)
 
+@app.route("/new_question", methods=['GET'])
+def new_question():
+    return QuestionEndpoints.new_question(auth_service)
+
+@app.route("/new_answer", methods=['GET'])
+def new_answer():
+    return AnswerEndpoints.new_answer(auth_service)
+
+
   
 """
 # Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  

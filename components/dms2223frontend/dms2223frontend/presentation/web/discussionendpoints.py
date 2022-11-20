@@ -59,7 +59,7 @@ class DiscussionEndpoints():
         entrada = {{'title':title},{'body':body}}
         # Devolvemos la entrada en forma de JSON para la base de datos temportal
         # return render_template('discussion.html', name=name, roles=session['roles'],questions=questionsdb.QuestionsDB().new_question(entrada))
-        return render_template('discussion.html', name=name, roles=session['roles'], questions=backend_service.new_question(session.get('token'), title, body))
+        return render_template('new_question.html', name=name, roles=session['roles'], questions=backend_service.new_question(session.get('token'), title, body))
         # NOTA: ¿Añadir un redirect a /discussions?
 
         
