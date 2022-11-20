@@ -79,7 +79,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_reports(self, token: Optional[str]):
+    def get_questions_reports(self, token: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions/reports',
@@ -108,6 +108,44 @@ class BackendService():
             },
             timeout=60
         )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+            response_data.set_content([])
+        return response_data
+
+    def get_answers_reports(self, token: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/answers/reports',
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        current_app.logger.info(response)
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+            response_data.set_content([])
+        return response_data
+
+    def get_comments_reports(self, token: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/comments/reports',
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        current_app.logger.info(response)
         response_data.set_successful(response.ok)
         if response_data.is_successful():
             response_data.set_content(response.json())

@@ -57,9 +57,9 @@ REPORTS_A_DB = {
     },
 }
 
-REPORTS_R_DB = {
+REPORTS_C_DB = {
     1: {
-        'rid': 1,
+        'cid': 1,
         'timestamp': 2665574089.0,
         'reason': 'Reasons',
         'status': ReportStatus.PENDING.name,

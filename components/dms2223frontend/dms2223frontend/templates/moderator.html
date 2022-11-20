@@ -5,11 +5,17 @@
 {% block maincontent %}
     {% block moderatorcontent %}
 
-        <p>Reportes</p>
+        <p>Question reports</p>
 
-        {{ list_reports(question_reports) }}
-        {{ list_reports(answer_reports) }}
-        {{ list_reports(comment_reports) }}
+        {{ list_reports(True, question_reports) }}
+
+        <p>Answer reports</p>
+
+        {{ list_reports(True, answer_reports) }}
+
+        <p>Comment reports</p>
+
+        {{ list_reports(True, comment_reports) }}
 
     {% endblock %}
 {% endblock %}

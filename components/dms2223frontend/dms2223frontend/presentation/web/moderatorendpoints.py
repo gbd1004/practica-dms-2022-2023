@@ -31,31 +31,17 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
 
         name = session['user']
-        response: ResponseData = backend_service.get_questions_reports(session.get('token'))
-        WebUtils.flash_response_messages(response)
-        reports = list(response.get_content().values())
-        current_app.logger.info(reports)
+        response_qr: ResponseData = backend_service.get_questions_reports(session.get('token'))
+        WebUtils.flash_response_messages(response_qr)
+        question_reports = list(response_qr.get_content().values())
 
-        return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)
-    @staticmethod
-    def get_reports(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
-        if not WebAuth.test_token(auth_service):
-            return redirect(url_for('get_login'))
-        if Role.MODERATION.name not in session['roles']:
-            return redirect(url_for('get_home'))
+        response_ar: ResponseData = backend_service.get_answers_reports(session.get('token'))
+        WebUtils.flash_response_messages(response_ar)
+        answer_reports = list(response_ar.get_content().values())
 
-        name = session['user']
-        response: ResponseData = backend_service.get_questions_reports(session.get('token'))
-        WebUtils.flash_response_messages(response)
-        question_reports = list(response.get_content().values())
-
-        response: ResponseData = backend_service.get_answers_reports(session.get('token'))
-        WebUtils.flash_response_messages(response)
-        answer_reports = list(response.get_content().values())
-
-        response: ResponseData = backend_service.get_comments_reports(session.get('token'))
-        WebUtils.flash_response_messages(response)
-        comment_reports = list(response.get_content().values())
+        response_cr: ResponseData = backend_service.get_comments_reports(session.get('token'))
+        WebUtils.flash_response_messages(response_cr)
+        comment_reports = list(response_cr.get_content().values())
         
 
         return render_template('moderator.html', name=name, roles=session['roles'], 
