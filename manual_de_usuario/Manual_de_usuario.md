@@ -31,17 +31,17 @@ $ docker-compose -f docker/config/dev.yml build
 
 ### Explotación de la API
 
-
+[ ]TO DO
 
 
 
 
 ## BIBLIOGRAFÍA
 
-title: "Capas, cebollas y colmenas: arquitecturas en el backend."
-author: "Cabrera, A.A."
-date: "2019"
-link: https://www.adictosaltrabajo.com/2019/07/02/capas-cebollas-y-colmenas-arquitecturas-en-el-backend/
+title:
+author: 
+date: 
+link:
 
 
 
