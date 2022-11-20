@@ -86,6 +86,30 @@ class QuestionEndpoints():
 
         	qid=qid, content=content)
 
+    @staticmethod
+    def new_report_question(auth_service: AuthService) -> Union[Response, Text]:
+        """ Handles the POST requests to the question root endpoint.
+
+        Args:
+            - auth_service (AuthService): The authentication service.
+
+        Returns:
+            - Union[Response,Text]: The generated response to the request.
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        name = session['user']
+
+        # Obtenemos los nuevos datos introducidos
+        qid = request.form.get('qid')
+        content = request.form.get('content')
+        
+        return render_template('/questions/new_report_question.html', name=name, roles=session['roles'],
+        	#Añadir el resto de la estructura que metamos en la base de datos
+        	qid=qid, content=str(content))
+
         
 
 
