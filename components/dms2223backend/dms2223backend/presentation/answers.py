@@ -120,6 +120,14 @@ def new_answer(qid:int, body):
     # return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
     pass
 
-	# NOTA:
-	# ¡Falta obtener usuario propietario! -> schema UserCoreModel: {'username' : string}
-	# Revisar user_token[] para obtenerlo
+# TODO
+def vote_answer(aid: int, vote: int):
+    pass
+
+# TODO
+def vote_comment(aid: int, cid: int, vote: int):
+    pass
+
+# TODO
+def new_comment(aid: int, comment: str):
+    pass

@@ -115,8 +115,16 @@ REPORTS_C_DB = {
 
 
 '''REEPORTS'''
-# Report POST
-def new_report(qid: int):
+# TODO
+def new_question_report(qid: int):
+	pass
+
+# TODO
+def new_answer_report(aid: int):
+	pass
+
+# TODO
+def new_comment_report(cid: int):
 	pass
 
 # Report GET (list)
@@ -134,6 +142,15 @@ def get_comments_reports():
 	
 
 # Report{rid} POST
-def set_report_status(rid: int):
+# TODO
+def set_question_report_status(qrid: int):
+	pass
+
+# TODO
+def set_answer_report_status(arid: int):
+	pass
+
+# TODO
+def set_comment_report_status(crid: int):
 	pass
 
