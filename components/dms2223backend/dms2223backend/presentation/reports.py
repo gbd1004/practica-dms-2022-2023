@@ -130,7 +130,7 @@ def get_answers_reports():
 
 def get_comments_reports():
     with current_app.app_context():
-        return REPORTS_R_DB, HTTPStatus.OK
+        return REPORTS_C_DB, HTTPStatus.OK
 	
 
 # Report{rid} POST

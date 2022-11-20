@@ -1,4 +1,6 @@
-{% from "macros/report.html" import report %}
+{% from "macros/report_questions.html" import report_questions %}
+{% from "macros/report_answers.html" import report_answers %}
+{% from "macros/report_comments.html" import report_comments %}
 {% macro list_question_reports(ordered, items) %}
     {%- if ordered -%}
         <ol>
