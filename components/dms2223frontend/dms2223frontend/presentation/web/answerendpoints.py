@@ -77,11 +77,12 @@ class AnswerEndpoints():
 
         # Obtenemos los nuevos datos introducidos
         aid = request.form.get('aid')
+        cid = request.form.get('qid')
         content = request.form.get('content')
         
         return render_template('new_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=int(aid), content=str(content))        
+        	aid=aid, content=str(content))        
         	
         
 
