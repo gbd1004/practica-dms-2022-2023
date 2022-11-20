@@ -11,8 +11,23 @@ El grupo de alumnos que realizará la práctica está compuesto por:
 ## Repositorio
 El _fork_ del repoositorio usado por los alumnos es el siguiente:  https://github.com/gbd1004/practica-dms-2022-2023.
 
+___
+
+
 ## Memoria
 A continuación se explicarán las decisiones de diseño tomadas a lo largo de la práctica con su justificación correspondiente.
+
+## Tabla de contenido
+1. [Arquitectura escogida](# "Arquitectura escogida")
+2. [Diseño Frontend](# "Diseño Frontend")
+3. [Diseño de Backend](# "Diseño Backend")
+4. [Sobre Auth](# "Sobre Auth")
+5. [Patrones de diseño](# "Patrones de diseño") 
+    5.1. [Patron Fachada](## "Patrón Fachada")
+6. [Decisiones de diseño](# "Decisiones de diseño")
+    6.1. [Base de datos](## "Base de datos")
+7. [De cara a la siguiente entrega](# "De cara a la siguiente entrega")
+8. [Bibliografía](#Bibliografía)
 
 ### Arquitectura escogida
 Recordemos que definir la arquitectura de un sistema consiste en establacer qué componentes forman parte de dicho sistema, qué responsabilidades tienen y las relaciones de dependencia y de uso que hay entre ellos. En este caso, se usará una arquitectura multicapa (i.e. se separan los componentes en distintas capas físicas). Estas capas están formadas por distintos subsistemas y están organizadas jerárquicamente siguiendo una dependencia siempre hacia capas inferiores. En otras palabras, una capa dependerá exclusivamente de las capas inferiores. Esta encapsulación permite la reutilización del código y permite mentener el principio DRY (_"Don't repeat yourself "_).
@@ -41,10 +56,10 @@ Para poder extender más fácilmente el código (principio SOLID __Open/Closed__
 Aunque por lo general el _backend_ suele tener tres capas (i.e.: servicio, negocio y datos), en ocasiones se incluye una capa superior de presentación, como se ha hecho en este caso. La razón de esta decisión recae en la naturaleza de la aplicación, i.e. una API REST. Así pues, en esta capa se incluyen los controladores REST.
 
 Así pues en la capa de _backend_ se pueden distinguir las siguientes capas:
-1. Capa de presentación: 
-2. Capa de datos: 
+1. Capa de presentación: [ ] TO DO
+2. Capa de datos:  [ ] TO DO
 3. Capa de lógica: En la capa lógica, por lo general, se incluyen aquellas operaciones que permiten que los sitios web realicen operaciones en función de las acciones de los usuarios sobre los elementos de la página. Todo esto se ejecuta en los servidores aportando entradas y generando salidas. Puesto que estas funcionalidades no son parte de esta entrega inicial, no se ha implementado nada aún en esta capa.
-4. Capa de servicio
+4. Capa de servicio: [ ] TO DO
 
 ### Sobre Auth
 La autenticación en el servidor implementada está basada en _tokens_. En palabras simples, se envía al servidor un _token_ "firmado" en cada una de las _requests_. Este _token_ se obtiene tras realizar el login (introduciendo un usuario y constraseña correctos). 
@@ -55,7 +70,24 @@ En resumidas cuentas, el flujo de datos para la autentificación es el siguiente
 * El usuario se autentica validando el _token_.
 * El proveedor envía al usuario de vuelta a la página del consumidor (esta vez con su identidad).
 
-![Ilustración 3: Autentificación basada en tokens](img/auth.png)
+![Ilustración 4: Autentificación basada en tokens](img/auth.png)
+
+
+### Patrones de diseño
+#### Patrón fachada
+Para poder acceder al _backend_ desde el _frontend_, se hace uso de la clase ```backendservice``` que hace la función de fachada. Así pues, el subsistema (_backend_) no tiene conociemiento de la facahada, pero no ocurre lo mismo al contrario. Para ejemplificar esto se ha diseñado un diagrama.
+
+![Ilustración 3: Patrón fachada](img/fachada.png)
+
+### Decisiones de diseño
+#### Base de datos
+Para esta primera entrega, en la que solo se precisa desarrollar el _frontend_ de la API, de ha decidido implementar una "BBDD" temporal implementando diccionarios a modo de JSONs. Llegados a este punto la cuestión es, ¿dónde implementarlo? Originalmente, se generaron clases de Python en el componente ```dms2223common``` que incluían los diccionarios mencionados y que, además, eran accesibles desde el _frontend_ directamente. Sin embargo, dado que posteriormente se deberá completar el _backend_, se ha decidido trasladar esas clases a la capa de presentación del _backend_ (```dms2223backend```). De esta forma, nos ahorramos el esfuerzo que supondría modificar el proyecto cuando la cantidad de código relaccionado con estas clases aumente.
+
+### De cara a la siguiente entrega
+A lo largo de esta práctica se han implementado tan solo los métodos GET, ya que solo se pretende completar el _frontend_ de la API. Como consecuencia, hay algunos botones y fromularios, así como otros elementos web que, aunque están presentes, no realizan ninguna acción. Los métodos POST serán implementados en la segunda entrega, ya que están estrechamente ligados a la implementación del _backend_. 
+
+Por otra parte, se ha concedido menor importancia al aspecto de la página, puesto que se ha priorizado la funcionalidad de la misma. Por lo tanto, se propone como requisito extra para la siguiente entrega, implementar mejoras de estilo para las páginas web.
+
 
 
 
