@@ -10,7 +10,7 @@ from flask import current_app
 
 
 # Definido en: QuestionReportFullModel
-REPORTS_Q_DB = {
+REPORTS_Q_DB:dict = {
 	1: {
         #'id' : 1, ¿necesario?
         'qid': 1, # Foreign Key
@@ -45,7 +45,7 @@ REPORTS_Q_DB = {
     },	
 }
 
-REPORTS_A_DB = {
+REPORTS_A_DB:dict = {
     1: {
         'aid': 1,
         'timestamp': 2665574089.0,
@@ -57,7 +57,7 @@ REPORTS_A_DB = {
     },
 }
 
-REPORTS_C_DB = {
+REPORTS_C_DB:dict = {
     1: {
         'cid': 1,
         'timestamp': 2665574089.0,
