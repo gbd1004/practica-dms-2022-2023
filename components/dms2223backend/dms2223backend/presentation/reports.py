@@ -116,41 +116,41 @@ REPORTS_C_DB = {
 
 '''REEPORTS'''
 # TODO
-def new_question_report(qid: int):
+def new_question_report(qid: int) -> HTTPStatus:
 	pass
 
 # TODO
-def new_answer_report(aid: int):
+def new_answer_report(aid: int) -> HTTPStatus:
 	pass
 
 # TODO
-def new_comment_report(cid: int):
+def new_comment_report(cid: int) :-> HTTPStatus
 	pass
 
 # Report GET (list)
-def get_questions_reports():
+def get_questions_reports() -> tuple[list, HTTPStatus]:
     with current_app.app_context():
 	    return REPORTS_Q_DB, HTTPStatus.OK
 
-def get_answers_reports():
+def get_answers_reports() -> tuple[list, HTTPStatus]:
     with current_app.app_context():
 	    return REPORTS_Q_DB, HTTPStatus.OK
 
-def get_comments_reports():
+def get_comments_reports() -> tuple[list, HTTPStatus]:
     with current_app.app_context():
         return REPORTS_C_DB, HTTPStatus.OK
 	
 
 # Report{rid} POST
 # TODO
-def set_question_report_status(qrid: int):
+def set_question_report_status(qrid: int) -> HTTPStatus:
 	pass
 
 # TODO
-def set_answer_report_status(arid: int):
+def set_answer_report_status(arid: int) -> HTTPStatus:
 	pass
 
 # TODO
-def set_comment_report_status(crid: int):
+def set_comment_report_status(crid: int) -> HTTPStatus:
 	pass
 

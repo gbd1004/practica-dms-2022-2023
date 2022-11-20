@@ -59,7 +59,7 @@ class AdminEndpoints():
         Returns:
             - Union[Response,Text]: The generated response to the request.
         """
-        if not WebAuth.test_token(auth_service):
+        if not WebAuth.test_token(auth_service: AuthService):
             return redirect(url_for('get_login'))
         if Role.ADMINISTRATION.name not in session['roles']:
             return redirect(url_for('get_home'))

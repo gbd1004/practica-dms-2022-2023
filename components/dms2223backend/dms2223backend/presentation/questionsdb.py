@@ -54,13 +54,13 @@ QUESTIONS_DB = {
 # 		lista.append['timestamp']
 # 	# Se devuelve la lista
 # 	return {'questions': lista}, HTTPStatus.OK
-def get_questions():
+def get_questions() -> tuple[list, HTTPStatus]:
 	with current_app.app_context():
 		return QUESTIONS_DB, HTTPStatus.OK
 
 
 # Question POST
-def new_question(entrada):
+def new_question(entrada) -> HTTPStatus:
 	# # Si la pregunta ya existe, ¡no se puede añadir!
 	# if entrada['title'] in QUESTIONS_DB:
 	# 	return f"Ya existe una pregunta con nombre {entrada['title']}.", HTTPStatus.CONFLICT
@@ -80,7 +80,7 @@ def new_question(entrada):
 
 # Question{qid} GET
 # Recibe como parámetro: QuestionIdPathParam
-def get_question(qid: int):
+def get_question(qid: int) -> tuple[dict, HTTPStatus]:
 	# Si existe, la obtenemos
 	if qid in QUESTIONS_DB:
 		return QUESTIONS_DB.get(qid), HTTPStatus.OK

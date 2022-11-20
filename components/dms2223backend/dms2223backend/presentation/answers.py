@@ -87,7 +87,7 @@ ANSWERS_DB = {
 
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
-def get_answers(qid: int):
+def get_answers(qid: int) -> tuple[list, HTTPStatus]:
     # Si la pregunta existe, se podrá tratar de obtener sus respuestas
     lista = {}
     for a in ANSWERS_DB:
@@ -103,7 +103,7 @@ def get_answers(qid: int):
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> schema AnswerCreationModel
-def new_answer(qid:int, body):
+def new_answer(qid:int, body) -> tuple[list, HTTPStatus]:
     # for a in ANSWERS_DB:
     #     if ANSWERS_DB[a]['qid'] == qid:
     #         lista = []
@@ -121,13 +121,13 @@ def new_answer(qid:int, body):
     pass
 
 # TODO
-def vote_answer(aid: int, vote: int):
+def vote_answer(aid: int, vote: int) -> tuple[list, HTTPStatus]:
     pass
 
 # TODO
-def vote_comment(aid: int, cid: int, vote: int):
+def vote_comment(aid: int, cid: int, vote: int) -> tuple[list, HTTPStatus]:
     pass
 
 # TODO
-def new_comment(aid: int, comment: str):
+def new_comment(aid: int, comment: str) -> tuple[list, HTTPStatus]:
     pass
