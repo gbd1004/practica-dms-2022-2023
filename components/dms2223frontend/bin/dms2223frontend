@@ -97,7 +97,9 @@ def new_question():
 def new_answer():
     return AnswerEndpoints.new_answer(auth_service)
 
-
+@app.route("/new_comment", methods=['GET'])
+def new_comment():
+    return AnswerEndpoints.new_comment(backend_service, auth_service)
   
 """
 # Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  

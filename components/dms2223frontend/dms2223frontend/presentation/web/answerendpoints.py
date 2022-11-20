@@ -66,6 +66,22 @@ class AnswerEndpoints():
         return render_template('new_answer.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
         	aid=int(aid), content=str(content))
+
+    @staticmethod
+    def new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        name = session['user']
+
+        # Obtenemos los nuevos datos introducidos
+        aid = request.form.get('aid')
+        content = request.form.get('content')
+        
+        return render_template('new_comment.html', name=name, roles=session['roles'],
+        	#Añadir el resto de la estructura que metamos en la base de datos
+        	aid=int(aid), content=str(content))        
         
 
 
