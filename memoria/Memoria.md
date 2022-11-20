@@ -18,16 +18,21 @@ ___
 A continuación se explicarán las decisiones de diseño tomadas a lo largo de la práctica con su justificación correspondiente.
 
 ## Tabla de contenido
-1. [Arquitectura escogida](# "Arquitectura escogida")
-2. [Diseño Frontend](# "Diseño Frontend")
-3. [Diseño de Backend](# "Diseño Backend")
-4. [Sobre Auth](# "Sobre Auth")
-5. [Patrones de diseño](# "Patrones de diseño") 
-    5.1. [Patron Fachada](## "Patrón Fachada")
-6. [Decisiones de diseño](# "Decisiones de diseño")
-    6.1. [Base de datos](## "Base de datos")
-7. [De cara a la siguiente entrega](# "De cara a la siguiente entrega")
-8. [Bibliografía](#Bibliografía)
+- [**PRÁCTICA 01**](#práctica-01)
+  - [Alumnos](#alumnos)
+  - [Repositorio](#repositorio)
+  - [Memoria](#memoria)
+  - [Tabla de contenido](#tabla-de-contenido)
+    - [Arquitectura escogida](#arquitectura-escogida)
+    - [Diseño Frontend](#diseño-frontend)
+    - [Diseño Backend](#diseño-backend)
+    - [Sobre Auth](#sobre-auth)
+    - [Patrones de diseño](#patrones-de-diseño)
+      - [Patrón fachada](#patrón-fachada)
+    - [Decisiones de diseño](#decisiones-de-diseño)
+      - [Base de datos](#base-de-datos)
+    - [De cara a la siguiente entrega](#de-cara-a-la-siguiente-entrega)
+  - [BIBLIOGRAFÍA](#bibliografía)
 
 ### Arquitectura escogida
 Recordemos que definir la arquitectura de un sistema consiste en establacer qué componentes forman parte de dicho sistema, qué responsabilidades tienen y las relaciones de dependencia y de uso que hay entre ellos. En este caso, se usará una arquitectura multicapa (i.e. se separan los componentes en distintas capas físicas). Estas capas están formadas por distintos subsistemas y están organizadas jerárquicamente siguiendo una dependencia siempre hacia capas inferiores. En otras palabras, una capa dependerá exclusivamente de las capas inferiores. Esta encapsulación permite la reutilización del código y permite mentener el principio DRY (_"Don't repeat yourself "_).
@@ -56,10 +61,10 @@ Para poder extender más fácilmente el código (principio SOLID __Open/Closed__
 Aunque por lo general el _backend_ suele tener tres capas (i.e.: servicio, negocio y datos), en ocasiones se incluye una capa superior de presentación, como se ha hecho en este caso. La razón de esta decisión recae en la naturaleza de la aplicación, i.e. una API REST. Así pues, en esta capa se incluyen los controladores REST.
 
 Así pues en la capa de _backend_ se pueden distinguir las siguientes capas:
-1. Capa de presentación: [ ] TO DO
+1. Capa de presentación: En la capa de presentación se encuentran aquellos métodos enfocados a que las acciones de los usuarios interactuen con el backend. Estos métodos se ejecutan en el servidor. Actualmente en esta capa también es encuentra la base de datos temporal que utilizamos en cambio de la definitiva ya que esa se hará durante la segunda entrega junto con el resto del backend.
 2. Capa de datos:  Actualmente esta capa no está implementada, ya que esto corresponde a una siguiente entrega.
 3. Capa de lógica: En la capa lógica, por lo general, se incluyen aquellas operaciones que permiten que los sitios web realicen operaciones en función de las acciones de los usuarios sobre los elementos de la página. Todo esto se ejecuta en los servidores aportando entradas y generando salidas. Puesto que estas funcionalidades no son parte de esta entrega inicial, no se ha implementado nada aún en esta capa.
-4. Capa de servicio: [ ] TO DO
+4. Capa de servicio: Esta capa se encuentra vacía actualmente, dado que su implementación queda pendiente para entregas posteriores.
 
 ### Sobre Auth
 La autenticación en el servidor implementada está basada en _tokens_. En palabras simples, se envía al servidor un _token_ "firmado" en cada una de las _requests_. Este _token_ se obtiene tras realizar el login (introduciendo un usuario y constraseña correctos). 
