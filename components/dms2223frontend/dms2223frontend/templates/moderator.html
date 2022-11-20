@@ -4,18 +4,12 @@
 {% block contentheading %}Moderators panel{% endblock %}
 {% block maincontent %}
     {% block moderatorcontent %}
-        <p>Test :)</p>
 
-        {%- if reports -%}
-            <p>Hay Reports</p>
-        {%- else -%}
-            <p>No hay reports</p>
-        {%- endif -%}
+        <p>Reportes</p>
 
         {{ list_reports(question_reports) }}
         {{ list_reports(answer_reports) }}
         {{ list_reports(comment_reports) }}
 
-        <p>esto es otro test</p>
     {% endblock %}
 {% endblock %}
