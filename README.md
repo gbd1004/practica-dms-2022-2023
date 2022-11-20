@@ -1,5 +1,5 @@
-![pylint score](https://github.com/gbd1004/practica-dms-2022-2023/workflows/pylint%20score/badge.svg)
-![mypy typechecking](https://github.com/gbd1004/practica-dms-2022-2023/workflows/mypy%20typechecking/badge.svg)
+![pylint score](https://github.com/gbd1004/practica-dms-2022-2023/.github/workflows/pylint%20score/badge.svg)
+![mypy typechecking](https://github.com/gbd1004/practica-dms-2022-2023/.github/workflows/mypy%20typechecking/badge.svg)
 
 # DMS course project codebase, academic year 2022-2023
 
