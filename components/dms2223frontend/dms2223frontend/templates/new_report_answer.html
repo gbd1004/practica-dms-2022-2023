@@ -1,0 +1,16 @@
+{% from "macros/buttons.html" import button %}
+{% extends "base_logged_in.html" %}
+{% block title %}{% block subtitle %}{% endblock %}Reportar respuesta{% endblock %}
+{% block contentheading %}Reportar respuesta{% endblock %}
+{% block maincontent %}
+    {% block addquestion %}
+
+    <form>
+        <label for="lname">Razón del reporte:</label><br>
+        <input type="text" id="bodyText" name="bodyText">
+    </form> 
+
+    <p>{{ button('bluebg', '#', 'Añadir reporte', 'history.back()') }}</p>
+
+    {% endblock %}
+{% endblock %}

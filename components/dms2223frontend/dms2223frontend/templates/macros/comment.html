@@ -8,7 +8,7 @@
         <p>Votos: {{ comment['votes'] }}</p>
         <p> Usuario que hizo la respuesta {{ comment['owner']['username'] }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
-        <p>{{ button('bluebg', "#", 'Reportar',) }}</p>
+        <p>{{ button('bluebg', "/new_report_comment", 'Reportar',) }}</p>
     </div>
     
 {% endmacro %}

@@ -83,9 +83,54 @@ class AnswerEndpoints():
         return render_template('new_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
         	aid=aid, content=str(content))        
-        	
-        
+    
+    @staticmethod
+    def new_report_answer(auth_service: AuthService) -> Union[Response, Text]:
+        """ Handles the POST requests to the question root endpoint.
 
+        Args:
+            - auth_service (AuthService): The authentication service.
+
+        Returns:
+            - Union[Response,Text]: The generated response to the request.
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        name = session['user']
+
+        # Obtenemos los nuevos datos introducidos
+        aid = request.form.get('aid')
+        content = request.form.get('content')
+        
+        return render_template('new_report_answer.html', name=name, roles=session['roles'],
+        	#Añadir el resto de la estructura que metamos en la base de datos
+        	aid=aid, content=str(content))
+
+    @staticmethod
+    def new_report_comment(auth_service: AuthService) -> Union[Response, Text]:
+        """ Handles the POST requests to the question root endpoint.
+
+        Args:
+            - auth_service (AuthService): The authentication service.
+
+        Returns:
+            - Union[Response,Text]: The generated response to the request.
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        name = session['user']
+
+        # Obtenemos los nuevos datos introducidos
+        aid = request.form.get('aid')
+        content = request.form.get('content')
+        
+        return render_template('new_report_comment.html', name=name, roles=session['roles'],
+        	#Añadir el resto de la estructura que metamos en la base de datos
+        	aid=aid, content=str(content))
 
 
 

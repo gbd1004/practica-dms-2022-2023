@@ -100,6 +100,18 @@ def new_answer():
 @app.route("/new_comment", methods=['GET'])
 def new_comment():
     return AnswerEndpoints.new_comment(backend_service, auth_service)
+
+@app.route("/new_report_answer", methods=['GET'])
+def new_report_answer():
+    return AnswerEndpoints.new_report_answer(auth_service)
+
+@app.route("/questions/new_report_question", methods=['GET'])
+def new_report_question():
+    return QuestionEndpoints.new_report_question(auth_service)
+    
+@app.route("/new_report_comment", methods=['GET'])
+def new_report_comment():
+    return AnswerEndpoints.new_report_comment(auth_service)
   
 """
 # Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  

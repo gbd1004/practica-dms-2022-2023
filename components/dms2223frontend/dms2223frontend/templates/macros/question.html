@@ -10,6 +10,7 @@
 
         {%- if ver_boton -%}
             <p>{{ button('bluebg', "/questions/answers?qid=" + question['qid']|string(), 'Ver respuestas',) }}</p>
+            <p>{{ button('bluebg', "/questions/new_report_question?qid=" + question['qid']|string(), 'Reportar',) }}</p>
         {%- endif -%}
     </div>
     
