@@ -56,7 +56,7 @@ Para poder extender más fácilmente el código (principio SOLID __Open/Closed__
 Aunque por lo general el _backend_ suele tener tres capas (i.e.: servicio, negocio y datos), en ocasiones se incluye una capa superior de presentación, como se ha hecho en este caso. La razón de esta decisión recae en la naturaleza de la aplicación, i.e. una API REST. Así pues, en esta capa se incluyen los controladores REST.
 
 Así pues en la capa de _backend_ se pueden distinguir las siguientes capas:
-1. Capa de presentación: [ ] TO DO
+1. Capa de presentación: En la capa de presentación se encuentran aquellos métodos enfocados a que las acciones de los usuarios interactuen con el backend. Estos métodos se ejecutan en el servidor. Actualmente en esta capa también es encuentra la base de datos temporal que utilizamos en cambio de la definitiva ya que esa se hará durante la segunda entrega junto con el resto del backend.
 2. Capa de datos:  [ ] TO DO
 3. Capa de lógica: En la capa lógica, por lo general, se incluyen aquellas operaciones que permiten que los sitios web realicen operaciones en función de las acciones de los usuarios sobre los elementos de la página. Todo esto se ejecuta en los servidores aportando entradas y generando salidas. Puesto que estas funcionalidades no son parte de esta entrega inicial, no se ha implementado nada aún en esta capa.
 4. Capa de servicio: [ ] TO DO
