@@ -3,8 +3,8 @@
     <div style="border:1px solid black;">
         <p> qid: {{ report['qid']}}</p>
         <p> Motivo del reporte: {{ report['reason']}}</p>
-        <p> Fecha: {{ report['timestamp']}}</p>  
-        <p> Usuario que hizo el reporte: {{ report['owner']['username'] }}</p>
+        <p> Fecha: {{ report['timestamp'] | ctime}}</p>  
+        <p> Usuario que hizo el reporte {{ report['owner']['username'] }}</p>
         <p> Estado: {{report['status']}}</p>
         <!-- <p>{{ button('bluebg', "/question/"+report['qid']|string()+"/answers", 'Ver respuestas (no funciona)',) }}</p> -->
         {%- if report['status'] == "PENDING" -%}
