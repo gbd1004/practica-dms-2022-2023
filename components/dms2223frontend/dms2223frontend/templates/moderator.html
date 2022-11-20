@@ -7,7 +7,9 @@
 
         <p>Reportes</p>
 
-        {{ list_reports(True, questions_reports) }}
+        {{ list_reports(question_reports) }}
+        {{ list_reports(answer_reports) }}
+        {{ list_reports(comment_reports) }}
 
     {% endblock %}
 {% endblock %}
