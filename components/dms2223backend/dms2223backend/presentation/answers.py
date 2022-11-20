@@ -87,7 +87,7 @@ ANSWERS_DB = {
 
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
-def get_answers(qid: int) -> tuple[list, HTTPStatus]:
+def get_answers(qid: int) -> tuple[dict, HTTPStatus]:
     # Si la pregunta existe, se podrá tratar de obtener sus respuestas
     lista = {}
     for a in ANSWERS_DB:
@@ -97,7 +97,7 @@ def get_answers(qid: int) -> tuple[list, HTTPStatus]:
     if (len(lista) != 0):
         return lista, HTTPStatus.OK
     else:
-        return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
+        return {}, HTTPStatus.NOT_FOUND
 
 
 

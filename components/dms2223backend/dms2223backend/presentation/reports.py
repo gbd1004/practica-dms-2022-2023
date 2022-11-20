@@ -128,15 +128,15 @@ def new_comment_report(cid: int) -> HTTPStatus:
 	pass
 
 # Report GET (list)
-def get_questions_reports() -> tuple[list, HTTPStatus]:
+def get_questions_reports() -> tuple[dict, HTTPStatus]:
     with current_app.app_context():
 	    return REPORTS_Q_DB, HTTPStatus.OK
 
-def get_answers_reports() -> tuple[list, HTTPStatus]:
+def get_answers_reports() -> tuple[dict, HTTPStatus]:
     with current_app.app_context():
 	    return REPORTS_Q_DB, HTTPStatus.OK
 
-def get_comments_reports() -> tuple[list, HTTPStatus]:
+def get_comments_reports() -> tuple[dict, HTTPStatus]:
     with current_app.app_context():
         return REPORTS_C_DB, HTTPStatus.OK
 	

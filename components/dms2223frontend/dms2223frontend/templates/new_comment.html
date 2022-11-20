@@ -6,11 +6,11 @@
     {% block addquestion %}
 
     <form>
-        <label for="lname">Cuerpo del comnetario:</label><br>
+        <label for="lname">Cuerpo del comentario:</label><br>
         <input type="text" id="bodyText" name="bodyText">
     </form> 
 
-    <p>{{ button('bluebg', '#', 'Añadir respuesta', '#') }}</p>
+    <p>{{ button('bluebg', '#', 'Añadir comentario', 'history.back()') }}</p>
 
     {% endblock %}
 {% endblock %}

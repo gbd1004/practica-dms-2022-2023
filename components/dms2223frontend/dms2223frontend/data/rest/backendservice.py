@@ -40,7 +40,7 @@ class BackendService():
 
     # TODO: Implement
 
-    def new_question(self, token, title: str, body: str):
+    def new_question(self, token, title: Optional[str], body: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + '/questions',
@@ -61,7 +61,7 @@ class BackendService():
             response_data.add_message(response.content.decode('ascii'))
         return response_data
 
-    def get_questions(self, token):
+    def get_questions(self, token: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions',
@@ -79,7 +79,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_question(self, token, qid:int):
+    def get_question(self, token: Optional[str], qid: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions/{qid}',
@@ -116,7 +116,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_answers(self, token, qid: int):
+    def get_answers(self, token, qid: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions/{qid}/answers',

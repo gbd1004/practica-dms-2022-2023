@@ -54,7 +54,7 @@ QUESTIONS_DB = {
 # 		lista.append['timestamp']
 # 	# Se devuelve la lista
 # 	return {'questions': lista}, HTTPStatus.OK
-def get_questions() -> tuple[list, HTTPStatus]:
+def get_questions() -> tuple[dict, HTTPStatus]:
 	with current_app.app_context():
 		return QUESTIONS_DB, HTTPStatus.OK
 
@@ -80,10 +80,10 @@ def new_question(entrada) -> HTTPStatus:
 
 # Question{qid} GET
 # Recibe como parámetro: QuestionIdPathParam
-def get_question(qid: int) -> tuple[dict, HTTPStatus]:
+def get_question(qid: int):
 	# Si existe, la obtenemos
 	if qid in QUESTIONS_DB:
 		return QUESTIONS_DB.get(qid), HTTPStatus.OK
 	# Si no existe, no se puede devolver
-	return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
+	return {}, HTTPStatus.NOT_FOUND
 
