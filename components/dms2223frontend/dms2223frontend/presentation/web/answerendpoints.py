@@ -44,7 +44,7 @@ class AnswerEndpoints():
         return render_template('questions/answers.html', name=name, roles=session['roles'], answers=answers, question=question)
         
     @staticmethod
-    def new_answer(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
+    def new_answer(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the question root endpoint.
 
         Args:
@@ -65,7 +65,7 @@ class AnswerEndpoints():
         
         return render_template('new_answer.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=int(aid), content=str(content))
+        	aid=aid, content=str(content))
 
     @staticmethod
     def new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
@@ -82,6 +82,7 @@ class AnswerEndpoints():
         return render_template('new_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
         	aid=int(aid), content=str(content))        
+        	
         
 
 
