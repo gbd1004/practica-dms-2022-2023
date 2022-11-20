@@ -12,7 +12,9 @@
             <p>No hay reports</p>
         {%- endif -%}
 
-        {{ list_reports(reports) }}
+        {{ list_reports(question_reports) }}
+        {{ list_reports(answer_reports) }}
+        {{ list_reports(comment_reports) }}
 
         <p>esto es otro test</p>
     {% endblock %}
