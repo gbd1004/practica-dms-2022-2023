@@ -1,15 +1,14 @@
-{% from "macros/report.html" import report %}
-{% macro list_reports(ordered, items) %}
+{% from "macros/comment.html" import comment %}
+{% macro list_comments(ordered, items) %}
     {%- if ordered -%}
         <ol>
     {%- else -%}
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        {%- if item['status'] != "REJECTED" -%}
-            {{ report(item) }}
-        {%- endif -%}
-        {# <li>{{ item }}</li> #}
+        
+        {{ comment(item) }}
+
     {%- endfor -%}
     {%- if ordered -%}
         </ol>

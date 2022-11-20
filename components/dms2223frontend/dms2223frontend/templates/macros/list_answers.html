@@ -1,12 +1,15 @@
+{% from "macros/answer.html" import answer %}
 {% from "macros/question.html" import question %}
-{% macro list(ordered, items) %}
+{% macro list_answers(ordered, items, question_) %}
+    {{ question(False, question_) }}
     {%- if ordered -%}
         <ol>
     {%- else -%}
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-    <li>{{ question(item) }}</li>
+        
+        {{ answer(item) }}
         {# <li>{{ item }}</li> #}
     {%- endfor -%}
     {%- if ordered -%}

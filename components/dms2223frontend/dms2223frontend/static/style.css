@@ -176,6 +176,15 @@ table th {
     color: #fff;
 }
 
+.greenbg {
+    background-color: #00ad00;
+    color: #fff;
+}
+
+.greenbg a {
+    color: #fff;
+}
+
 .redbg a {
     color: #fff;
 }

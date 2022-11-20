@@ -1,4 +1,4 @@
-{% from "macros/list.html" import list %}
+{% from "macros/list_questions.html" import list_questions %}
 
 {% from "macros/buttons.html" import button %}
 
@@ -28,7 +28,7 @@
 
     -->
 
-        {{ list(False, questions) }}
+        {{ list_questions(False, questions) }}
         <!-- {{ button('bluebg', 'discussion.html', 'Ver respuestas (no funciona)', '#') }} -->
 
     {% endblock %}

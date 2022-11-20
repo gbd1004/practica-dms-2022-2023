@@ -1,14 +1,12 @@
-{% from "macros/report.html" import report %}
-{% macro list_reports(ordered, items) %}
+{% from "macros/question.html" import question %}
+{% macro list_questions(ordered, items) %}
     {%- if ordered -%}
         <ol>
     {%- else -%}
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        {%- if item['status'] != "REJECTED" -%}
-            {{ report(item) }}
-        {%- endif -%}
+        {{ question(True, item) }}
         {# <li>{{ item }}</li> #}
     {%- endfor -%}
     {%- if ordered -%}

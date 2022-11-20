@@ -1,3 +1,6 @@
+{% from "macros/list_answers.html" import list_answers %}
+
+
 {% extends "base_logged_in.html" %}
 
 {% block title %}Respuestas{% endblock %}
@@ -16,6 +19,8 @@
 
 	 -->
         <p> Respuesta </p>
+        
+        {{ list_answers(True, answers, question) }}
 
     {% endblock %}
 

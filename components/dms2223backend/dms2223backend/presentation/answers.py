@@ -10,7 +10,7 @@ from dms2223backend.data.sentiment import Sentiment
 ANSWERS_DB = {
     1: {
         'qid': 1, # Foreign Key
-        'timestamp': 2665574089.0,
+        'timestamp': 2665574089,
         'body': 'Soy una respuesta',
         'owner':{
             'username' : 'user2'
@@ -22,7 +22,7 @@ ANSWERS_DB = {
             'user5': True,
             'user6': True
         },
-        'coments': {
+        'comms': {
             2: {
                 'aid':1,
                 'timestamp':1665575389,
@@ -50,7 +50,7 @@ ANSWERS_DB = {
     },
     2: {
         'qid': 1, # Foreign Key
-        'timestamp': 3665574089.0,
+        'timestamp': 3665574089,
         'body': 'Soy otra respuesta',
         'owner':{
             'username' : 'user1'
@@ -62,10 +62,10 @@ ANSWERS_DB = {
             'user5': True,
             'user6': True
         },
-        'coments': {
+        'comms': {
             1:{
                 'aid':1,
-                'timestamp':1665575289,
+                'timestamp': 1665575289,
                 'body': 'Soy otro comentario',
                 'sentiment': Sentiment.POSITIVE.name,
                 'owner':{'username': 'user4'},
@@ -88,12 +88,12 @@ ANSWERS_DB = {
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
 def get_answers(qid: int):
-    # Si la prgunta existe, se podrá tratar de obtener sus respuestas
+    # Si la pregunta existe, se podrá tratar de obtener sus respuestas
     lista = {}
     for a in ANSWERS_DB:
         if ANSWERS_DB[a]['qid'] == qid:
             lista[a]=ANSWERS_DB[a]
-    # Si existen respuestas a la pregunta, se devollverá la pregunta completa
+    # Si existen respuestas a la pregunta, se devolverá la pregunta completa
     if (len(lista) != 0):
         return lista, HTTPStatus.OK
     else:

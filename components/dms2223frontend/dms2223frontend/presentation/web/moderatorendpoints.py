@@ -34,7 +34,6 @@ class ModeratorEndpoints():
         response: ResponseData = backend_service.get_reports(session.get('token'))
         WebUtils.flash_response_messages(response)
         reports = list(response.get_content().values())
-        current_app.logger.info(reports)
 
         return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)
     @staticmethod
