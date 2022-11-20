@@ -40,7 +40,7 @@ class BackendService():
 
     # TODO: Implement
 
-    def new_question(self, token: Optional[str], title: str, body: str):
+    def new_question(self, token, title: str, body: str):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + '/questions',
@@ -61,7 +61,7 @@ class BackendService():
             response_data.add_message(response.content.decode('ascii'))
         return response_data
 
-    def get_questions(self, token: Optional[str]):
+    def get_questions(self, token):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions',
@@ -79,7 +79,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_question(self, token: Optional[str], qid:int):
+    def get_question(self, token, qid:int):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions/{qid}',
@@ -97,7 +97,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_questions_reports(self, token: Optional[str]):
+    def get_questions_reports(self, token):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions/reports',
@@ -116,7 +116,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_answers(self, token: Optional[str], qid: int):
+    def get_answers(self, token, qid: int):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/questions/{qid}/answers',
@@ -134,7 +134,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_answers_reports(self, token: Optional[str]):
+    def get_answers_reports(self, token):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/answers/reports',
@@ -153,7 +153,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def get_comments_reports(self, token: Optional[str]):
+    def get_comments_reports(self, token):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(
             self.__base_url() + f'/comments/reports',
