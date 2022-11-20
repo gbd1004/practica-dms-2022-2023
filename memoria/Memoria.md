@@ -24,6 +24,7 @@ A continuación se explicarán las decisiones de diseño tomadas a lo largo de l
 4. [Sobre Auth](# "Sobre Auth")
 5. [Patrones de diseño](# "Patrones de diseño") 
     5.1. [Patron Fachada](## "Patrón Fachada")
+    5.2. [Aspecto reports](## "Aspecto reports")
 6. [Decisiones de diseño](# "Decisiones de diseño")
     6.1. [Base de datos](## "Base de datos")
 7. [De cara a la siguiente entrega](# "De cara a la siguiente entrega")
@@ -92,6 +93,8 @@ Para poder acceder al _backend_ desde el _frontend_, se hace uso de la clase ```
 ### Decisiones de diseño
 #### Base de datos
 Para esta primera entrega, en la que solo se precisa desarrollar el _frontend_ de la API, de ha decidido implementar una "BBDD" temporal implementando diccionarios a modo de JSONs. Llegados a este punto la cuestión es, ¿dónde implementarlo? Originalmente, se generaron clases de Python en el componente ```dms2223common``` que incluían los diccionarios mencionados y que, además, eran accesibles desde el _frontend_ directamente. Sin embargo, dado que posteriormente se deberá completar el _backend_, se ha decidido trasladar esas clases a la capa de presentación del _backend_ (```dms2223backend```). De esta forma, nos ahorramos el esfuerzo que supondría modificar el proyecto cuando la cantidad de código relaccionado con estas clases aumente.
+#### Aspecto reports
+Finalmente, es preciso recordar que una vez que los reportes son aceptados o rechazados por el moderador, ya no se pueden volver a modificar (aunque no se eliminan del almacenamiento de la BBDD). Por lo tanto, se ha decidido ocultar el botón de aquellos reportes cuyo estado ya haya sido determinado.
 
 ### De cara a la siguiente entrega
 A lo largo de esta práctica se han implementado tan solo los métodos GET, ya que solo se pretende completar el _frontend_ de la API. Como consecuencia, hay algunos botones y fromularios, así como otros elementos web que, aunque están presentes, no realizan ninguna acción. Los métodos POST serán implementados en la segunda entrega, ya que están estrechamente ligados a la implementación del _backend_. 
