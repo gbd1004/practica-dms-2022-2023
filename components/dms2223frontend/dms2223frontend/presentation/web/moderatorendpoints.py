@@ -31,7 +31,7 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
 
         name = session['user']
-        response: ResponseData = backend_service.get_reports(session.get('token'))
+        response: ResponseData = backend_service.get_questions_reports(session.get('token'))
         WebUtils.flash_response_messages(response)
         reports = list(response.get_content().values())
         current_app.logger.info(reports)
@@ -45,9 +45,18 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
 
         name = session['user']
-        response: ResponseData = backend_service.get_reports(session.get('token'))
+        response: ResponseData = backend_service.get_questions_reports(session.get('token'))
         WebUtils.flash_response_messages(response)
-        reports = list(response.get_content().values())
+        question_reports = list(response.get_content().values())
+
+        response: ResponseData = backend_service.get_answers_reports(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        answer_reports = list(response.get_content().values())
+
+        response: ResponseData = backend_service.get_comments_reports(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        comment_reports = list(response.get_content().values())
         
 
-        return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)
+        return render_template('moderator.html', name=name, roles=session['roles'], 
+            question_reports=question_reports, answer_reports=answer_reports, comment_reports=comment_reports)

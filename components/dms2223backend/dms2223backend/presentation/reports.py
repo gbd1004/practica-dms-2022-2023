@@ -10,7 +10,7 @@ from flask import current_app
 
 
 # Definido en: QuestionReportFullModel
-REPORTS_DB = {
+REPORTS_Q_DB = {
 	1: {
         #'id' : 1, ¿necesario?
         'qid': 1, # Foreign Key
@@ -45,7 +45,29 @@ REPORTS_DB = {
     },	
 }
 
+REPORTS_A_DB = {
+    1: {
+        'aid': 1,
+        'timestamp': 2665574089.0,
+        'reason': 'Unrelated to the question',
+        'status': ReportStatus.ACCEPTED.name,
+        'owner':{
+            'username' : 'user4'
+        }
+    },
+}
 
+REPORTS_R_DB = {
+    1: {
+        'rid': 1,
+        'timestamp': 2665574089.0,
+        'reason': 'Reasons',
+        'status': ReportStatus.PENDING.name,
+        'owner':{
+            'username' : 'user4'
+        }
+    },
+}
 
 #---------------------------------------------------#
 # POSIBLES OPERACIONES:     (definidas en spec.yml) #
@@ -98,9 +120,17 @@ def new_report(qid: int):
 	pass
 
 # Report GET (list)
-def get_reports():
+def get_questions_reports():
     with current_app.app_context():
-	    return REPORTS_DB, HTTPStatus.OK
+	    return REPORTS_Q_DB, HTTPStatus.OK
+
+def get_answers_reports():
+    with current_app.app_context():
+	    return REPORTS_Q_DB, HTTPStatus.OK
+
+def get_comments_reports():
+    with current_app.app_context():
+        return REPORTS_R_DB, HTTPStatus.OK
 	
 
 # Report{rid} POST
