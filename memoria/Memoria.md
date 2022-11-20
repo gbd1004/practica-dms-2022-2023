@@ -57,7 +57,7 @@ Aunque por lo general el _backend_ suele tener tres capas (i.e.: servicio, negoc
 
 Así pues en la capa de _backend_ se pueden distinguir las siguientes capas:
 1. Capa de presentación: [ ] TO DO
-2. Capa de datos:  [ ] TO DO
+2. Capa de datos:  Actualmente esta capa no está implementada, ya que esto corresponde a una siguiente entrega.
 3. Capa de lógica: En la capa lógica, por lo general, se incluyen aquellas operaciones que permiten que los sitios web realicen operaciones en función de las acciones de los usuarios sobre los elementos de la página. Todo esto se ejecuta en los servidores aportando entradas y generando salidas. Puesto que estas funcionalidades no son parte de esta entrega inicial, no se ha implementado nada aún en esta capa.
 4. Capa de servicio: [ ] TO DO
 
