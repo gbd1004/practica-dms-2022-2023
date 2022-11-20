@@ -8,7 +8,7 @@
         <p> Usuario que hizo la respuesta {{ answer['owner']['username'] }}</p>
         <p>{{ button('bluebg', '/new_comment', 'Añadir comentario', '#') }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
-        <p>{{ button('bluebg', "#", 'Reportar',) }}</p>
+        <p>{{ button('bluebg', "/new_report_answer", 'Reportar',) }}</p>
         <p>{{ list_comments(True, answer['comms'].values()) }}</p>
     </div>
     
