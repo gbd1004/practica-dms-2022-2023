@@ -1,7 +1,7 @@
 {% from "macros/answer.html" import answer %}
 {% from "macros/question.html" import question %}
 {% macro list_answers(ordered, items, question_) %}
-    {{ question(False, question_) }}
+    {{ question(False, question_, True) }}
     {%- if ordered -%}
         <ol>
     {%- else -%}

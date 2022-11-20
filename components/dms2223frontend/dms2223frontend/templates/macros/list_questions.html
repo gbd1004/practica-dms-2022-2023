@@ -6,7 +6,7 @@
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        {{ question(True, item) }}
+        {{ question(True, item, False) }}
         {# <li>{{ item }}</li> #}
     {%- endfor -%}
     {%- if ordered -%}

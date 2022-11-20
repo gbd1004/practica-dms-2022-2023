@@ -1,8 +1,11 @@
 {% from "macros/buttons.html" import button %}
-{% macro question(ver_boton, question) %}
+{% macro question(ver_boton, question, body) %}
     <div style="border:1px solid black;">
         <p> qid: {{ question['qid']}}</p>
-        <p> Name: {{ question['title']}}</p>
+        <p> Name: {{ question['title']}} </p>
+        {%- if body -%}
+            <p>Contenido: {{ question['body']}} </p>
+        {%- endif -%}
         <p> Fecha: {{ question['timestamp'] | ctime }}</p>  
 
         {%- if ver_boton -%}
