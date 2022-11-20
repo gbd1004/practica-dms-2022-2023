@@ -124,7 +124,7 @@ def new_answer_report(aid: int) -> HTTPStatus:
 	pass
 
 # TODO
-def new_comment_report(cid: int) :-> HTTPStatus
+def new_comment_report(cid: int) -> HTTPStatus:
 	pass
 
 # Report GET (list)
