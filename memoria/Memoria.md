@@ -17,7 +17,7 @@ A continuación se explicarán las decisiones de diseño tomadas a lo largo de l
 ### Arquitectura escogida
 Recordemos que definir la arquitectura de un sistema consiste en establacer qué componentes forman parte de dicho sistema, qué responsabilidades tienen y las relaciones de dependencia y de uso que hay entre ellos. En este caso, se usará una arquitectura multicapa (i.e. se separan los componentes en distintas capas físicas). Estas capas están formadas por distintos subsistemas y están organizadas jerárquicamente siguiendo una dependencia siempre hacia capas inferiores. En otras palabras, una capa dependerá exclusivamente de las capas inferiores. Esta encapsulación permite la reutilización del código y permite mentener el principio DRY (_"Don't repeat yourself "_).
 
-Así pues, para la estructura general de esta API, se ha mantenido la estructura de cuatro capas propuesta en el repositorio original, que corresponde con la arquitectura ==**Clean arquitechture**==. A saber, las cuatro capas son las siguientes: 
+Así pues, para la estructura general de esta API, se ha mantenido la estructura de cuatro capas propuesta en el repositorio original, que corresponde con la arquitectura <span style="color:yellow">**Clean arquitechture**</span>. A saber, las cuatro capas son las siguientes: 
 1. **Capa de presentación:** Se encarga de soportar las distintas interacciones de los usuarios con las funcionalidades que se implementan en la capa de lógica de la API. En esta capa, en conclusión, se muestra al usuario los elementos visuales y formularios. Esta capa no realiza cálculos, ya que su función es separar toda la programación web del resto de la aplicación.
 2. **Capa de lógica:** También conocida como capa de negocio. Se encarga de implementar las funcionalidades mencionadas en la capa anterior, que se encargan de aplicar las reglas de negocio y del manejo de los datos con los que el usuario interacciona.
 3. **Capa de servicio:** Se trata de una capa intermedia que consiste fundamentalmente en una **fachada**. De esta forma se logra desacoplar la interfaz de usuario del resto de subsistemas. La decisión de utilizar una arquitectura de cuatro capas frente a una de tres capas recae en esta capa de servicio, que nos permite evitar el inminente acoplamiento de una arquitectura con menos capas.
@@ -60,17 +60,17 @@ En resumidas cuentas, el flujo de datos para la autentificación es el siguiente
 
 
 ## BIBLIOGRAFÍA
----
+
 title: "Capas, cebollas y colmenas: arquitecturas en el backend."
 author: "Cabrera, A.A."
 date: "2019"
 link: https://www.adictosaltrabajo.com/2019/07/02/capas-cebollas-y-colmenas-arquitecturas-en-el-backend/
----
+
 title: "Arquitectura de una API REST. Desarrollo de aplicaciones web."
 author: "juanda.gitbooks"
 date: (n.d.)
 link: https://juanda.gitbooks.io/webapps/content/api/arquitectura-api-rest.html.
----
+
 
 
 
