@@ -1,14 +1,44 @@
 {% from "macros/report.html" import report %}
-{% macro list_reports(ordered, items) %}
+{% macro list_question_reports(ordered, items) %}
     {%- if ordered -%}
         <ol>
     {%- else -%}
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        {%- if item['status'] != "REJECTED" -%}
-            {{ report(item) }}
-        {%- endif -%}
+        <li>{{ report_questions(item) }}</li>
+        {# <li>{{ item }}</li> #}
+    {%- endfor -%}
+    {%- if ordered -%}
+        </ol>
+    {%- else -%}
+        </ul>
+    {%- endif -%}
+{% endmacro %}
+{% macro list_answer_reports(ordered, items) %}
+    {%- if ordered -%}
+        <ol>
+    {%- else -%}
+        <ul>
+    {%- endif -%}
+    {%- for item in items -%}
+        <li>{{ report_answers(item) }}</li>
+        {# <li>{{ item }}</li> #}
+    {%- endfor -%}
+    {%- if ordered -%}
+        </ol>
+    {%- else -%}
+        </ul>
+    {%- endif -%}
+{% endmacro %}
+{% macro list_comment_reports(ordered, items) %}
+    {%- if ordered -%}
+        <ol>
+    {%- else -%}
+        <ul>
+    {%- endif -%}
+    {%- for item in items -%}
+        <li>{{ report_comments(item) }}</li>
         {# <li>{{ item }}</li> #}
     {%- endfor -%}
     {%- if ordered -%}

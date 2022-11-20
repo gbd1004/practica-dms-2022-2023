@@ -60,16 +60,17 @@ def get_questions():
 
 
 # Question POST
-def new_question(entrada: any):
-	# Si la pregunta ya existe, ¡no se puede añadir!
-	if entrada['title'] in QUESTIONS_DB:
-		return f"Ya existe una pregunta con nombre {entrada['title']}.", HTTPStatus.CONFLICT
-	#En caso contrario, se añade
-	new_id = len(QUESTIONS_DB) + 1 # qid = last_qid + 1
-	entrada.append({'timestamp':time.time()}) # current timestamp
-	#entrada.append({'owner': {'username': TO DO}}) # owner
-	QUESTIONS_DB[new_id] = entrada
-	return QUESTIONS_DB.get(new_id), HTTPStatus.CREATED
+def new_question(entrada):
+	# # Si la pregunta ya existe, ¡no se puede añadir!
+	# if entrada['title'] in QUESTIONS_DB:
+	# 	return f"Ya existe una pregunta con nombre {entrada['title']}.", HTTPStatus.CONFLICT
+	# #En caso contrario, se añade
+	# new_id = len(QUESTIONS_DB) + 1 # qid = last_qid + 1
+	# entrada['timestamp'] = time.time() # current timestamp
+	# #entrada.append({'owner': {'username': TO DO}}) # owner
+	# QUESTIONS_DB[new_id] = entrada
+	# return QUESTIONS_DB.get(new_id), HTTPStatus.CREATED
+	pass
 
 	# NOTA: el parámetro entrada 'body' deberá tener: 
 	# Schema QuestionCreationModel: {title, body}

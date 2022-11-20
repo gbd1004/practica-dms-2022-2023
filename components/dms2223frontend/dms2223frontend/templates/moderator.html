@@ -1,13 +1,21 @@
-{% from "macros/list_reports.html" import list_reports %}
+{% from "macros/list_reports.html" import list_question_reports, list_answer_reports, list_comment_reports %}
 {% extends "base_logged_in.html" %}
 {% block title %}{% block subtitle %}{% endblock %}Moderator{% endblock %}
 {% block contentheading %}Moderators panel{% endblock %}
 {% block maincontent %}
     {% block moderatorcontent %}
 
-        <p>Reportes</p>
+        <p>Question reports</p>
 
-        {{ list_reports(True, reports) }}
+        {{ list_question_reports(True, question_reports) }}
+
+        <p>Answer reports</p>
+
+        {{ list_answer_reports(True, answer_reports) }}
+
+        <p>Comment reports</p>
+
+        {{ list_commment_reports(True, comment_reports) }}
 
     {% endblock %}
 {% endblock %}

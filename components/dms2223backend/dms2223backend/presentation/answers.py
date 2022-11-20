@@ -103,21 +103,22 @@ def get_answers(qid: int):
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> schema AnswerCreationModel
-def new_answer(qid:int, body:any):
-    for a in ANSWERS_DB:
-        if ANSWERS_DB[a]['qid'] == qid:
-            lista = []
-            new_id = len(ANSWERS_DB) + 1 # aid = last_aid + 1
-            lista.append({'qid':qid}) # qid
-            lista.append({'timestamp':time.time()}) # current timestamp
-            lista.append({'body':body}) # body
-            #lista.append({'owner': {'username': TO DO}}) # owner
-            lista.append({'votes':0}) # votes (0 por defecto)
-            lista.append({'user_votes':[]}) # vacía
-            #lista.append({'coments': TO DO})
-            ANSWERS_DB[new_id] = lista
-            return ANSWERS_DB.get(new_id), HTTPStatus.CREATED
-    return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
+def new_answer(qid:int, body):
+    # for a in ANSWERS_DB:
+    #     if ANSWERS_DB[a]['qid'] == qid:
+    #         lista = []
+    #         new_id = len(ANSWERS_DB) + 1 # aid = last_aid + 1
+    #         lista.append({'qid':qid}) # qid
+    #         lista.append({'timestamp':time.time()}) # current timestamp
+    #         lista.append({'body':body}) # body
+    #         #lista.append({'owner': {'username': TO DO}}) # owner
+    #         lista.append({'votes':0}) # votes (0 por defecto)
+    #         lista.append({'user_votes':[]}) # vacía
+    #         #lista.append({'coments': TO DO})
+    #         ANSWERS_DB[new_id] = lista
+    #         return ANSWERS_DB.get(new_id), HTTPStatus.CREATED
+    # return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
+    pass
 
 	# NOTA:
 	# ¡Falta obtener usuario propietario! -> schema UserCoreModel: {'username' : string}
