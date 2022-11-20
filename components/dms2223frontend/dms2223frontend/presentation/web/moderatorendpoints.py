@@ -10,6 +10,7 @@ from .webauth import WebAuth
 from dms2223frontend.data.rest.backendservice import BackendService
 from dms2223common.data.rest import ResponseData
 from .webutils import WebUtils
+from flask import current_app
 
 class ModeratorEndpoints():
     """ Monostate class responsible of handing the moderator web endpoint requests.
@@ -32,7 +33,8 @@ class ModeratorEndpoints():
         name = session['user']
         response: ResponseData = backend_service.get_reports(session.get('token'))
         WebUtils.flash_response_messages(response)
-        reports = response.get_content().values()
+        reports = list(response.get_content().values())
+        current_app.logger.info(reports)
 
         return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)
     @staticmethod
@@ -45,6 +47,7 @@ class ModeratorEndpoints():
         name = session['user']
         response: ResponseData = backend_service.get_reports(session.get('token'))
         WebUtils.flash_response_messages(response)
-        reports = response.get_content().values()
+        reports = list(response.get_content().values())
+        
 
         return render_template('moderator.html', name=name, roles=session['roles'], reports=reports)

@@ -76,7 +76,7 @@ class BackendService():
             response_data.set_content(response.json())
         else:
             response_data.add_message(response.content.decode('ascii'))
-            response_data.set_content({})
+            response_data.set_content([])
         return response_data
 
     def get_reports(self, token: Optional[str]):
