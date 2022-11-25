@@ -13,6 +13,7 @@ from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.db.results.questiondb import Question
 from dms2223backend.presentation import questionsdb
 from dms2223backend.data.db.results.votesdb import Votes
+from dms2223backend.service.authservice import AuthService
 
 
 
@@ -21,7 +22,7 @@ class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
     """
 
-    def __init__(self, session_db:Session, body: str):
+    def __init__(self, session_db:Session, body: str, auth_service: AuthService):
         """ Constructor method.
 
         Initializes a answer record.
@@ -38,9 +39,9 @@ class Answer(ResultBase):
         self.qid: int = questionsdb.get_qid() #TODO: hacer el método en el endpiont
         self.body: str = body
         self.timestamp: datetime.timestamp = time.time()
-        self.owner: str = session.get('token')
+        self.owner: str = auth_service.get_user()
 
-        self.votes: int = Votes.num_votes(session,self.aid,'answer') # TODO: Ver si efectivamente se actualiza dinámicamente
+        self.votes: int = Votes.num_votes(session_db,self.aid,'answer') # TODO: Ver si efectivamente se actualiza dinámicamente
 
 
 
