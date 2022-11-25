@@ -5,12 +5,13 @@
 {% block maincontent %}
     {% block addquestion %}
 
-    <form>
+    <form action="new _comment" method="post">
         <label for="lname">Cuerpo del comentario:</label><br>
         <input type="text" id="bodyText" name="bodyText">
+        <p>{{ submit_button('bluebg', 'Añadir comentario') }}</p>
     </form> 
 
-    <p>{{ button('bluebg', '#', 'Añadir comentario', 'history.back()') }}</p>
+    
 
     {% endblock %}
 {% endblock %}

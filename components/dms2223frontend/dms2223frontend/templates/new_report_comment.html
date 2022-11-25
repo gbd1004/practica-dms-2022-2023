@@ -5,12 +5,13 @@
 {% block maincontent %}
     {% block addreport %}
 
-    <form>
+    <form action="/new_report_comment", method="post">
         <label for="lname">Razón del reporte:</label><br>
         <input type="text" id="bodyText" name="bodyText">
+        <p>{{ submit_button('bluebg', 'Añadir reporte') }}</p>
     </form> 
 
-    <p>{{ button('bluebg', '#', 'Añadir reporte', 'history.back()') }}</p>
+    
 
     {% endblock %}
 {% endblock %}
