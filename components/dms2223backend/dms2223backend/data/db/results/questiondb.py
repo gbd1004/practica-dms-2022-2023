@@ -7,7 +7,7 @@ from flask import current_app
 from sqlalchemy import Table, MetaData, Column, String  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
-from dms2223auth.dms2223auth.presentation.rest import server
+from dms2223backend.service.authservice import AuthService
 
 
 
@@ -16,7 +16,7 @@ class Question(ResultBase):
     """ Definition and storage of question ORM records.
     """
 
-    def __init__(self,title: str, body: str):
+    def __init__(self,title: str, body: str, auth_service: AuthService):
         """ Constructor method.
 
         Initializes a question record.
@@ -32,7 +32,7 @@ class Question(ResultBase):
         self.title: str = title
         self.body: str = body
         self.timestamp: datetime.timestamp = time.time()
-        self.owner: str = server.get_token_owner().value() # TODO: revisar si el token es correcto
+        self.owner: str = auth_service.get_user()
 
 
 

@@ -40,7 +40,6 @@ class Answer(ResultBase):
         self.body: str = body
         self.timestamp: datetime.timestamp = time.time()
         self.owner: str = auth_service.get_user()
-
         self.votes: int = Votes.num_votes(session_db,self.aid,'answer') # TODO: Ver si efectivamente se actualiza dinámicamente
 
 

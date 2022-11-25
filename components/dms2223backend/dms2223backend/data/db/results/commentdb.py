@@ -8,7 +8,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
-from dms2223auth.dms2223auth.presentation.rest import server
+from dms2223backend.service.authservice import AuthService
 from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.presentation import answers
 from dms2223backend.data.db.results.votesdb import Votes
@@ -20,7 +20,7 @@ class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
     """
 
-    def __init__(self, session:Session, body: str, sentiment: enumerate):
+    def __init__(self, session:Session, body: str, sentiment: enumerate, auth_service: AuthService):
         """ Constructor method.
 
         Initializes a comment record.
@@ -37,7 +37,7 @@ class Comment(ResultBase):
         self.aid: int = answers.get_aid() #TODO: hacer el método en el endpiont
         self.body: str = body
         self.timestamp: datetime.timestamp = time.time()
-        self.owner: str = server.get_token_owner().value() # TODO: revisar si el token es correcto
+        self.owner: str = auth_service.get_user()
         self.sentiment: enumerate = sentiment
         self.votes: int = Votes.num_votes(session,self.id,'comment') # TODO: Ver si efectivamente se actualiza dinámicamente 
 
