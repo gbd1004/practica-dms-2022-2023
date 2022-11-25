@@ -5,12 +5,12 @@
 {% block maincontent %}
     {% block addquestion %}
 
-    <form action=/question/>
+    <form action="/new_question" method="post"/>
         <label for="fname">Título de la pregunta:</label><br>
         <input type="text" id="titleText" name="titleText"><br>
         <label for="lname">Cuerpo de la pregunta:</label><br>
         <input type="text" id="bodyText" name="bodyText">
-        <p> {{ button('bluebg', '#', 'Añadir pregunta', 'history.back()') }} </p>
+        <p> {{ submit_button('bluebg', '#', 'Añadir pregunta', 'history.back()') }} </p>
     </form> 
 
     
