@@ -134,6 +134,23 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
+    def new_answer(self, token, qid: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.post(
+            self.__base_url() + f'/questions{qid}/answers',
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
+
     def get_answers_reports(self, token):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.get(

@@ -44,7 +44,7 @@ class AnswerEndpoints():
         return render_template('questions/answers.html', name=name, roles=session['roles'], answers=answers, question=question)
         
     @staticmethod
-    def new_answer(auth_service: AuthService) -> Union[Response, Text]:
+    def new_answer(backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the POST requests to the question root endpoint.
 
         Args:
@@ -53,19 +53,23 @@ class AnswerEndpoints():
         Returns:
             - Union[Response,Text]: The generated response to the request.
         """
-        if not WebAuth.test_token(auth_service):
-            return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
-            return redirect(url_for('get_home'))
-        name = session['user']
+        # if not WebAuth.test_token(auth_service):
+        #     return redirect(url_for('get_login'))
+        # if Role.DISCUSSION.name not in session['roles']:
+        #     return redirect(url_for('get_home'))
+        # name = session['user']
 
-        # Obtenemos los nuevos datos introducidos
-        aid = request.form.get('aid')
-        content = request.form.get('content')
+        # # Obtenemos los nuevos datos introducidos
+        # aid = request.form.get('aid')
+        # content = request.form.get('content')
         
-        return render_template('new_answer.html', name=name, roles=session['roles'],
-        	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=aid, content=str(content))
+        # return render_template('new_answer.html', name=name, roles=session['roles'],
+        # 	#Añadir el resto de la estructura que metamos en la base de datos
+        # 	aid=aid, content=str(content))
+        response: ResponseData = backend_service.new_answer(
+            session.get('token'), qid = request.args.get('qid'))
+        WebUtils.flash_response_messages(response)
+        return response.get_content()
 
     @staticmethod
     def new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
