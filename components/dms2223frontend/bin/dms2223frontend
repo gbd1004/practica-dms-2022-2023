@@ -89,27 +89,27 @@ def post_admin_users_edit():
 def get_questions_answers():
     return AnswerEndpoints.get_answers(backend_service, auth_service)
 
-@app.route("/new_question", methods=['GET'])
+@app.route("/new_question", methods=['POST'])
 def new_question():
     return QuestionEndpoints.new_question(auth_service)
 
-@app.route("/new_answer", methods=['GET'])
+@app.route("/new_answer", methods=['POST'])
 def new_answer():
     return AnswerEndpoints.new_answer(auth_service)
 
-@app.route("/new_comment", methods=['GET'])
+@app.route("/new_comment", methods=['POST'])
 def new_comment():
     return AnswerEndpoints.new_comment(backend_service, auth_service)
 
-@app.route("/new_report_answer", methods=['GET'])
+@app.route("/new_report_answer", methods=['POST'])
 def new_report_answer():
     return AnswerEndpoints.new_report_answer(auth_service)
 
-@app.route("/questions/new_report_question", methods=['GET'])
+@app.route("/questions/new_report_question", methods=['POST'])
 def new_report_question():
     return QuestionEndpoints.new_report_question(auth_service)
     
-@app.route("/new_report_comment", methods=['GET'])
+@app.route("/new_report_comment", methods=['POST'])
 def new_report_comment():
     return AnswerEndpoints.new_report_comment(auth_service)
   
