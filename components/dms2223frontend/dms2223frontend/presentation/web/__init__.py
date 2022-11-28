@@ -12,3 +12,5 @@ from .discussionendpoints import DiscussionEndpoints
 from .moderatorendpoints import ModeratorEndpoints
 from .questionendpoints import QuestionEndpoints
 from .answerendpoints import AnswerEndpoints
+
+from .webanswer import WebAnswer

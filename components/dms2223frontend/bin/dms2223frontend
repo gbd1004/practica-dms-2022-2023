@@ -85,6 +85,7 @@ def get_admin_users_edit():
 @app.route("/admin/users/edit", methods=['POST'])
 def post_admin_users_edit():
     return AdminEndpoints.post_admin_users_edit(auth_service)
+    
 @app.route("/questions/answers", methods=['GET'])
 def get_questions_answers():
     return AnswerEndpoints.get_answers(backend_service, auth_service)
@@ -93,9 +94,13 @@ def get_questions_answers():
 def new_question():
     return QuestionEndpoints.new_question(auth_service)
 
+@app.route("/new_answer", methods=['GET'])
+def get_new_answer():
+    return AnswerEndpoints.get_new_answer(backend_service, auth_service)
+
 @app.route("/new_answer", methods=['POST'])
-def new_answer():
-    return AnswerEndpoints.new_answer(auth_service)
+def post_new_answer():
+    return AnswerEndpoints.post_new_answer(backend_service, auth_service)
 
 @app.route("/new_comment", methods=['POST'])
 def new_comment():

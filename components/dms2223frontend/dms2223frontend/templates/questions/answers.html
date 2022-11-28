@@ -10,7 +10,7 @@
          <!-- Meter la lista de answer (definir lista en macros?)
 	 -->
         <p> Respuesta </p>
-        {{ button('bluebg', '/new_answer', 'Añadir respuesta', '#') }}
+        {{ button('bluebg', '/new_answer?qid=' + question['qid']|string(), 'Añadir respuesta', '#') }}
         
         {{ list_answers(True, answers, question) }}
     {% endblock %}
