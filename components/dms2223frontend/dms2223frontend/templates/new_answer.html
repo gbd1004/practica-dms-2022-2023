@@ -4,11 +4,14 @@
 {% block contentheading %}Crear respuesta{% endblock %}
 {% block maincontent %}
     {% block addquestion %}
+    <p>{{ qid }}</p>
+    
 
     <form action="/new_answer" method="post">
         <label for="lname">Cuerpo de la respuesta:</label><br>
         <input type="text" id="bodyText" name="bodyText">
         <p>{{ submit_button('bluebg', 'Añadir respuesta') }}</p>
+        <input type="hidden" name="qid" value="{{ qid }}"/>
     </form> 
 
     

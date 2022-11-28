@@ -61,12 +61,12 @@ class AnswerEndpoints():
         name = session['user']
 
         # Obtenemos los nuevos datos introducidos
-        qid = request.form.get('qid')
+        qid = request.args.get('qid')
+        current_app.logger.info(qid)
         content = request.form.get('content')
         
         return render_template('new_answer.html', name=name, roles=session['roles'],
-        	#Añadir el resto de la estructura que metamos en la base de datos
-        	qid=qid, content=str(content))
+        	qid=str(qid), content=str(content))
         # response: ResponseData = backend_service.new_answer(
         #     session.get('token'), qid = request.args.get('qid'))
         # WebUtils.flash_response_messages(response)
@@ -79,7 +79,7 @@ class AnswerEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        qid = request.args.get('qid')
+        qid = request.form.get('qid')
         current_app.logger.info(qid)
         new_answer = WebAnswer.new_answer(backend_service, qid)
         if not new_answer:
