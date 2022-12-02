@@ -114,9 +114,13 @@ def post_new_comment():
 def get_new_comment():
     return AnswerEndpoints.get_new_comment(auth_service)
 
+@app.route("/new_report_answer", methods=['GET'])
+def get_new_report_answer():
+    return AnswerEndpoints.get_new_report_answer(backend_service, auth_service)
+
 @app.route("/new_report_answer", methods=['POST'])
-def new_report_answer():
-    return AnswerEndpoints.new_report_answer(backend_service, auth_service)
+def post_new_report_answer():
+    return AnswerEndpoints.post_new_report_answer(backend_service, auth_service)
 
 @app.route("/questions/new_report_question", methods=['GET'])
 def get_new_report_question():
