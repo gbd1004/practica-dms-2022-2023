@@ -140,7 +140,7 @@ class BackendService():
             self.__base_url() + f'/questions/{qid}/answers',
             json = {
                 'qid': qid,
-                'content': content
+                'body': content
             },
             headers= {
                 'Authorization': f'Bearer {token}',
@@ -179,7 +179,6 @@ class BackendService():
         response: requests.Response = requests.post(
             self.__base_url() + f'/answers/{aid}/comments',
             json = {
-                'aid': aid,
                 'body': content,
                 'sentiment': sentiment
             },

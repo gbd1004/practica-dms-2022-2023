@@ -1,6 +1,8 @@
 from http import HTTPStatus
 import time
 from dms2223backend.data.sentiment import Sentiment
+from typing import Dict
+from flask import current_app
 
 #------------------------#
 # BASE DE DATOS TEMPORAL #
@@ -105,31 +107,17 @@ def get_answers(qid: int) -> tuple[dict, HTTPStatus]:
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> schema AnswerCreationModel
-def new_answer(qid:int, body) -> tuple[list, HTTPStatus]:
-    # for a in ANSWERS_DB:
-    #     if ANSWERS_DB[a]['qid'] == qid:
-    #         lista = []
-    #         new_id = len(ANSWERS_DB) + 1 # aid = last_aid + 1
-    #         lista.append({'qid':qid}) # qid
-    #         lista.append({'timestamp':time.time()}) # current timestamp
-    #         lista.append({'body':body}) # body
-    #         #lista.append({'owner': {'username': TO DO}}) # owner
-    #         lista.append({'votes':0}) # votes (0 por defecto)
-    #         lista.append({'user_votes':[]}) # vacía
-    #         #lista.append({'coments': TO DO})
-    #         ANSWERS_DB[new_id] = lista
-    #         return ANSWERS_DB.get(new_id), HTTPStatus.CREATED
-    # return f"No existe una pregunta con identificador {qid}.", HTTPStatus.NOT_FOUND
-    pass
+def new_answer(qid:int, body: dict) -> tuple[dict, HTTPStatus]:
+    return {}, HTTPStatus.OK
 
 # TODO
-def vote_answer(aid: int, vote: int) -> tuple[list, HTTPStatus]:
-    pass
+def vote_answer(aid: int, vote: int) -> tuple[dict, HTTPStatus]:
+    return {}, HTTPStatus.OK
 
 # TODO
-def vote_comment(aid: int, cid: int, vote: int) -> tuple[list, HTTPStatus]:
-    pass
+def vote_comment(aid: int, cid: int, vote: int) -> tuple[dict, HTTPStatus]:
+    return {}, HTTPStatus.OK
 
 # TODO
-def new_comment(aid: int, comment: str) -> tuple[list, HTTPStatus]:
-    pass
+def new_comment(aid: int, body: Dict) -> tuple[dict, HTTPStatus]:
+    return {}, HTTPStatus.OK

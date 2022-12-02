@@ -82,7 +82,7 @@ class AnswerEndpoints():
             return redirect(url_for('get_home'))
 
         qid = request.form.get('qid')
-        content = request.form.get('content')
+        content = request.form.get('bodyText')
 
         new_answer = WebAnswer.new_answer(backend_service, qid, content=content)
         if not new_answer:
@@ -90,8 +90,6 @@ class AnswerEndpoints():
         redirect_to = request.form['redirect_to']
         if not redirect_to:
             redirect_to = url_for('get_answers')
-
-        current_app.logger.info(redirect_to)
         return redirect(redirect_to)
 
     @staticmethod
