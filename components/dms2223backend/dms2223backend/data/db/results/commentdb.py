@@ -1,17 +1,17 @@
-""" User class module.
+""" 
+Comment class module.
 """
 import time
 from datetime import datetime
 from typing import Dict
-from flask import current_app
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
+from sqlalchemy import ForeignKey, Table, MetaData, Column, String, Enum  # type: ignore
+from sqlalchemy.orm import relationship
+from dms2223backend.data.db.results.report.reportcommentdb import ReportComment  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.service.authservice import AuthService
-from dms2223backend.data.db.results.answerdb import Answer
-from dms2223backend.presentation import answers
-from dms2223backend.data.db.results.votesdb import Votes
+from dms2223backend.data.db.results.vote.votescommdb import VotesComm
+from dms2223backend.data.sentiment import Sentiment
 
 
 
@@ -20,7 +20,7 @@ class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
     """
 
-    def __init__(self, session:Session, body: str, sentiment: enumerate, auth_service: AuthService):
+    def __init__(self, aid: int, body: str, sentiment: Sentiment, auth_service: AuthService):
         """ Constructor method.
 
         Initializes a comment record.
@@ -34,12 +34,12 @@ class Comment(ResultBase):
             - sentiment (enum): A enumerated type with the comment's sentiment.
         """
         self.id: int
-        self.aid: int = answers.get_aid() #TODO: hacer el método en el endpiont
+        self.aid: int = aid
         self.body: str = body
-        self.timestamp: datetime.timestamp = time.time()
-        self.owner: str = auth_service.get_user()
-        self.sentiment: enumerate = sentiment
-        self.votes: int = Votes.num_votes(session,self.id,'comment') # TODO: Ver si efectivamente se actualiza dinámicamente 
+        self.timestamp: datetime.timestamp
+        self.owner: str 
+        self.sentiment: Sentiment = sentiment
+        self.votes: int
 
 
 
@@ -59,25 +59,25 @@ class Comment(ResultBase):
             'coment',
             metadata,
             Column('id', int, primary_key=True, autoincrement=True),
-            Column('aid', int, ForeignKey(Answer.aid), nullable=False), 
+            Column('aid', int, ForeignKey('answer.aid'), nullable=False), 
             Column('body', String(200), nullable=True),
-            Column('timestamp', datetime.timestamp, nullable=False),
-            Column('owner', String(64), nullable=False),
-            Column('sentiment', enumerate, nullable=False),
-            Column('votes', int, nullable=True) #TODO: ver como conectar la tabla
+            Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
+            Column('owner', String(64), nullable=False, default=AuthService.get_user()),
+            Column('sentiment', Enum(Sentiment), nullable=True), 
+            Column('votes', int, nullable=True,onupdate=VotesComm.num_votes(Session,Comment.id))
         )
-    
+
+    @staticmethod
+    def _mapping_properties() -> Dict:
+        # Definimos la "relación" entre comentarios y votos
+        return {
+            'comment_vote': relationship(VotesComm, backref='id'),
+            'comment_report': relationship(ReportComment, backref='id')
+        }
+
 
     
-        #TODO: ¿ES NECESARIO? Ya tenemos FK ->Ya tenemos FK -> PREGUNTAR
-        """ 
-        @staticmethod
-        def _mapping_properties() -> Dict:
 
-            return {
-                'answer': relationship(Answer, backref='comment')
-            }
-        """
         
 
 

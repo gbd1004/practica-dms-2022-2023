@@ -1,4 +1,5 @@
-""" Users class module.
+""" 
+Comments class module.
 """
 
 import hashlib
@@ -13,7 +14,7 @@ from dms2223backend.data.db.results.commentdb import Comment
 
 
 class Comments():
-    """ Class responsible of table-level users operations.
+    """ Class responsible of table-level comments operations.
     """
     @staticmethod
     def create(session: Session, body: str, sentiment: enumerate) -> Comment:

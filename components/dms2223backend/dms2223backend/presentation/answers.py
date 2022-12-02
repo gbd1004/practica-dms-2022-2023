@@ -11,7 +11,6 @@ from flask import current_app
 # Definido en: AnswerFullModel
 ANSWERS_DB = {
     1: {
-        'aid': 1,
         'qid': 1, # Foreign Key
         'timestamp': 2665574089,
         'body': 'Soy una respuesta',
@@ -52,7 +51,6 @@ ANSWERS_DB = {
         }
     },
     2: {
-        'aid': 2,
         'qid': 1, # Foreign Key
         'timestamp': 3665574089,
         'body': 'Soy otra respuesta',

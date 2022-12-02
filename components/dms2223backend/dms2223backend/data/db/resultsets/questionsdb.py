@@ -1,4 +1,5 @@
-""" Users class module.
+""" 
+Questions class module.
 """
 
 import hashlib
@@ -12,7 +13,7 @@ from dms2223backend.data.db.results.questiondb import Question
 
 
 class Questions():
-    """ Class responsible of table-level users operations.
+    """ Class responsible of table-level questions operations.
     """
     @staticmethod
     def create(session: Session, title: str, body: str) -> Question:
