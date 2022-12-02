@@ -19,7 +19,7 @@
         </fieldset>
         <p>{{ submit_button('bluebg', 'Añadir comentario') }}</p>
         <input type="hidden" name="aid" value="{{ aid }}"/>
-        <input type="hidden" name="redirect_to" value="/questions/{{ qid }}/answers">
+        <input type="hidden" name="redirect_to" value="/questions/answers?qid={{ qid }}">
     </form> 
 
     

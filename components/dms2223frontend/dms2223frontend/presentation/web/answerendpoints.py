@@ -102,10 +102,11 @@ class AnswerEndpoints():
 
         # Obtenemos los nuevos datos introducidos
         aid = request.args.get('aid')
+        qid = request.args.get('qid')
         
         return render_template('new_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=str(aid))      
+        	aid=str(aid), qid=str(qid))      
 
     @staticmethod
     def post_new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:

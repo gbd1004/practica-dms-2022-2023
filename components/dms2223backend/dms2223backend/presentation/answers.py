@@ -11,6 +11,7 @@ from flask import current_app
 # Definido en: AnswerFullModel
 ANSWERS_DB = {
     1: {
+        'aid': 1,
         'qid': 1, # Foreign Key
         'timestamp': 2665574089,
         'body': 'Soy una respuesta',
@@ -51,6 +52,7 @@ ANSWERS_DB = {
         }
     },
     2: {
+        'aid': 2,
         'qid': 1, # Foreign Key
         'timestamp': 3665574089,
         'body': 'Soy otra respuesta',
@@ -106,16 +108,16 @@ def get_answers(qid: int) -> tuple[dict, HTTPStatus]:
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> schema AnswerCreationModel
 def new_answer(qid:int, body: dict) -> tuple[dict, HTTPStatus]:
-    return {}, HTTPStatus.OK
+    return {"TEMPORAL":1}, HTTPStatus.OK
 
 # TODO
 def vote_answer(aid: int, vote: int) -> tuple[dict, HTTPStatus]:
-    return {}, HTTPStatus.OK
+    return {"TEMPORAL":1}, HTTPStatus.OK
 
 # TODO
 def vote_comment(aid: int, cid: int, vote: int) -> tuple[dict, HTTPStatus]:
-    return {}, HTTPStatus.OK
+    return {"TEMPORAL":1}, HTTPStatus.OK
 
 # TODO
 def new_comment(aid: int, body: Dict) -> tuple[dict, HTTPStatus]:
-    return {}, HTTPStatus.OK
+    return {"TEMPORAL":1}, HTTPStatus.OK
