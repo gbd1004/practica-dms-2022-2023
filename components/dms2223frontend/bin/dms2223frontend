@@ -90,9 +90,13 @@ def post_admin_users_edit():
 def get_questions_answers():
     return AnswerEndpoints.get_answers(backend_service, auth_service)
 
+@app.route("/new_question", methods=['GET'])
+def get_new_question():
+    return QuestionEndpoints.get_new_question(backend_service, auth_service)
+
 @app.route("/new_question", methods=['POST'])
-def new_question():
-    return QuestionEndpoints.new_question(auth_service)
+def post_new_question():
+    return QuestionEndpoints.post_new_question(backend_service, auth_service)
 
 @app.route("/new_answer", methods=['GET'])
 def get_new_answer():
@@ -108,15 +112,19 @@ def new_comment():
 
 @app.route("/new_report_answer", methods=['POST'])
 def new_report_answer():
-    return AnswerEndpoints.new_report_answer(auth_service)
+    return AnswerEndpoints.new_report_answer(backend_service, auth_service)
+
+@app.route("/questions/new_report_question", methods=['GET'])
+def get_new_report_question():
+    return QuestionEndpoints.get_new_report_question(backend_service, auth_service)
 
 @app.route("/questions/new_report_question", methods=['POST'])
-def new_report_question():
-    return QuestionEndpoints.new_report_question(auth_service)
+def post_new_report_question():
+    return QuestionEndpoints.post_new_report_question(backend_service, auth_service)
     
 @app.route("/new_report_comment", methods=['POST'])
 def new_report_comment():
-    return AnswerEndpoints.new_report_comment(auth_service)
+    return AnswerEndpoints.new_report_comment(backend_service, auth_service)
   
 """
 # Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  

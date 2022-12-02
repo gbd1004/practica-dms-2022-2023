@@ -134,10 +134,14 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def new_answer(self, token, qid: Optional[str]):
+    def new_answer(self, token, qid: int, content: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/questions/{qid}/answers',
+            json = {
+                'qid': qid,
+                'content': content
+            },
             headers= {
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret
@@ -187,4 +191,55 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
             response_data.set_content([])
+        return response_data
+
+    def new_report_question(self, token, qid: Optional[str], reason: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.post(
+            self.__base_url() + f'/questions/{qid}/reports',
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
+    
+    def new_report_answer(self, token, aid: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.post(
+            self.__base_url() + f'/answers/{aid}/reports',
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
+    
+    def new_report_comment(self, token, cid: Optional[str]):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.post(
+            self.__base_url() + f'/comments/{cid}/reports',
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
         return response_data
