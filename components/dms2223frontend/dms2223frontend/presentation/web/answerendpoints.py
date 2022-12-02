@@ -34,9 +34,12 @@ class AnswerEndpoints():
         name = session['user']
         responseAnsw: ResponseData = backend_service.get_answers(session.get('token'), qid)
         WebUtils.flash_response_messages(responseAnsw)
-        answers = responseAnsw.get_content().values()
-        current_app.logger.info(answers)
 
+        # current_app.logger.info(responseAnsw.get_content())
+        if(responseAnsw.get_content() == []):
+            answers = []
+        else:
+            answers = responseAnsw.get_content().values()
         
         responseQuest: ResponseData = backend_service.get_question(session.get('token'), qid)
         WebUtils.flash_response_messages(responseQuest)
@@ -62,7 +65,6 @@ class AnswerEndpoints():
 
         # Obtenemos los nuevos datos introducidos
         qid = request.args.get('qid')
-        current_app.logger.info(qid)
         content = request.form.get('content')
         
         return render_template('new_answer.html', name=name, roles=session['roles'],
@@ -81,13 +83,15 @@ class AnswerEndpoints():
 
         qid = request.form.get('qid')
         content = request.form.get('content')
-        current_app.logger.info(qid)
+
         new_answer = WebAnswer.new_answer(backend_service, qid, content=content)
         if not new_answer:
             return redirect(url_for('get_new_answer') + "?qid=" + qid)
         redirect_to = request.form['redirect_to']
         if not redirect_to:
             redirect_to = url_for('get_answers')
+
+        current_app.logger.info(redirect_to)
         return redirect(redirect_to)
 
     @staticmethod
@@ -99,12 +103,11 @@ class AnswerEndpoints():
         name = session['user']
 
         # Obtenemos los nuevos datos introducidos
-        aid = request.form.get('aid')
-        content = request.form.get('content')
+        aid = request.args.get('aid')
         
         return render_template('new_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=aid, content=str(content))      
+        	aid=str(aid))      
 
     @staticmethod
     def post_new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
@@ -114,9 +117,11 @@ class AnswerEndpoints():
             return redirect(url_for('get_home'))
 
         aid = request.form.get('aid')
-        current_app.logger.info(aid)
-        new_answer = WebAnswer.new_answer(backend_service, aid)
-        if not new_answer:
+        content = request.form.get('bodyText')
+        sentiment = request.form.get('sent')
+
+        new_comment = WebAnswer.new_comment(backend_service, aid, content, sentiment)
+        if not new_comment:
             return redirect(url_for('get_new_comment') + "?aid=" + aid)
         redirect_to = request.form['redirect_to']
         if not redirect_to:

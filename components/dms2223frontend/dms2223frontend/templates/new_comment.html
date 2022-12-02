@@ -5,9 +5,18 @@
 {% block maincontent %}
     {% block addquestion %}
 
-    <form action="new_comment" method="post">
+    <form action="/new_comment" method="post">
         <label for="lname">Cuerpo del comentario:</label><br>
         <input type="text" id="bodyText" name="bodyText">
+        <fieldset>
+            <legend>Sentimiento</legend>
+            <input type="radio" id="pos" name="sent" value="POSITIVE" checked/>
+            <label for="positivo">Positivo</label>
+            <input type="radio" id="neu" name="sent" value="NEUTRAL"/>
+            <label for="neutral">Neutral</label>
+            <input type="radio" id="neg" name="sent" value="NEGATIVE"/>
+            <label for="negativo">Negativo</label>
+        </fieldset>
         <p>{{ submit_button('bluebg', 'Añadir comentario') }}</p>
         <input type="hidden" name="aid" value="{{ aid }}"/>
         <input type="hidden" name="redirect_to" value="/questions/{{ qid }}/answers">

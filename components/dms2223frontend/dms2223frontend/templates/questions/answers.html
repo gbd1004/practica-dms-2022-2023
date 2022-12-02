@@ -12,6 +12,8 @@
         <p> Respuesta </p>
         {{ button('bluebg', '/new_answer?qid=' + question['qid']|string(), 'Añadir respuesta', '#') }}
         
-        {{ list_answers(True, answers, question) }}
+        {% if answers|length > 0 %}
+            {{ list_answers(True, answers, question) }}
+        {% endif %}
     {% endblock %}
 {% endblock %}

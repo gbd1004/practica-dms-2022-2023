@@ -1,18 +1,16 @@
-""" User class module.
+""" 
+Answer class module.
 """
 import time
 from datetime import datetime
 from typing import Dict
-from flask import current_app, session
-import requests
 from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
+from sqlalchemy.orm import relationship
+from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
-# from dms2223auth.dms2223auth.presentation.rest import server
-from dms2223backend.data.db.results.questiondb import Question
-from dms2223backend.presentation import questionsdb
-from dms2223backend.data.db.results.votesdb import Votes
+from dms2223backend.data.db.results.vote.votesansdb import VotesAns
+from dms2223backend.data.db.results.commentdb import Comment
 from dms2223backend.service.authservice import AuthService
 
 
@@ -22,7 +20,7 @@ class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
     """
 
-    def __init__(self, session_db:Session, body: str, auth_service: AuthService):
+    def __init__(self, qid: int, body: str):
         """ Constructor method.
 
         Initializes a answer record.
@@ -36,11 +34,11 @@ class Answer(ResultBase):
             - votes (int) : A integer with the number of votes.
         """
         self.aid: int
-        self.qid: int = questionsdb.get_qid() #TODO: hacer el método en el endpiont
+        self.qid: int = qid
         self.body: str = body
-        self.timestamp: datetime.timestamp = time.time()
-        self.owner: str = auth_service.get_user()
-        self.votes: int = Votes.num_votes(session_db,self.aid,'answer') # TODO: Ver si efectivamente se actualiza dinámicamente
+        self.timestamp: datetime.timestamp
+        self.owner: str
+        self.votes: int = 0
 
 
 
@@ -59,24 +57,27 @@ class Answer(ResultBase):
             'answer',
             metadata,
             Column('aid', int, primary_key=True, autoincrement=True),
-            Column('qid', int, ForeignKey(Question.qid), nullable=False), 
+            Column('qid', int, ForeignKey('question.qid'), nullable=False), 
             Column('body', String(200), nullable=True),
-            Column('timestamp', datetime.timestamp, nullable=False),
-            Column('owner', String(64), nullable=False),
-            Column('votes', int, nullable=True) #TODO: ver como conectar la tabla
+            Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
+            Column('owner', String(64), nullable=False, default=AuthService.get_user()),
+            Column('votes', int, nullable=True, onupdate=VotesAns.num_votes(Session,Answer.aid))
         )
     
 
 
-        #TODO: ¿ES NECESARIO? Ya tenemos FK -> PREGUNTAR
-        """ 
-        @staticmethod
-        def _mapping_properties() -> Dict:
+    @staticmethod
+    def _mapping_properties() -> Dict:
+        # Definimos la "relación" entre respuestas y comentarios
+        # Definimos la "relación" entre respuestas y votos
+        return {
+            'answer_comment': relationship(Comment, backref='aid'),
+            'answer_votes': relationship(VotesAns, backref='aid'),
+            'answer_reports': relationship(ReportAnswer, backref='aid')
+        }
 
-            return {
-                'question': relationship(Question, backref='answer')
-            }
-        """
+    
+
         
 
 
