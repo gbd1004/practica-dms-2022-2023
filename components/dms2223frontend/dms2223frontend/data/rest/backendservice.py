@@ -197,6 +197,10 @@ class BackendService():
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/questions/{qid}/reports',
+            json = {
+                'qid': qid,
+                'reason': reason
+            },
             headers= {
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret
@@ -210,10 +214,14 @@ class BackendService():
             response_data.add_message(response.content.decode('ascii'))
         return response_data
     
-    def new_report_answer(self, token, aid: Optional[str]):
+    def new_report_answer(self, token, aid: Optional[str], reason: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/answers/{aid}/reports',
+            json = {
+                'aid': aid,
+                'reason': reason
+            },
             headers= {
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret
