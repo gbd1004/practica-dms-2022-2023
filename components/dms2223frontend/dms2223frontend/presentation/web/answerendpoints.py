@@ -79,9 +79,10 @@ class AnswerEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        qid = request.args.get('qid')
+        qid = request.form.get('qid')
+        content = request.form.get('content')
         current_app.logger.info(qid)
-        new_answer = WebAnswer.new_answer(backend_service, qid)
+        new_answer = WebAnswer.new_answer(backend_service, qid, content=content)
         if not new_answer:
             return redirect(url_for('get_new_answer') + "?qid=" + qid)
         redirect_to = request.form['redirect_to']

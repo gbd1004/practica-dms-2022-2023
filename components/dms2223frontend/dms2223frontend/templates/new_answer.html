@@ -3,9 +3,7 @@
 {% block title %}{% block subtitle %}{% endblock %}Crear respuesta{% endblock %}
 {% block contentheading %}Crear respuesta{% endblock %}
 {% block maincontent %}
-    {% block addquestion %}
-    <p>{{ qid }}</p>
-    
+    {% block addquestion %}    
 
     <form action="/new_answer" method="post">
         <label for="lname">Cuerpo de la respuesta:</label><br>
