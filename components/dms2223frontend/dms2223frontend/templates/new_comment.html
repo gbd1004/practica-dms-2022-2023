@@ -1,14 +1,15 @@
-{% from "macros/buttons.html" import button %}
+{% from "macros/buttons.html" import button, submit_button %}
 {% extends "base_logged_in.html" %}
 {% block title %}{% block subtitle %}{% endblock %}Crear comentario{% endblock %}
 {% block contentheading %}Crear comentario{% endblock %}
 {% block maincontent %}
     {% block addquestion %}
 
-    <form action="new _comment" method="post">
+    <form action="new_comment" method="post">
         <label for="lname">Cuerpo del comentario:</label><br>
         <input type="text" id="bodyText" name="bodyText">
         <p>{{ submit_button('bluebg', 'Añadir comentario') }}</p>
+        <input type="hidden" name="aid" value="{{ aid }}"/>
     </form> 
 
     
