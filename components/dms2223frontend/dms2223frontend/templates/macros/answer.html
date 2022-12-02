@@ -1,16 +1,14 @@
 {% from "macros/buttons.html" import button %}
 {% from "macros/list_comments.html" import list_comments %}
-{% macro answer(answer) %}
+{% macro answer(answ) %}
     <div style="border:1px solid black;">
-        <p> qid: {{ answer['qid'] }}</p>
-        <p> Respuesta: {{ answer['body']}}</p>
-        <p> Fecha: {{ answer['timestamp'] | ctime }}</p>  
-        <p> Usuario que hizo la respuesta {{ answer['owner']['username'] }}</p>
-        <p>{{ button('bluebg', '/new_comment?aid=' + answer['aid']|string(), 'Añadir comentario', '#') }}</p>
-        <p> aid: {{ answer['aid'] }}</p>
+        <p> Respuesta: {{ answ['body']}}</p>
+        <p> Fecha: {{ answ['timestamp'] | ctime }}</p>  
+        <p> Usuario que hizo la respuesta {{ answ['owner']['username'] }}</p>
+        <p>{{ button('bluebg', '/new_comment?aid=' + answ['aid']|string(), 'Añadir comentario', '#') }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
         <p>{{ button('bluebg', "/new_report_answer", 'Reportar',) }}</p>
-        <p>{{ list_comments(True, answer['comms'].values()) }}</p>
+        <p>{{ list_comments(True, answ['comms'].values()) }}</p>
     </div>
     
 {% endmacro %}

@@ -12,7 +12,7 @@ class WebAnswer():
         return response.get_content()
 
     @staticmethod
-    def new_comment(backend_service: BackendService, aid):
-        response: ResponseData = backend_service.new_comment(session.get('token'), aid)
+    def new_comment(backend_service: BackendService, aid, content, sentiment):
+        response: ResponseData = backend_service.new_comment(session.get('token'), aid, content, sentiment)
         WebUtils.flash_response_messages(response)
         return response.get_content()

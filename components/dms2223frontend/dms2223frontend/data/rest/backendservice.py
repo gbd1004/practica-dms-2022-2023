@@ -174,10 +174,15 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def new_comment(self, token, aid: Optional[str]):
+    def new_comment(self, token, aid: Optional[str], content: str, sentiment: str):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/answers/{aid}/comments',
+            json = {
+                'aid': aid,
+                'body': content,
+                'sentiment': sentiment
+            },
             headers= {
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret
