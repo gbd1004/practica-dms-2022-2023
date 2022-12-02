@@ -91,7 +91,7 @@ class AnswerEndpoints():
         return redirect(redirect_to)
 
     @staticmethod
-    def new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
+    def get_new_comment(auth_service: AuthService) -> Union[Response, Text]:
         if not WebAuth.test_token(auth_service):
             return redirect(url_for('get_login'))
         if Role.DISCUSSION.name not in session['roles']:
@@ -100,12 +100,28 @@ class AnswerEndpoints():
 
         # Obtenemos los nuevos datos introducidos
         aid = request.form.get('aid')
-        cid = request.form.get('cid')
         content = request.form.get('content')
         
         return render_template('new_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=aid, content=str(content))        
+        	aid=aid, content=str(content))      
+
+    @staticmethod
+    def post_new_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        aid = request.form.get('aid')
+        current_app.logger.info(aid)
+        new_answer = WebAnswer.new_answer(backend_service, aid)
+        if not new_answer:
+            return redirect(url_for('get_new_comment') + "?aid=" + aid)
+        redirect_to = request.form['redirect_to']
+        if not redirect_to:
+            redirect_to = url_for('get_answers')
+        return redirect(redirect_to)
     
     @staticmethod
     def get_new_report_answer(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
