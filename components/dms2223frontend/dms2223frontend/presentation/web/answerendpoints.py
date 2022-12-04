@@ -149,7 +149,7 @@ class AnswerEndpoints():
         reason = request.form.get('reason')
         
         return render_template('new_report_answer.html', name=name, roles=session['roles'],
-        	aid=str(aid), reason=str(reason))
+        	aid=aid, reason=str(reason))
 
 
     @staticmethod
@@ -158,11 +158,11 @@ class AnswerEndpoints():
             return redirect(url_for('get_login'))
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
-
+            
         aid = request.form.get('aid')
         reason = request.form.get('reason')
         # current_app.logger.info(qid)
-        new_answer = WebAnswer.new_answer(backend_service, aid=aid, reason=reason)
+        new_answer = WebAnswer.new_report_answer(backend_service, aid=aid, reason=str(reason))
         if not new_answer:
             return redirect(url_for('get_new_answer'))
         redirect_to = request.form['redirect_to']
