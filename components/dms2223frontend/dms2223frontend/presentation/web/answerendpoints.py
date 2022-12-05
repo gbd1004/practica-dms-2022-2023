@@ -182,6 +182,8 @@ class AnswerEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
+        cid = request.args.get('cid')
+        qid = request.args.get('qid')
 
         # Obtenemos los nuevos datos introducidos
         aid = request.args.get('aid')
@@ -189,7 +191,7 @@ class AnswerEndpoints():
         reason = request.form.get('reason')
         
         return render_template('new_report_comment.html', name=name, roles=session['roles'],
-        	cid=str(cid), reason=str(reason))
+        	cid=cid, aid=aid, qid=qid, reason=str(reason))
 
     @staticmethod
     def post_new_report_comment(auth_service: AuthService) -> Union[Response, Text]:
@@ -206,14 +208,14 @@ class AnswerEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-
+        cid = request.form.get('cid')
         # Obtenemos los nuevos datos introducidos
         aid = request.form.get('aid')
         content = request.form.get('content')
         
         return render_template('new_report_comment.html', name=name, roles=session['roles'],
         	#Añadir el resto de la estructura que metamos en la base de datos
-        	aid=aid, content=str(content))
+        	cid=cid, aid=aid, content=str(content))
 
 
 

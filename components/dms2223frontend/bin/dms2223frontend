@@ -131,28 +131,13 @@ def post_new_report_question():
     return QuestionEndpoints.post_new_report_question(backend_service, auth_service)
     
 @app.route("/new_report_comment", methods=['POST'])
-def new_report_comment():
-    return AnswerEndpoints.new_report_comment(backend_service, auth_service)
-  
-"""
-# Para cada discusión habrá una lista de preguntas que se deben poder consultar y añadir  
-@app.route("/discussion/questions", methods=['GET'])
-def get_questions():
-    return QuestionEndpoints.get_questions(auth_service)
+def post_new_report_comment():
+    return AnswerEndpoints.post_new_report_comment(backend_service, auth_service)
 
-@app.route("/discussion/questions", methods=['POST'])
-def new_question():
-    return QuestionEndpoints.new_question(auth_service) 
-    
-# Lo mismo para las respuestas
-@app.route("/discussion/questions/answers", methods=['GET'])
-def get_answer():
-    return QuestionEndpoints.get_answers(auth_service)
+@app.route("/new_report_comment", methods=['GET'])
+def get_new_report_comment():
+    return AnswerEndpoints.get_new_report_comment(backend_service, auth_service)
 
-@app.route("/discussion/questions/answers", methods=['POST'])
-def new_answer():
-    return QuestionEndpoints.new_answer(auth_service) 
-"""
     
     
     
