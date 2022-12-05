@@ -5,12 +5,15 @@
 {% block maincontent %}
     {% block addquestion %}
 
+    <p>el qid es: {{ qid }}</p>
+
     <form action="/new_report_answer" method="post">
         <label for="lname">Razón del reporte:</label><br>
-        <input type="text" id="bodyText" name="bodyText">
+        <input type="text" id="reason" name="reason">
         <p>{{ submit_button('bluebg', 'Añadir reporte') }}</p>
+        <input type="hidden" name="aid" value="{{ aid }}">
         <input type="hidden" name="redirect_to" value="/questions/{{ qid }}/answers">
-    </form> 
+    </form>
 
     
 

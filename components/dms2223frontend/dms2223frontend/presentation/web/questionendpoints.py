@@ -5,7 +5,7 @@
 
 
 from typing import Text, Union
-from flask import redirect, url_for, session, render_template, request
+from flask import redirect, url_for, session, render_template, request, current_app
 from werkzeug.wrappers import Response
 from dms2223common.data import Role
 from dms2223frontend.data.rest.authservice import AuthService
@@ -121,11 +121,11 @@ class QuestionEndpoints():
         # Obtenemos los nuevos datos introducidos
         qid = request.form.get('qid')
         reason = request.form.get('reason')
-        
-        return render_template('/questions/new_report_question.html', name=name, roles=session['roles'],
-        	#Añadir el resto de la estructura que metamos en la base de datos
-        	qid=qid, reason=str(reason))
 
+        current_app.logger.info("ESTO ES LA INFO " + str(qid))
+        
+        return render_template('/questions/new_report_question.html', name=name, roles=session['roles'], qid=qid, reason=str(reason))
+            #Añadir el resto de la estructura que metamos en la base de datos
     @staticmethod
     def post_new_report_question(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
         if not WebAuth.test_token(auth_service):
