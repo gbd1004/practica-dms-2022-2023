@@ -120,11 +120,11 @@ def new_question_report(qid: int, body: dict) -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def new_answer_report(aid: int) -> tuple[dict, HTTPStatus]:
+def new_answer_report(aid: int, body: dict) -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def new_comment_report(cid: int) -> tuple[dict, HTTPStatus]:
+def new_comment_report(cid: int, body: dict) -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # Report GET (list)
