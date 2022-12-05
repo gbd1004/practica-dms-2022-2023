@@ -9,7 +9,7 @@
         <label for="lname">Razón del reporte:</label><br>
         <input type="text" id="bodyText" name="bodyText">
         <p>{{ submit_button('bluebg', 'Añadir reporte') }}</p>
-        <input type="hidden" name="redirect_to" value="/questions/{{ qid }}/answers">
+        <input type="hidden" name="redirect_to" value="/questions/answers?qid={{ qid }}">
     </form> 
 
     
