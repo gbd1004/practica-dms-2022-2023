@@ -69,10 +69,6 @@ class AnswerEndpoints():
         
         return render_template('new_answer.html', name=name, roles=session['roles'],
         	qid=str(qid), content=str(content))
-        # response: ResponseData = backend_service.new_answer(
-        #     session.get('token'), qid = request.args.get('qid'))
-        # WebUtils.flash_response_messages(response)
-        # return response.get_content()
 
     @staticmethod
     def post_new_answer(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
@@ -145,11 +141,12 @@ class AnswerEndpoints():
 
         # Obtenemos los nuevos datos introducidos
         aid = request.args.get('aid')
+        qid = request.args.get('qid')
         # current_app.logger.info(qid)
         reason = request.form.get('reason')
         
         return render_template('new_report_answer.html', name=name, roles=session['roles'],
-        	aid=aid, reason=str(reason))
+        	aid=aid, qid=qid, reason=str(reason))
 
 
     @staticmethod
@@ -160,7 +157,7 @@ class AnswerEndpoints():
             return redirect(url_for('get_home'))
             
         aid = request.form.get('aid')
-        reason = request.form.get('reason')
+        reason = request.form.get('bodyText')
         # current_app.logger.info(qid)
         new_answer = WebAnswer.new_report_answer(backend_service, aid=aid, reason=str(reason))
         if not new_answer:

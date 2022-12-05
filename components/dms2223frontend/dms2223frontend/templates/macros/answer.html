@@ -7,7 +7,7 @@
         <p> Usuario que hizo la respuesta {{ answ['owner']['username'] }}</p>
         <p>{{ button('bluebg', '/new_comment?qid=' + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Añadir comentario', '#') }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
-        <p>{{ button('bluebg', "/new_report_answer?aid=" + answ['aid']|string(), 'Reportar',) }}</p>
+        <p>{{ button('bluebg', "/new_report_answer?qid=" + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Reportar',) }}</p>
         <p>{{ list_comments(True, answ['comms'].values()) }}</p>
     </div>
     

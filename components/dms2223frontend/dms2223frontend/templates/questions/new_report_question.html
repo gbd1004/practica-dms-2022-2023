@@ -5,8 +5,6 @@
 {% block maincontent %}
     {% block addquestion %}
 
-    <p>{{ qid }}</p>
-
     <form action="/questions/new_report_question" method="post">
         <label for="lname">Razón del reporte:</label><br>
         <input type="text" id="bodyText" name="bodyText">

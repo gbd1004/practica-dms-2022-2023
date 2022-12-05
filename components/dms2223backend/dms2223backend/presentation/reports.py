@@ -116,16 +116,16 @@ REPORTS_C_DB:dict = {
 
 '''REEPORTS'''
 # TODO
-def new_question_report(qid: int) -> HTTPStatus:
-	pass
+def new_question_report(qid: int, body: dict) -> tuple[dict, HTTPStatus]:
+	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def new_answer_report(aid: int) -> HTTPStatus:
-	pass
+def new_answer_report(aid: int) -> tuple[dict, HTTPStatus]:
+	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def new_comment_report(cid: int) -> HTTPStatus:
-	pass
+def new_comment_report(cid: int) -> tuple[dict, HTTPStatus]:
+	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # Report GET (list)
 def get_questions_reports() -> tuple[dict, HTTPStatus]:

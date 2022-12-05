@@ -72,17 +72,13 @@ class QuestionEndpoints():
 
         # Obtenemos los nuevos datos introducidos
 
-        qid = request.form.get('qid')
         title = request.form.get('titleText')
         body = request.form.get('bodyText')
-
-
         
         return render_template('new_question.html', name=name, roles=session['roles'],
 
         	#Añadir el resto de la estructura que metamos en la base de datos
-
-        	qid=qid, body=body, title=title)
+            body=body, title=title)
 
     @staticmethod
     def post_new_question(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
@@ -119,13 +115,10 @@ class QuestionEndpoints():
         name = session['user']
 
         # Obtenemos los nuevos datos introducidos
-        qid = request.form.get('qid')
-        reason = request.form.get('reason')
-
-        current_app.logger.info("ESTO ES LA INFO " + str(qid))
+        qid = request.args.get('qid')
         
-        return render_template('/questions/new_report_question.html', name=name, roles=session['roles'], qid=qid, reason=str(reason))
-            #Añadir el resto de la estructura que metamos en la base de datos
+        return render_template('/questions/new_report_question.html', name=name, roles=session['roles'], qid=qid)
+
     @staticmethod
     def post_new_report_question(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
         if not WebAuth.test_token(auth_service):
@@ -134,7 +127,7 @@ class QuestionEndpoints():
             return redirect(url_for('get_home'))
 
         qid = request.form.get('qid')
-        reason = request.form.get('reason')
+        reason = request.form.get('bodyText')
 
         new_question = WebQuestion.new_report_question(backend_service, qid=qid, reason=reason)
         if not new_question:
