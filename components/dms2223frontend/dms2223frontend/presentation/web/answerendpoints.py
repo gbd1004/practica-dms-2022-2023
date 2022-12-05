@@ -182,10 +182,9 @@ class AnswerEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
+        
         cid = request.args.get('cid')
         qid = request.args.get('qid')
-
-        # Obtenemos los nuevos datos introducidos
         aid = request.args.get('aid')
         # current_app.logger.info(qid)
         reason = request.form.get('reason')
@@ -194,7 +193,7 @@ class AnswerEndpoints():
         	cid=cid, aid=aid, qid=qid, reason=str(reason))
 
     @staticmethod
-    def post_new_report_comment(auth_service: AuthService) -> Union[Response, Text]:
+    def post_new_report_comment(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the question root endpoint.
 
         Args:
