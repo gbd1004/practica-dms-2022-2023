@@ -6,7 +6,7 @@
         <p>Sentimiento: {{ comment['sentiment'] }}</p>
         <p>Votos: {{ comment['votes'] }}</p>
         <p> Usuario que hizo la respuesta {{ comment['owner']['username'] }}</p>
-        <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
+        <p>{{ button('greenbg', "#", 'Votar ⇧',) }}</p>
         <p>{{ button('bluebg', "/new_report_comment?qid=" + qid|string() + "&aid=" + comment['aid']|string() + "&cid=" + comment['cid']|string(), 'Reportar',) }}</p>
     </div>
     
