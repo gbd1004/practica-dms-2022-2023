@@ -23,3 +23,9 @@ class WebAnswer():
         response: ResponseData = backend_service.new_comment(session.get('token'), aid=aid, content=content, sentiment=sentiment)
         WebUtils.flash_response_messages(response)
         return response.get_content()
+    
+    @staticmethod
+    def new_report_comment(backend_service: BackendService, cid: int, reason: str):
+        response: ResponseData = backend_service.new_report_comment(session.get('token'),cid=cid, reason=reason)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()

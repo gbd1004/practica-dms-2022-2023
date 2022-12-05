@@ -206,15 +206,19 @@ class AnswerEndpoints():
             return redirect(url_for('get_login'))
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
-        name = session['user']
+        # name = session['user']
         cid = request.form.get('cid')
         # Obtenemos los nuevos datos introducidos
-        aid = request.form.get('aid')
-        content = request.form.get('content')
+        # aid = request.form.get('aid')
+        reason = request.form.get('reason')
         
-        return render_template('new_report_comment.html', name=name, roles=session['roles'],
-        	#Añadir el resto de la estructura que metamos en la base de datos
-        	cid=cid, aid=aid, content=str(content))
+        new_answer = WebAnswer.new_report_comment(backend_service, cid=cid, reason=str(reason))
+        if not new_answer:
+            return redirect(url_for('get_new_answer'))
+        redirect_to = request.form['redirect_to']
+        if not redirect_to:
+            redirect_to = url_for('get_answers')
+        return redirect(redirect_to)
 
 
 
