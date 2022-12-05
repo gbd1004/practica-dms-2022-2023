@@ -1,4 +1,4 @@
-{% from "macros/buttons.html" import button %}
+{% from "macros/buttons.html" import submit_button, button %}
 {% from "macros/list_comments.html" import list_comments %}
 {% macro answer(answ) %}
     <div style="border:1px solid black;">
@@ -6,7 +6,11 @@
         <p> Fecha: {{ answ['timestamp'] | ctime }}</p>  
         <p> Usuario que hizo la respuesta {{ answ['owner']['username'] }}</p>
         <p>{{ button('bluebg', '/new_comment?qid=' + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Añadir comentario', '#') }}</p>
-        <p>{{ button('greenbg', "#", 'Votar ⇧',) }}</p>
+        
+        <form action="#" method="post">
+            <p>{{ submit_button('greenbg', 'Votar ⇧',) }}</p>    
+            <input type="hidden" name="aid" value={{ answ['aid'] }}>
+        </form> 
         <p>{{ button('bluebg', "/new_report_answer?qid=" + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Reportar',) }}</p>
         <p>{{ list_comments(True, answ['comms'].values(), answ['qid']) }}</p>
     </div>
