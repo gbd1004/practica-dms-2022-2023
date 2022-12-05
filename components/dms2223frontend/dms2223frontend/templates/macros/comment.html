@@ -1,5 +1,5 @@
 {% from "macros/buttons.html" import button %}
-{% macro comment(comment) %}
+{% macro comment(comment, qid) %}
     <div style="border:1px solid black;">
         <p> Respuesta: {{ comment['body']}}</p>
         <p> Fecha: {{ comment['timestamp'] | ctime}}</p>  
@@ -7,7 +7,7 @@
         <p>Votos: {{ comment['votes'] }}</p>
         <p> Usuario que hizo la respuesta {{ comment['owner']['username'] }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
-        <p>{{ button('bluebg', "/new_report_comment", 'Reportar',) }}</p>
+        <p>{{ button('bluebg', "/new_report_comment?qid=" + qid|string() + "&aid=" + comment['aid']|string() + "&cid=" + comment['cid']|string(), 'Reportar',) }}</p>
     </div>
     
 {% endmacro %}

@@ -26,7 +26,8 @@ ANSWERS_DB = {
             'user6': True
         },
         'comms': {
-            2: {
+            1: {
+                'cid':1,
                 'aid':1,
                 'timestamp':1665575389,
                 'body': 'Soy un comentario',
@@ -38,7 +39,8 @@ ANSWERS_DB = {
                     'user6': True
                 }
             },
-            1:{
+            2:{
+                'cid':2,
                 'aid':1,
                 'timestamp':1665575289,
                 'body': 'Soy otro comentario',

@@ -8,7 +8,7 @@
         <p>{{ button('bluebg', '/new_comment?qid=' + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Añadir comentario', '#') }}</p>
         <p>{{ button('greenbg', "#", 'Votar ⇧',) }} {{ button('redbg', "#", 'Votar ⇩',) }} </p>
         <p>{{ button('bluebg', "/new_report_answer?qid=" + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Reportar',) }}</p>
-        <p>{{ list_comments(True, answ['comms'].values()) }}</p>
+        <p>{{ list_comments(True, answ['comms'].values(), answ['qid']) }}</p>
     </div>
     
 {% endmacro %}

@@ -1,5 +1,5 @@
 {% from "macros/comment.html" import comment %}
-{% macro list_comments(ordered, items) %}
+{% macro list_comments(ordered, items, qid) %}
     {%- if ordered -%}
         <ol>
     {%- else -%}
@@ -7,7 +7,7 @@
     {%- endif -%}
     {%- for item in items -%}
         
-        {{ comment(item) }}
+        {{ comment(item, qid) }}
 
     {%- endfor -%}
     {%- if ordered -%}
