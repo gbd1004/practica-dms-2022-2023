@@ -182,7 +182,7 @@ class AnswerEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        
+
         cid = request.args.get('cid')
         qid = request.args.get('qid')
         aid = request.args.get('aid')
@@ -220,5 +220,14 @@ class AnswerEndpoints():
             redirect_to = url_for('get_answers')
         return redirect(redirect_to)
 
+    @staticmethod
+    def post_new_answer_vote(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        
+        aid = request.form.get('aid')
 
+        WebAnswer.new_vote(backend_service, aid)
 
