@@ -6,7 +6,6 @@
         <p> Fecha: {{ report['timestamp'] | ctime}}</p>  
         <p> Usuario que hizo el reporte {{ report['owner']['username'] }}</p>
         <p> Estado: {{report['status']}}</p>
-        <!-- <p>{{ button('bluebg', "/question/"+report['qid']|string()+"/answers", 'Ver respuestas (no funciona)',) }}</p> -->
         {%- if report['status'] == "PENDING" -%}
             <form action="/accept_cr" method="put">
                 <p>{{ submit_button('bluebg', 'Aceptar reporte',) }}</p>

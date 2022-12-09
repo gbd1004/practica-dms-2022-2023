@@ -58,7 +58,7 @@ class ModeratorEndpoints():
         response: ResponseData = backend_service.put_question_report(session.get('token'), qrid=qrid , status="ACCEPTED")
         WebUtils.flash_response_messages(response)
 
-        return redirect(url_for('get_moderator'))
+        return redirect("/moderator")
 
     @staticmethod
     def put_deny_question_report(backend_service: BackendService, auth_service: AuthService):
