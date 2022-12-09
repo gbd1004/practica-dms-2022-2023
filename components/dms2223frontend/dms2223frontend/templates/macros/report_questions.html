@@ -9,9 +9,11 @@
         {%- if report['status'] == "PENDING" -%}
             <form action="/accept_question_report" method="put">
                 <p>{{ submit_button('bluebg', 'Aceptar reporte',) }}</p>
+                <input type="hidden" name="qrid" value="{{ report['qrid'] }}">
             </form>
             <form action="/deny_question_report" method="put">
                 <p>{{ submit_button('bluebg', 'Rechazar reporte',) }}</p>
+                <input type="hidden" name="qrid" value="{{ report['qrid'] }}">
             </form>
         {%- endif -%}
     </div>
