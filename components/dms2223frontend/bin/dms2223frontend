@@ -146,11 +146,11 @@ def post_new_answer_vote():
 def post_new_comment_vote():
     return AnswerEndpoints.post_new_comment_vote(backend_service, auth_service)
 
-@app.route("/accept_question_report", methods=['PUT'])
+@app.route("/accept_question_report", methods=['POST'])
 def put_accept_question_report():
     return ModeratorEndpoints.put_accept_question_report(backend_service, auth_service)
 
-@app.route("/deny_question_report", methods=['PUT'])
+@app.route("/deny_question_report", methods=['POST'])
 def put_deny_question_report():
     return ModeratorEndpoints.put_deny_question_report(backend_service, auth_service)
 
