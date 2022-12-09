@@ -82,7 +82,7 @@ class AnswerEndpoints():
 
         new_answer = WebAnswer.new_answer(backend_service, qid, content=content)
         if not new_answer:
-            return redirect(url_for('get_new_answer') + "?qid=" + qid)
+            return redirect(url_for('get_new_answer') + "?qid=" + str(qid))
         redirect_to = request.form['redirect_to']
         if not redirect_to:
             redirect_to = url_for('get_answers')
@@ -117,7 +117,7 @@ class AnswerEndpoints():
 
         new_comment = WebAnswer.new_comment(backend_service, aid, content, sentiment)
         if not new_comment:
-            return redirect(url_for('get_new_comment') + "?aid=" + aid)
+            return redirect(url_for('get_new_comment') + "?aid=" + str(aid))
         redirect_to = request.form['redirect_to']
         if not redirect_to:
             redirect_to = url_for('get_answers')

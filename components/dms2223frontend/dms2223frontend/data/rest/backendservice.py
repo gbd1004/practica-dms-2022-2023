@@ -134,7 +134,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def new_answer(self, token, qid: int, content: Optional[str]):
+    def new_answer(self, token, qid: Optional[str], content: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/questions/{qid}/answers',
@@ -174,7 +174,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def new_comment(self, token, aid: Optional[str], content: str, sentiment: str):
+    def new_comment(self, token, aid: Optional[str], content: Optional[str], sentiment: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/answers/{aid}/comments',
