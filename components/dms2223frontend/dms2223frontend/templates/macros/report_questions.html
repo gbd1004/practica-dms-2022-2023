@@ -7,13 +7,15 @@
         <p> Usuario que hizo el reporte {{ report['owner']['username'] }}</p>
         <p> Estado: {{report['status']}}</p>
         {%- if report['status'] == "PENDING" -%}
-            <form action="/accept_question_report" method="put">
+            <form action="/accept_question_report" method="post">
                 <p>{{ submit_button('bluebg', 'Aceptar reporte',) }}</p>
                 <input type="hidden" name="qrid" value="{{ report['qrid'] }}">
+                <input type="hidden" name="_method" value="PUT">
             </form>
-            <form action="/deny_question_report" method="put">
+            <form action="/deny_question_report" method="post">
                 <p>{{ submit_button('bluebg', 'Rechazar reporte',) }}</p>
                 <input type="hidden" name="qrid" value="{{ report['qrid'] }}">
+                <input type="hidden" name="_method" value="PUT">
             </form>
         {%- endif -%}
     </div>
