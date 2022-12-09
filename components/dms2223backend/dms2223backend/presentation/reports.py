@@ -148,14 +148,14 @@ def get_comments_reports() -> tuple[dict, HTTPStatus]:
 
 # Report{rid} POST
 # TODO
-def set_question_report_status(qrid: int) -> HTTPStatus:
-	pass
+def set_question_report_status(qrid: int) -> tuple[dict, HTTPStatus]:
+	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def set_answer_report_status(arid: int) -> HTTPStatus:
-	pass
+def set_answer_report_status(arid: int) -> tuple[dict, HTTPStatus]:
+	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def set_comment_report_status(crid: int) -> HTTPStatus:
-	pass
+def set_comment_report_status(crid: int) -> tuple[dict, HTTPStatus]:
+	return {"TEMPORAL": 1}, HTTPStatus.OK
 

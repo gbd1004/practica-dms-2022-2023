@@ -67,9 +67,11 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        response: ResponseData = backend_service.put_question_report(session.get('token'), "REJECTED")
+        qrid = request.form.get('qrid')
+        response: ResponseData = backend_service.put_question_report(session.get('token'), qrid=qrid , status="REJECTED")
+        WebUtils.flash_response_messages(response)
 
-        return
+        return redirect("/moderator")
 
     @staticmethod
     def put_accept_answer_report(backend_service: BackendService, auth_service: AuthService):
@@ -78,9 +80,11 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        response: ResponseData = backend_service.put_answer_report(session.get('token'))
+        qaid = request.form.get('qaid')
+        response: ResponseData = backend_service.put_question_report(session.get('token'), qaid=qaid , status="ACCEPTED")
+        WebUtils.flash_response_messages(response)
 
-        return
+        return redirect("/moderator")
 
     @staticmethod
     def put_deny_answer_report(backend_service: BackendService, auth_service: AuthService):
@@ -89,9 +93,11 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        response: ResponseData = backend_service.put_answer_report(session.get('token'))
+        qaid = request.form.get('qaid')
+        response: ResponseData = backend_service.put_question_report(session.get('token'), qaid=qaid , status="REJECTED")
+        WebUtils.flash_response_messages(response)
 
-        return
+        return redirect("/moderator")
 
     @staticmethod
     def put_accept_comment_report(backend_service: BackendService, auth_service: AuthService):
@@ -100,9 +106,11 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        response: ResponseData = backend_service.put_comment_report(session.get('token'))
+        crid = request.form.get('crid')
+        response: ResponseData = backend_service.put_question_report(session.get('token'), crid=crid , status="ACCEPTED")
+        WebUtils.flash_response_messages(response)
 
-        return
+        return redirect("/moderator")
 
     @staticmethod
     def put_deny_comment_report(backend_service: BackendService, auth_service: AuthService):
@@ -111,6 +119,8 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        response: ResponseData = backend_service.put_comment_report(session.get('token'))
+        crid = request.form.get('crid')
+        response: ResponseData = backend_service.put_question_report(session.get('token'), crid=crid , status="REJECTED")
+        WebUtils.flash_response_messages(response)
 
-        return
+        return redirect("/moderator")

@@ -327,3 +327,43 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
         return response_data
+
+    def put_answer_report(self, token, arid, status: str):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.put(
+            self.__base_url() + f'/answers/reports/{arid}',
+            json = {
+                'status': status
+            },
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
+
+    def put_comment_report(self, token, crid, status: str):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.put(
+            self.__base_url() + f'/comments/reports/{crid}',
+            json = {
+                'status': status
+            },
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
