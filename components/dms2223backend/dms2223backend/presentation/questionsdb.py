@@ -71,7 +71,7 @@ def new_question() -> tuple[dict, HTTPStatus]:
 
 # Question{qid} GET
 # Recibe como parámetro: QuestionIdPathParam
-def get_question(qid: int):
+def get_question(qid: int) -> tuple[dict, HTTPStatus]:
 	# Si existe, la obtenemos
 	if qid in QUESTIONS_DB:
 		return QUESTIONS_DB.get(qid), HTTPStatus.OK
