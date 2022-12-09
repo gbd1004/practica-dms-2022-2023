@@ -2,7 +2,7 @@
 """
 
 from typing import Text, Union
-from flask import redirect, url_for, session, render_template
+from flask import redirect, url_for, session, render_template, request
 from werkzeug.wrappers import Response
 from dms2223common.data import Role
 from dms2223frontend.data.rest.authservice import AuthService
@@ -46,3 +46,71 @@ class ModeratorEndpoints():
 
         return render_template('moderator.html', name=name, roles=session['roles'], 
             question_reports=question_reports, answer_reports=answer_reports, comment_reports=comment_reports)
+
+    @staticmethod
+    def put_accept_question_report(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        qrid = request.form.get('qrid')
+        response: ResponseData = backend_service.put_question_report(session.get('token'), qrid=qrid , status="ACCEPTED")
+        WebUtils.flash_response_messages(response)
+
+        return redirect(url_for('get_moderator'))
+
+    @staticmethod
+    def put_deny_question_report(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        response: ResponseData = backend_service.put_question_report(session.get('token'), "REJECTED")
+
+        return
+
+    @staticmethod
+    def put_accept_answer_report(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        response: ResponseData = backend_service.put_answer_report(session.get('token'))
+
+        return
+
+    @staticmethod
+    def put_deny_answer_report(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        response: ResponseData = backend_service.put_answer_report(session.get('token'))
+
+        return
+
+    @staticmethod
+    def put_accept_comment_report(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        response: ResponseData = backend_service.put_comment_report(session.get('token'))
+
+        return
+
+    @staticmethod
+    def put_deny_comment_report(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.MODERATION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+
+        response: ResponseData = backend_service.put_comment_report(session.get('token'))
+
+        return

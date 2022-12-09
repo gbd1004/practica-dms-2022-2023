@@ -148,27 +148,27 @@ def post_new_comment_vote():
 
 @app.route("/accept_question_report", methods=['PUT'])
 def put_accept_question_report():
-    return ModeratorEndpoints.accept_question_report(backend_service, auth_service)
+    return ModeratorEndpoints.put_accept_question_report(backend_service, auth_service)
 
 @app.route("/deny_question_report", methods=['PUT'])
 def put_deny_question_report():
-    return ModeratorEndpoints.deny_question_report(backend_service, auth_service)
+    return ModeratorEndpoints.put_deny_question_report(backend_service, auth_service)
 
 @app.route("/accept_answer_report", methods=['PUT'])
 def put_accept_answer_report():
-    return ModeratorEndpoints.accept_answer_report(backend_service, auth_service)
+    return ModeratorEndpoints.put_accept_answer_report(backend_service, auth_service)
 
 @app.route("/deny_answer_report", methods=['PUT'])
 def put_deny_answer_report():
-    return ModeratorEndpoints.deny_answer_report(backend_service, auth_service)
+    return ModeratorEndpoints.put_deny_answer_report(backend_service, auth_service)
 
 @app.route("/accept_comment_report", methods=['PUT'])
 def put_accept_comment_report():
-    return ModeratorEndpoints.accept_comment_report(backend_service, auth_service)
+    return ModeratorEndpoints.put_accept_comment_report(backend_service, auth_service)
 
 @app.route("/deny_comment_report", methods=['PUT'])
 def put_deny_comment_report():
-    return ModeratorEndpoints.deny_comment_report(backend_service, auth_service)
+    return ModeratorEndpoints.put_deny_comment_report(backend_service, auth_service)
     
     
 

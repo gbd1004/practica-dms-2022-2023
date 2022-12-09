@@ -307,3 +307,23 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
         return response_data
+
+    def put_question_report(self, token, qrid, status: str):
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.put(
+            self.__base_url() + f'/questions/reports/{qrid}',
+            json = {
+                'status': status
+            },
+            headers= {
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            },
+            timeout=60
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+        return response_data
