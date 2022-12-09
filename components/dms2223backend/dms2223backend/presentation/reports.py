@@ -134,7 +134,7 @@ def get_questions_reports() -> tuple[dict, HTTPStatus]:
 
 def get_answers_reports() -> tuple[dict, HTTPStatus]:
     with current_app.app_context():
-	    return REPORTS_Q_DB, HTTPStatus.OK
+	    return REPORTS_A_DB, HTTPStatus.OK
 
 def get_comments_reports() -> tuple[dict, HTTPStatus]:
     with current_app.app_context():

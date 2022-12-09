@@ -70,6 +70,7 @@ ANSWERS_DB = {
         },
         'comms': {
             1:{
+                'cid':3,
                 'aid':1,
                 'timestamp': 1665575289,
                 'body': 'Soy otro comentario',
@@ -113,11 +114,11 @@ def new_answer(qid:int, body: dict) -> tuple[dict, HTTPStatus]:
     return {"TEMPORAL":1}, HTTPStatus.OK
 
 # TODO
-def vote_answer(aid: int, vote: int) -> tuple[dict, HTTPStatus]:
+def vote_answer(aid: int, body: dict) -> tuple[dict, HTTPStatus]:
     return {"TEMPORAL":1}, HTTPStatus.OK
 
 # TODO
-def vote_comment(aid: int, cid: int, vote: int) -> tuple[dict, HTTPStatus]:
+def vote_comment(cid: int) -> tuple[dict, HTTPStatus]:
     return {"TEMPORAL":1}, HTTPStatus.OK
 
 # TODO

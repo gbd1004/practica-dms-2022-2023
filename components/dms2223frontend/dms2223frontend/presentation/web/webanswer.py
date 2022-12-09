@@ -30,7 +30,13 @@ class WebAnswer():
         return response.get_content()
 
     @staticmethod
-    def new_vote(backend_service: BackendService, aid: int, user: str):
+    def new_answer_vote(backend_service: BackendService, aid: int):
         response: ResponseData = backend_service.new_answer_vote(session.get('token'), aid=aid)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()
+
+    @staticmethod
+    def new_comment_vote(backend_service: BackendService, cid: int):
+        response: ResponseData = backend_service.new_comment_vote(session.get('token'), cid=cid)
         WebUtils.flash_response_messages(response)
         return response.get_content()

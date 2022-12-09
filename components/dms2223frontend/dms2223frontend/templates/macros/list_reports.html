@@ -8,8 +8,7 @@
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        <li>{{ report_questions(item) }}</li>
-        {# <li>{{ item }}</li> #}
+        {{ report_questions(item) }}
     {%- endfor -%}
     {%- if ordered -%}
         </ol>
@@ -24,8 +23,7 @@
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        <li>{{ report_answers(item) }}</li>
-        {# <li>{{ item }}</li> #}
+        {{ report_answers(item) }}
     {%- endfor -%}
     {%- if ordered -%}
         </ol>
@@ -40,8 +38,7 @@
         <ul>
     {%- endif -%}
     {%- for item in items -%}
-        <li>{{ report_comments(item) }}</li>
-        {# <li>{{ item }}</li> #}
+        {{ report_comments(item) }}
     {%- endfor -%}
     {%- if ordered -%}
         </ol>

@@ -60,7 +60,7 @@ def get_questions() -> tuple[dict, HTTPStatus]:
 
 
 # Question POST
-def new_question(entrada) -> tuple[dict, HTTPStatus]:
+def new_question() -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 	# NOTA: el parámetro entrada 'body' deberá tener: 

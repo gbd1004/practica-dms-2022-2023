@@ -228,6 +228,20 @@ class AnswerEndpoints():
             return redirect(url_for('get_home'))
         
         aid = request.form.get('aid')
+        qid = request.form.get('qid')
 
-        WebAnswer.new_vote(backend_service, aid)
+        WebAnswer.new_answer_vote(backend_service, aid)
+        return redirect("/questions/answers?qid=" + str(qid))
 
+    @staticmethod
+    def post_new_comment_vote(backend_service: BackendService, auth_service: AuthService):
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        
+        cid = request.form.get('cid')
+        qid = request.form.get('qid')
+
+        WebAnswer.new_comment_vote(backend_service, cid)
+        return redirect("/questions/answers?qid=" + str(qid))

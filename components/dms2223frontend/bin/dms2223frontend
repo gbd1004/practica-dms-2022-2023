@@ -142,9 +142,9 @@ def get_new_report_comment():
 def post_new_answer_vote():
     return AnswerEndpoints.post_new_answer_vote(backend_service, auth_service)
     
-    
-    
-    
+@app.route("/new_comment_vote", methods=['POST'])
+def post_new_comment_vote():
+    return AnswerEndpoints.post_new_comment_vote(backend_service, auth_service)
 
     
     
