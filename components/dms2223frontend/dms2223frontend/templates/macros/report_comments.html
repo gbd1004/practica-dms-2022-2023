@@ -1,4 +1,4 @@
-{% from "macros/buttons.html" import button %}
+{% from "macros/buttons.html" import submit_button %}
 {% macro report_comments(report) %}
     <div style="border:1px solid black;">
         <p> cid: {{ report['cid']}}</p>
@@ -8,8 +8,12 @@
         <p> Estado: {{report['status']}}</p>
         <!-- <p>{{ button('bluebg', "/question/"+report['qid']|string()+"/answers", 'Ver respuestas (no funciona)',) }}</p> -->
         {%- if report['status'] == "PENDING" -%}
-            <p>{{ button('bluebg', "#", 'Aceptar reporte',) }}</p>
-            <p>{{ button('bluebg', "#", 'Rechazar reporte',) }}</p>
+            <form action="/accept_cr" method="put">
+                <p>{{ submit_button('bluebg', 'Aceptar reporte',) }}</p>
+            </form>
+            <form action="/deny_cr" method="put">
+                <p>{{ submit_button('bluebg', 'Rechazar reporte',) }}</p>
+            </form>
         {%- endif -%}
     </div>
     
