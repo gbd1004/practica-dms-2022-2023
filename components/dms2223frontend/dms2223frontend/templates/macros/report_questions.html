@@ -6,13 +6,14 @@
         <p> Fecha: {{ report['timestamp'] | ctime}}</p>  
         <p> Usuario que hizo el reporte {{ report['owner']['username'] }}</p>
         <p> Estado: {{report['status']}}</p>
-        <!-- <p>{{ button('bluebg', "/question/"+report['qid']|string()+"/answers", 'Ver respuestas (no funciona)',) }}</p> -->
         {%- if report['status'] == "PENDING" -%}
-            <form action="/accept_qr" method="put">
+            <form action="/accept_question_report" method="put">
                 <p>{{ submit_button('bluebg', 'Aceptar reporte',) }}</p>
+                <input type="hidden" name="qrid" value="{{ report['qrid'] }}">
             </form>
-            <form action="/deny_qr" method="put">
+            <form action="/deny_question_report" method="put">
                 <p>{{ submit_button('bluebg', 'Rechazar reporte',) }}</p>
+                <input type="hidden" name="qrid" value="{{ report['qrid'] }}">
             </form>
         {%- endif -%}
     </div>

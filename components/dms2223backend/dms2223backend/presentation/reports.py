@@ -13,6 +13,7 @@ from flask import current_app
 REPORTS_Q_DB:dict = {
 	1: {
         #'id' : 1, ¿necesario?
+        'qrid': 1,
         'qid': 1, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'Porque si',
@@ -24,6 +25,7 @@ REPORTS_Q_DB:dict = {
 
 	2: {
         #'id' : 1, ¿necesario?
+        'qrid': 3,
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'El que ha hecho el post me caia mal',
@@ -35,6 +37,7 @@ REPORTS_Q_DB:dict = {
 
     3: {
         #'id' : 1, ¿necesario?
+        'qrid': 3,
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'Feeling cute, might report later',
@@ -47,6 +50,7 @@ REPORTS_Q_DB:dict = {
 
 REPORTS_A_DB:dict = {
     1: {
+        'qrid': 4,
         'aid': 1,
         'timestamp': 2665574089.0,
         'reason': 'Unrelated to the question',
@@ -59,6 +63,7 @@ REPORTS_A_DB:dict = {
 
 REPORTS_C_DB:dict = {
     1: {
+        'qrid': 5,
         'cid': 1,
         'timestamp': 2665574089.0,
         'reason': 'Reasons',
