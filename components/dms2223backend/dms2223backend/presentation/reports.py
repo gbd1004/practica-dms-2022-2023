@@ -25,7 +25,7 @@ REPORTS_Q_DB:dict = {
 
 	2: {
         #'id' : 1, ¿necesario?
-        'qrid': 3,
+        'qrid': 2,
         'qid': 2, # Foreign Key
         'timestamp': 2665574089.0,
         'reason': 'El que ha hecho el post me caia mal',
@@ -50,11 +50,11 @@ REPORTS_Q_DB:dict = {
 
 REPORTS_A_DB:dict = {
     1: {
-        'qrid': 4,
+        'arid': 1,
         'aid': 1,
         'timestamp': 2665574089.0,
         'reason': 'Unrelated to the question',
-        'status': ReportStatus.ACCEPTED.name,
+        'status': ReportStatus.PENDING.name,
         'owner':{
             'username' : 'user4'
         }
@@ -63,7 +63,7 @@ REPORTS_A_DB:dict = {
 
 REPORTS_C_DB:dict = {
     1: {
-        'qrid': 5,
+        'crid': 1,
         'cid': 1,
         'timestamp': 2665574089.0,
         'reason': 'Reasons',

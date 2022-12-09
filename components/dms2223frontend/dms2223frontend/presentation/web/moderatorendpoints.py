@@ -80,8 +80,8 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        qaid = request.form.get('qaid')
-        response: ResponseData = backend_service.put_question_report(session.get('token'), qaid=qaid , status="ACCEPTED")
+        arid = request.form.get('arid')
+        response: ResponseData = backend_service.put_answer_report(session.get('token'), arid=arid , status="ACCEPTED")
         WebUtils.flash_response_messages(response)
 
         return redirect("/moderator")
@@ -93,8 +93,8 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
-        qaid = request.form.get('qaid')
-        response: ResponseData = backend_service.put_question_report(session.get('token'), qaid=qaid , status="REJECTED")
+        arid = request.form.get('arid')
+        response: ResponseData = backend_service.put_answer_report(session.get('token'), arid=arid , status="REJECTED")
         WebUtils.flash_response_messages(response)
 
         return redirect("/moderator")
@@ -107,7 +107,7 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
 
         crid = request.form.get('crid')
-        response: ResponseData = backend_service.put_question_report(session.get('token'), crid=crid , status="ACCEPTED")
+        response: ResponseData = backend_service.put_comment_report(session.get('token'), crid=crid , status="ACCEPTED")
         WebUtils.flash_response_messages(response)
 
         return redirect("/moderator")
@@ -120,7 +120,7 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
 
         crid = request.form.get('crid')
-        response: ResponseData = backend_service.put_question_report(session.get('token'), crid=crid , status="REJECTED")
+        response: ResponseData = backend_service.put_comment_report(session.get('token'), crid=crid , status="REJECTED")
         WebUtils.flash_response_messages(response)
 
         return redirect("/moderator")
