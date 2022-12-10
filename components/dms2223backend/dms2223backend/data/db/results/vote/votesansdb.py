@@ -2,7 +2,6 @@
 Answer votes class module.
 """
 
-from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
 from dms2223backend.data.db.results.vote.votesdb import Votes
 
@@ -42,12 +41,6 @@ class VotesAns(Votes):
             Column('user', String(64), nullable=False)
         )
 
-    # Método con el que posteriormente se puede actualizar el número de votos 
-    # Se empleará cada vez que se cree un voto -> IMPORTANTE
-    @staticmethod
-    def num_votes(session: Session, id:int, type:str) -> int:
-        num = session.query(Votes).filter(Votes.id == id)
-        return num.count()
 
     # El discriminante "type" se decanta por "answer"
     __mapper_args__ = {

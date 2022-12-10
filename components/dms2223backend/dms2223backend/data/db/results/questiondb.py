@@ -18,7 +18,7 @@ class Question(ResultBase):
     """ Definition and storage of question ORM records.
     """
 
-    def __init__(self, title: str, body: str):
+    def __init__(self, title: str, body: str, hidden: bool):
         """ Constructor method.
 
         Initializes a question record.
@@ -29,12 +29,14 @@ class Question(ResultBase):
             - body (str) : A string with the question's body.
             - timestamp (datetime.timestamp) : The question's creation date.
             - owner (str) : A string with the question's owner.
+            - hidden (bool) : A boolean for moderators to hide items.
         """
         self.qid: int
         self.title: str = title
         self.body: str = body
         self.timestamp: datetime.timestamp
         self.owner: str
+        self.hidden: bool = hidden
 
 
 
@@ -56,7 +58,8 @@ class Question(ResultBase):
             Column('title', String(64), nullable=False),
             Column('body', String(200), nullable=True),
             Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
-            Column('owner', String(64), nullable=False, default=AuthService.get_user()) # TODO: Revisar en servicios
+            Column('owner', String(64), nullable=False, default=AuthService.get_user()),
+            Column('hidden', bool, nullable=False, default=False)
         )
 
     @staticmethod

@@ -56,7 +56,7 @@ class ReportAnswer(Report):
             Column('status', Enum(ReportStatus), default=ReportStatus.PENDING.name, nullable=False),#TODO: on-update?
             Column('reason', String(300), nullable=False),
             Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
-            Column('owner', String(64), nullable=False, default=AuthService.get_user()) # TODO: Revisar en servicios
+            Column('owner', String(64), nullable=False, default=AuthService.get_user()) 
         )
 
 

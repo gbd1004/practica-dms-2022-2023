@@ -44,6 +44,22 @@ class Questions():
 
 
     @staticmethod
+    def get_question(session: Session, qid:int) -> Question:
+        """Gets a particular question.
+
+        Args:
+            - session (Session): The session object.
+            - qid (int): The question's qid
+
+        Returns:
+            - Question: Expected `Question` register.
+        """
+        
+        query = session.query(Question).where(Question.qid == qid)
+        return query
+
+
+    @staticmethod
     def list_all(session: Session) -> List[Question]:
         """Lists every question.
 
@@ -54,7 +70,7 @@ class Questions():
             - List[Question]: A list of `Question` registers.
         """
         
-        query = session.query(Question.title, Question.timestamp, Question.owner)
+        query = session.query(Question)
         return query.all()
 
 

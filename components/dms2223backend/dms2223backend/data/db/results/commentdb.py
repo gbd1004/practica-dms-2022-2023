@@ -20,7 +20,7 @@ class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
     """
 
-    def __init__(self, aid: int, body: str, sentiment: Sentiment, auth_service: AuthService):
+    def __init__(self, aid: int, body: str, sentiment: Sentiment, auth_service: AuthService, hidden:bool):
         """ Constructor method.
 
         Initializes a comment record.
@@ -32,6 +32,7 @@ class Comment(ResultBase):
             - body (str) : A string with the comment's body.
             - owner (str) : A string with the comment's owner.
             - sentiment (enum): A enumerated type with the comment's sentiment.
+            - hidden (bool) : A boolean for moderators to hide items
         """
         self.id: int
         self.aid: int = aid
@@ -39,7 +40,8 @@ class Comment(ResultBase):
         self.timestamp: datetime.timestamp
         self.owner: str 
         self.sentiment: Sentiment = sentiment
-        self.votes: int
+        self.hidden: bool = hidden
+
 
 
 
@@ -64,7 +66,7 @@ class Comment(ResultBase):
             Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
             Column('owner', String(64), nullable=False, default=AuthService.get_user()),
             Column('sentiment', Enum(Sentiment), nullable=True), 
-            Column('votes', int, nullable=True,onupdate=VotesComm.num_votes(Session,Comment.id))
+            Column('hidden', bool, nullable=False, default=False)
         )
 
     @staticmethod
@@ -74,6 +76,11 @@ class Comment(ResultBase):
             'comment_vote': relationship(VotesComm, backref='id'),
             'comment_report': relationship(ReportComment, backref='id')
         }
+
+    # Método con el que posteriormente se puede actualizar el número de votos 
+    def get_num_votes(self, session: Session) -> int:
+        num_votes = session.query(VotesComm).filter(VotesComm.id == self.id)
+        return num_votes.count()
 
 
     

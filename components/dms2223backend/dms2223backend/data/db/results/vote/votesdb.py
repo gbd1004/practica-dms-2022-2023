@@ -43,7 +43,6 @@ class Votes(ResultBase):
             Column('user', String(64), nullable=False)
         )
 
-    # TODO: comprobar si esta expresión es correcta
     __mapper_args__ = {
         #'polymorphic_identity':'votes',
         "polymorphic_on":case(

@@ -20,7 +20,7 @@ class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
     """
 
-    def __init__(self, qid: int, body: str):
+    def __init__(self, qid: int, body: str, hidden: bool):
         """ Constructor method.
 
         Initializes a answer record.
@@ -31,14 +31,14 @@ class Answer(ResultBase):
             - timestamp (datetime.timestamp) : The answer's creation date.
             - body (str) : A string with the answer's body.
             - owner (str) : A string with the answer's owner.
-            - votes (int) : A integer with the number of votes.
+            - hidden (bool) : A boolean for moderators to hide items.
         """
         self.aid: int
         self.qid: int = qid
         self.body: str = body
         self.timestamp: datetime.timestamp
         self.owner: str
-        self.votes: int = 0
+        self.hidden: bool = hidden
 
 
 
@@ -61,7 +61,7 @@ class Answer(ResultBase):
             Column('body', String(200), nullable=True),
             Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
             Column('owner', String(64), nullable=False, default=AuthService.get_user()),
-            Column('votes', int, nullable=True, onupdate=VotesAns.num_votes(Session,Answer.aid))
+            Column('hidden', bool, nullable=False, default=False)
         )
     
 
@@ -75,10 +75,12 @@ class Answer(ResultBase):
             'answer_votes': relationship(VotesAns, backref='aid'),
             'answer_reports': relationship(ReportAnswer, backref='aid')
         }
-
     
 
-        
+    # Método con el que posteriormente se puede actualizar el número de votos 
+    def get_num_votes(self, session: Session) -> int:
+        num_votes = session.query(VotesAns).filter(VotesAns.id == self.aid)
+        return num_votes.count()
 
 
 
