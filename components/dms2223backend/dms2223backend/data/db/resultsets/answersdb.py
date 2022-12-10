@@ -17,7 +17,7 @@ class Answers():
     """ Class responsible of table-level answers operations.
     """
     @staticmethod
-    def create(session: Session, body: str) -> Answer:
+    def create(session: Session, qid:int, body: str) -> Answer:
         """ Creates a new answer record.
 
         Note:
@@ -26,38 +26,47 @@ class Answers():
         Args:
             - session (Session): The session object.
             - body (str): The answer's body.
-
-        Raises:
-            - ValueError: If the title is empty.
-            - QuestionNotFound: If the referenced question do not exists.
+            - qid (int): The question's qid.
 
         Returns:
             - Answer: The created `Answer` result.
         """
 
-        new_answer = Answer(session, body)
+        new_answer = Answer(qid, body)
 
-        # TODO: no creo que con list_all no valga
-        if not new_answer.qid in Questions.list_all():
-            raise ValueError('No existe una pregunta con ese identificador')
         
         session.add(new_answer)
         session.commit()
         return new_answer
 
+    @staticmethod
+    def get_answer(session: Session, aid:int) -> Answer:
+        """Gets a particular answer.
+
+        Args:
+            - session (Session): The session object.
+            - aid (int): The answer's id
+
+        Returns:
+            - Answer: Expected `Answer` register.
+        """
+        
+        query = session.query(Answer).where(Answer.aid == aid)
+        return query
 
     @staticmethod
-    def list_all(session: Session) -> List[Answer]:
+    def list_all(session: Session, qid:int) -> List[Answer]:
         """Lists every answer.
 
         Args:
             - session (Session): The session object.
+            - qid (int): The question's qid.
 
         Returns:
             - List[Answer]: A list of `Answer` registers.
         """
         
-        query = session.query(Answer)
+        query = session.query(Answer).filter(Answer.qid == qid)
         return query.all()
 
 

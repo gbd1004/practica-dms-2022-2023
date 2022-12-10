@@ -9,7 +9,7 @@ from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: igno
 from sqlalchemy.orm import relationship
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
-from dms2223backend.data.db.results.vote.votesansdb import VotesAns
+from dms2223backend.data.db.results.vote.voteansdb import VotesAns
 from dms2223backend.data.db.results.commentdb import Comment
 from dms2223backend.service.authservice import AuthService
 
@@ -39,10 +39,6 @@ class Answer(ResultBase):
         self.timestamp: datetime.timestamp
         self.owner: str
         self.hidden: bool = hidden
-
-
-
-
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:

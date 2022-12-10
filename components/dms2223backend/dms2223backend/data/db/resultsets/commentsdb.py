@@ -43,6 +43,20 @@ class Comments():
         session.commit()
         return new_comm
 
+    @staticmethod
+    def get_comment(session: Session, cid:int) -> Comment:
+        """Gets a particular commentt.
+
+        Args:
+            - session (Session): The session object.
+            - cid (int): The comment's id
+
+        Returns:
+            - Comment: Expected `Comment` register.
+        """
+        
+        query = session.query(Comment).where(Comment.id == cid)
+        return query
 
     @staticmethod
     def list_all(session: Session) -> List[Comment]:

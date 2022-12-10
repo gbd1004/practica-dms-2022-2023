@@ -52,13 +52,14 @@ class QuestionServices():
         session: Session = schema.new_session()
         question: Question = Questions.get_question(session,qid)
         out: Dict = {}
-        out['qid'] = {
-                    'qid': question.qid,
-                    'title': question.title,
-                    'body': question.body,
-                    'timestamp': question.timestamp,
-                    'owner': {'username': question.owner}
-        }
+        if question.hidden == False:
+            out['qid'] = {
+                        'qid': question.qid,
+                        'title': question.title,
+                        'body': question.body,
+                        'timestamp': question.timestamp,
+                        'owner': {'username': question.owner}
+            }
         schema.remove_session()
         return out
 
@@ -97,3 +98,23 @@ class QuestionServices():
         finally:
             schema.remove_session()
         return out
+    
+    @staticmethod
+    def hide_question(schema: Schema, qid: int):
+        """Hides the question with the same parameter qid.
+
+        Args:
+            - qid (int): The question's qid.
+            - schema (Schema): A database handler where the users are mapped into.
+        
+        """
+        session: Session = schema.new_session()
+        
+        question: Question = Questions.get_question(session,qid)
+        question.hidden = True
+        
+        # Actualizamos la pregunta
+        session.add(question)
+        session.commit()
+
+        schema.remove_session()

@@ -1,13 +1,15 @@
 """ 
-QuestionServices class module.
+AnswerServices class module.
 """
 
 from ast import Dict
 from typing import List
-from sqlalchemy.orm.session import Session  # type: ignore
-from dms2223backend.data.db.resultsets.questionsdb import Questions
+from sqlalchemy.orm.session import Session
+from dms2223backend.data.db.results.vote.votedb import Votes  # type: ignore
+from dms2223backend.data.db.resultsets.answersdb import Answers
+from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
 from dms2223backend.data.db.schema import Schema
-from dms2223backend.data.db.results.questiondb import Question
+from dms2223backend.data.db.results.answerdb import Answer
 
 
 class AnswerServices():
@@ -16,80 +18,79 @@ class AnswerServices():
     """
 
     @staticmethod
-    def get_questions(schema: Schema) -> List[Dict]:
-        """Lists the existing questions.
+    def get_answers(schema: Schema, qid:int) -> List[Dict]:
+        """Lists the existing answers.
 
         Args:
-            - schema (Schema): A database handler where the quuestions are mapped into.
+            - schema (Schema): A database handler where the answers are mapped into.
 
         Returns:
-            - List[Dict]: A list of dictionaries with the quuestions' data.
+            - List[Dict]: A list of dictionaries with the answers' data.
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        questions: List[Question] = Questions.list_all(session)
-        for q in questions:
-            if q.hidden == False:
+        answers: List[Answer] = Answers.list_all(session,qid)
+        for a in answers:
+            if a.hidden == False:
                 out.append({
-                    'qid': q.qid,
-                    'title': q.title,
-                    'timestamp': q.timestamp
+                    'aid': a.aid,
+                    'qid': a.qid,
+                    'timestamp': a.timestamp,
+                    'body' : a.body,
+                    'owner': {'username':a.owner},
+                    'votes': a.get_num_votes(session)
                 })
         schema.remove_session()
         return out
 
     @staticmethod
-    def get_question(schema: Schema, qid: int) -> Dict:
-        """Gets the question with the same parameter qid.
+    def get_votes(schema: Schema, aid:int) -> Dict:
+        """Lists the existing answer's votes.
 
         Args:
-            - qid (int): The question's qid.
-            - schema (Schema): A database handler where the users are mapped into.
-        
+            - schema (Schema): A database handler where the answers are mapped into.
+
         Returns:
-            - Dict: A dictionary with the question's data.        
+            - Dict: A dictionary with the votes' data.
         """
-        session: Session = schema.new_session()
-        question: Question = Questions.get_question(session,qid)
         out: Dict = {}
-        out['qid'] = {
-                    'qid': question.qid,
-                    'title': question.title,
-                    'body': question.body,
-                    'timestamp': question.timestamp,
-                    'owner': {'username': question.owner}
-        }
+        session: Session = schema.new_session()
+        answer: Answer = Answers.get_answer(session,aid)
+        if answer.hidden == False:
+            votes: VotesSet.list_all(session, "voteanswer", aid)
+            for v in votes:
+                #TODO: revisar
+                out[v.user] = True
         schema.remove_session()
         return out
 
 
     @staticmethod
-    def create_question(title: str, body: str,schema: Schema) -> Dict:
-        """Creates a new question.
+    def create_answer(qid: int, body: str,schema: Schema) -> Dict:
+        """Creates a new answer.
 
         Args:
-            - title (str): The new question's title.
-            - body (str): The new question's body.
-            - schema (Schema): A database handler where the users are mapped into.
+            - body (str): The answer's body.
+            - qid (int): The question's qid.
 
         Raises:
             - ValueError: If either the username or the password_hash is empty.
-            - UserExistsError: If a user with the same username already exists.
 
         Returns:
-            - Dict: A dictionary with the new question's data.
+            - Dict: A dictionary with the new answer's data.
         """
 
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_question: Question = Question.create(session, title, body)
-            out['qid'] = {
-                    'qid': new_question.qid,
-                    'title': new_question.title,
-                    'body': new_question.body,
-                    'timestamp': new_question.timestamp,
-                    'owner': {'username': new_question.owner}
+            new_answer: Answer = Answers.create(session, qid, body)
+            out['aid'] = {
+                    'aid': new_answer.aid,
+                    'qid': new_answer.qid,
+                    'timestamp': new_answer.timestamp,
+                    'body' : new_answer.body,
+                    'owner': {'username':new_answer.owner},
+                    'votes': new_answer.get_num_votes(session)
             }
             
         except Exception as ex:
@@ -97,3 +98,54 @@ class AnswerServices():
         finally:
             schema.remove_session()
         return out
+
+
+    @staticmethod
+    def hide_answer(schema: Schema, aid: int):
+        """Hides the answer with the same parameter aid.
+
+        Args:
+            - aid (int): The answer's aid.
+            - schema (Schema): A database handler where the answers are mapped into.
+        
+        """
+        session: Session = schema.new_session()
+        
+        answer: Answer = Answers.get_answer(session,aid)
+        answer.hidden = True
+
+        # Actualizamos la respuesta
+        session.add(answer)
+        session.commit()
+
+        schema.remove_session()
+    
+    @staticmethod
+    def vote_answer(schema: Schema, aid: int) -> bool:
+        """Add a vote to the answer with the same parameter aid.
+
+        Args:
+            - aid (int): The answer's aid.
+            - schema (Schema): A database handler where the answers are mapped into.
+        
+        """
+        session: Session = schema.new_session()
+        
+        # Se guarda el número inicial de votos para comprobar que la operación es exitosa
+        answer: Answer = Answers.get_answer(session,aid)
+        prev_vote = answer.get_num_votes(session)
+
+        # Se añade el nuevo voto
+        new_vote: Votes = Votes(aid, "voteanswer", answer.owner)
+        session.add(new_vote)
+        session.commit()
+        schema.remove_session()
+
+        # Comprobamos que la operación es exitosa
+        if(answer.get_num_votes == prev_vote):
+            return True
+        else:
+            return False
+    
+
+        

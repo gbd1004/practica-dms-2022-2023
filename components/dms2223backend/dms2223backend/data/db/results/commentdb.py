@@ -10,7 +10,7 @@ from sqlalchemy.orm import relationship
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.service.authservice import AuthService
-from dms2223backend.data.db.results.vote.votescommdb import VotesComm
+from dms2223backend.data.db.results.vote.votecommdb import VotesComm
 from dms2223backend.data.sentiment import Sentiment
 
 
@@ -20,7 +20,7 @@ class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
     """
 
-    def __init__(self, aid: int, body: str, sentiment: Sentiment, auth_service: AuthService, hidden:bool):
+    def __init__(self, aid: int, body: str, sentiment: Sentiment, hidden:bool):
         """ Constructor method.
 
         Initializes a comment record.
@@ -41,12 +41,6 @@ class Comment(ResultBase):
         self.owner: str 
         self.sentiment: Sentiment = sentiment
         self.hidden: bool = hidden
-
-
-
-
-
-
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:

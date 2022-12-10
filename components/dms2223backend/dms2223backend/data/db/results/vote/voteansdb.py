@@ -3,7 +3,7 @@ Answer votes class module.
 """
 
 from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
-from dms2223backend.data.db.results.vote.votesdb import Votes
+from dms2223backend.data.db.results.vote.votedb import Votes
 
 
 
