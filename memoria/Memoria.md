@@ -1,78 +1,144 @@
-# **PRÁCTICA 01**
+
+<div>
+    <font size = "20">
+        <b>PRÁCTICA 01</b>
+    </font>
+</div>
+
+
+<br/>
+<br/>
+
+___
+---
+
+<br/>
+<br/>
+
 En el presente documento se redactará el informe sobre la práctica 01 de la asignatura de Diseño y mantenimiento del software.
 
-## Alumnos
+<div>
+     <font size = "5">
+    <b>
+    Alumnos
+    </b>
+    </font>
+</div>
+
 El grupo de alumnos que realizará la práctica está compuesto por:
 * Guillermo Arcal García (gag1005@alu.ubu.es)
 * Gonzalo Burgos de la Hera (gbd1004@alu.ubu.es)
 * Santiago Díaz Gómez-Guillamón (sdg1002@alu.ubu.es)
 * Gadea Lucas  Pérez (glp1002@alu.ubu.es)
 
-## Repositorio
+<div>
+     <font size = "5">
+    <b>
+    Tabla de contenido
+    </b>
+    </font>
+</div>
+
+- [**Diseño Frontend**](#diseño-frontend)
+  - [**Arquitectura de dos niveles (Documento-Vista)**](#arquitectura-de-dos-nivelesdocumento-vista)
+- [**Diseño Backend**](#diseño-backend)
+  - [**Arquitectura de tres capas**](#arquitectura-de-tres-capas)
+- [**Sobre Auth**](#sobre-auth)
+- [**Decisiones de diseño**](#decisiones-de-diseño)
+  - [***Patrón fachada***](#patrón-fachada)
+  - [***Aspecto reports***](#aspecto-reports)
+  - [***Votos***](#votos)
+- [**De cara al futuro**](#de-cara-al-futuro)
+- [**BIBLIOGRAFÍA**](#bibliografía)
+  
+<div>
+    <font size = "5">
+        <b>Repositorio</b>
+    </font>
+</div>
+
 El _fork_ del repoositorio usado por los alumnos es el siguiente:  https://github.com/gbd1004/practica-dms-2022-2023.
 
+
+<br/>
+<br/>
+
+---
 ___
 
+<br/>
+<br/>
+<!-- # Memoria -->
+<h1 style="border-bottom: none">
+    <b>Memoria</b>
+</h1>
 
-## Memoria
 A continuación se explicarán las decisiones de diseño tomadas a lo largo de la práctica con su justificación correspondiente.
 
-## Tabla de contenido
-1. [Arquitectura escogida](# "Arquitectura escogida")
-2. [Diseño Frontend](# "Diseño Frontend")
-3. [Diseño de Backend](# "Diseño Backend")
-4. [Sobre Auth](# "Sobre Auth")
-5. [Patrones de diseño](# "Patrones de diseño") 
-    5.1. [Patron Fachada](## "Patrón Fachada")
-    5.2. [Aspecto reports](## "Aspecto reports")
-6. [Decisiones de diseño](# "Decisiones de diseño")
-    6.1. [Base de datos](## "Base de datos")
-7. [De cara a la siguiente entrega](# "De cara a la siguiente entrega")
-8. [Bibliografía](#Bibliografía)
-
-### Arquitectura escogida
-Recordemos que definir la arquitectura de un sistema consiste en establacer qué componentes forman parte de dicho sistema, qué responsabilidades tienen y las relaciones de dependencia y de uso que hay entre ellos. En este caso, se usará una arquitectura multicapa (i.e. se separan los componentes en distintas capas físicas). Estas capas están formadas por distintos subsistemas y están organizadas jerárquicamente siguiendo una dependencia siempre hacia capas inferiores. En otras palabras, una capa dependerá exclusivamente de las capas inferiores. Esta encapsulación permite la reutilización del código y permite mentener el principio DRY (_"Don't repeat yourself "_).
-
-Así pues, para la estructura general de esta aplicación, se ha mantenido la estructura de cuatro capas propuesta en el repositorio original, que corresponde con la arquitectura <span style="color:yellow">**Clean arquitechture**</span>. A saber, las cuatro capas son las siguientes: 
-1. **Capa de presentación:** Se encarga de soportar las distintas interacciones de los usuarios con las funcionalidades que se implementan en la capa de lógica de la aplicación. En esta capa, en conclusión, se muestra al usuario los elementos visuales y formularios. Esta capa no realiza cálculos, ya que su función es separar toda la programación web del resto de la aplicación.
-2. **Capa de lógica:** También conocida como capa de negocio. Se encarga de implementar las funcionalidades mencionadas en la capa anterior, que se encargan de aplicar las reglas de negocio y del manejo de los datos con los que el usuario interacciona.
-3. **Capa de servicio:** Se trata de una capa intermedia que consiste fundamentalmente en una **fachada**. De esta forma se logra desacoplar la interfaz de usuario del resto de subsistemas. La decisión de utilizar una arquitectura de cuatro capas frente a una de tres capas recae en esta capa de servicio, que nos permite evitar el inminente acoplamiento de una arquitectura con menos capas.
-4. **Capa de datos:** Esta es la capa inferior y el núcleo de la arquitectura. Se encarga de recuperar, almacenar y borrar (ocultar en nuestro caso) los datos de la aplicación.
-
-![Ilustración 1: Arquitectura de 4 capas](img/arq_4capas.png)
-
-En términos generales, las distintas capas corresponden a los siguientes paquetes:
-
-![Ilustración 2: Relación capa-paquete](img/relaciones.png)
-
-Se listan a continuación las razones por las que se ha decidido mantener esta estructura y no cambiarla por otra:
-* Gracias a esta arquitectura se puede mantener el principio SOLID  _"Single Responsability"_, ya que permite que cada capa tenga una única responsabilidad.
-* Esta arquitectura garantiza también el principio SOLID _"Dependency inversión"_, que nos permite evitar el desastroso efecto de que, al fallar una capa, el resto fallen en casacada.
-* Fácil implementación de la arquitectura. Además, nos permite localizar los fallos más fácilmente durante el proceso de programación el código.
-* Esta arquitectura tiene como característica una mejor seguridad dado el aislamiento y separación entre las capas.
 
 
-### Diseño Frontend
+
+
+##  **Diseño Frontend**
 En el _frontend_ se pueden distinguir las siguientes capas:
-1. **Capa de presentación:** En esta capa se implementan los métodos que hacen llamadas a las fachadas (_web controllers_).
-2. **Capa de datos:** En esta capa se hace llamada al ```backendservice``` (del que se hablará más adelante) y el ```authservice```, que funcionan a modo de fachadas para poder acceder a los subsistemas que poseen los datos de la API.
+1.  <ins>Capa de presentación:</ins> En esta capa se implementan los métodos que hacen llamadas a las fachadas (_web controllers_).
+2. <ins>Capa de datos:</ins> En esta capa se hace llamada al ```backendservice``` (del que se hablará más adelante) y el ```authservice```, que funcionan a modo de fachadas para poder acceder a los subsistemas que poseen los datos de la API.
 
 Por otro lado, en el _frontend_ también se encuentran los archivos HTML y el resto de programación web que conformará el aspecto de la página.
+
+
+###  **Arquitectura de dos niveles (Documento-Vista)**
+
+Una de las arquitecturas más tradicionales es la de dos capas, i.e.: [Cliente, servidor]. Como se ha mencionado ya, nuestro _frontend_ posee dos capas diferenciadas, por un lado, una capa a nivel de presentación y, por otro, una capa a nivel de datos. La lógica del _frontend_ está repartida entre el nivel de datos y el de presentación.
+
+![Ilustración 3: Arquitectura de dos capas.](img/arch_2ly.png)
+
 
 Para futuras modificaciones, se propone reutilizar el código de los ficheros HTML de _macros_. Para poder extender más fácilmente el código (principio SOLID __Open/Closed__) se haría uso del polimorfismo (herencia). Así pues, se crearía un fichero ```lists.html``` que funcionaría como una interfaz común de la que heredarían los subelementos ```list_questions.html```, ```list_answer.html```, ```list_comments.html```, etc... Se deberá tener en cuenta el principio ___Liskov's substitution___ de forma que se pueda sustituir una instancia de ```lists.html``` por una instancia de uno de los subelementos sin modificar el comportamiento del programa. De esta forma lograríamos reducir el fuerte acoplamiento actual y garantizaríamos que todas estas listas estén abiertas a su extensión (pero no a su modificación).
 
 
-### Diseño Backend
-Aunque por lo general el _backend_ suele tener tres capas (i.e.: servicio, negocio y datos), en ocasiones se incluye una capa superior de presentación, como se ha hecho en este caso. La razón de esta decisión recae en la naturaleza de la aplicación, i.e. una API REST. Así pues, en esta capa se incluyen los controladores REST.
+## **Diseño Backend**
+Aunque por lo general el _backend_ suele tener tres capas (i.e.: servicio, negocio y datos), en ocasiones se incluye una capa superior de presentación, como se ha hecho en este caso. La razón de esta decisión recae en la naturaleza de la aplicación, i.e. una API REST. Así pues, en esta capa se incluyen los controladores REST. Por otro lado, puesto que no se hace uso de la capa de servicios, finalmente, nos decidimos por una arquitectura de tres capas: [Presentación, Lógica, Datos]. 
 
 Así pues en la capa de _backend_ se pueden distinguir las siguientes capas:
-1. Capa de presentación: En la capa de presentación se encuentran aquellos métodos enfocados a que las acciones de los usuarios interactuen con el backend. Estos métodos se ejecutan en el servidor. Actualmente en esta capa también es encuentra la base de datos temporal que utilizamos en cambio de la definitiva ya que esa se hará durante la segunda entrega junto con el resto del backend.
-2. Capa de datos:  Actualmente esta capa no está implementada, ya que esto corresponde a una siguiente entrega.
-3. Capa de lógica: En la capa lógica, por lo general, se incluyen aquellas operaciones que permiten que los sitios web realicen operaciones en función de las acciones de los usuarios sobre los elementos de la página. Todo esto se ejecuta en los servidores aportando entradas y generando salidas. Puesto que estas funcionalidades no son parte de esta entrega inicial, no se ha implementado nada aún en esta capa.
-4. Capa de servicio: Esta capa se encuentra vacía actualmente, dado que su implementación queda pendiente para entregas posteriores.
+
+1. <ins>Capa de datos:</ins> En esta capa se implementa la BBDD local que soporta la API. Sin embargo, no se hace directamente a través de _scripts_ SQL, sino a trés de un ORM. En este caso, se ha hecho uso de SQLAlchemy, que permite, a través de código escrito en Python, mapear y relacionar objetos de la "BBDD". Otro detalle importante es la división de los resultados: _results_ y _resultsets_. En el primer módulo se encuentra la definición de las tablas y la representación de cada objeto. En el segundo módulo se encuentran aquellas sentencias SELECT que devuelven listas de registros, los crean o modifican.
+2. <ins>Capa de lógica:</ins> En esta capa se determina el manejo específico que la aplicación hace con los datos. En este nivel se procesa la información recopilada en el nivel de presentación contra otra información de la capa de datos (en el proceso, se añaden y modifican los registros).
+3. <ins>Capa de presentación:</ins> En la capa de presentación se encuentran aquellos métodos enfocados a que las acciones de los usuarios interactuen con el backend. Estos métodos se ejecutan en el servidor. En este caso, respetando las directivas del fichero ```spec.yml```, se da formato JSON a los datos obtenidos de la BBDD a través de la capa de lógica. De esta forma, el _frontend_ podrá manejar los datos de las respuestas de los métodos REST fácilmente (i.e.: diccionarios). Adicionalmente se devuelve también el código de respuesta HTTP.
 
 
-### Sobre Auth
+
+### **Arquitectura de tres capas**
+ En este caso, se usará una arquitectura multicapa (i.e. se separan los componentes en distintas capas físicas). Estas capas están formadas por distintos subsistemas y están organizadas jerárquicamente siguiendo una dependencia siempre hacia capas inferiores. En otras palabras, una capa dependerá exclusivamente de las capas inferiores. Esta encapsulación permite la reutilización del código y permite mentener el principio DRY (_"Don't repeat yourself "_).
+
+
+![Ilustración 1: Arquitectura de 3 capas](img/arq_3ly.png)
+
+
+Se listan a continuación las razones por las que se ha decidido cambiar la arquitectura del _backend_:
+* Gracias a esta arquitectura se puede mantener el principio SOLID  _"Single Responsability"_, ya que permite que cada capa tenga una única responsabilidad.
+* Fácil implementación de la arquitectura. Además, nos permite localizar los fallos más fácilmente durante el proceso de programación el código.
+* Los servicios de cada nivel se pueden personalizar y optimizar sin que afecte a los demás niveles (_Open/Close Principle_). 
+* Esta arquitectura tiene como característica una mejor seguridad dado el aislamiento y separación entre las capas (por ejemplo, evita las inyecciónes de código SQL).
+
+<br/>
+
+<div style="border-style: solid;text-align:justify" >
+ <ins> <b>NOTA</b></ins>:
+ Para poder mapear correctamente la base de datos, se ha optado por utilizar el atributo de mapeado de SQLAlchemy: "Polimorphic Identity". De esta forma, se crea una ISA con discriminante "type". Aunque físicamente se crean dos subclases y una superclase, la ventaja es que se mapean como si fuese una sola. Este diseño se ha implementado tanto para los registros de votos como los de reportes.
+</div>
+
+<br/>
+
+![Ilustración 2: Identidad polimórfica](img/bbdd.png)
+
+
+<br/>
+
+
+
+
+## **Sobre Auth**
 La autenticación en el servidor implementada está basada en _tokens_. En palabras simples, se envía al servidor un _token_ "firmado" en cada una de las _requests_. Este _token_ se obtiene tras realizar el login (introduciendo un usuario y constraseña correctos). 
 
 En resumidas cuentas, el flujo de datos para la autentificación es el siguiente:
@@ -81,41 +147,46 @@ En resumidas cuentas, el flujo de datos para la autentificación es el siguiente
 * El usuario se autentica validando el _token_.
 * El proveedor envía al usuario de vuelta a la página del consumidor (esta vez con su identidad).
 
-![Ilustración 4: Autentificación basada en tokens](img/auth.png)
+![Ilustración 3: Autentificación basada en tokens](img/auth.png)
 
+<br/>
 
-### Patrones de diseño
-#### Patrón fachada
-Para poder acceder al _backend_ desde el _frontend_, se hace uso de la clase ```backendservice``` que hace la función de fachada. Así pues, el subsistema (_backend_) no tiene conociemiento de la facahada, pero no ocurre lo mismo al contrario. Para ejemplificar esto se ha diseñado un diagrama.
+## **Decisiones de diseño**
+### ***Patrón fachada***
+Para poder acceder al _backend_ desde el _frontend_, se hace uso de la clase ```backendservice``` que hace la función de fachada. De esta forma, se abstrae el _backend_ evitando que este tenga que lidiar directamente con el cliente HTTP, establecer la conexión, interpretar la respuesta obtenida, etc...
 
-![Ilustración 3: Patrón fachada](img/fachada.png)
-
-### Decisiones de diseño
-#### Base de datos
-Para esta primera entrega, en la que solo se precisa desarrollar el _frontend_ de la API, de ha decidido implementar una "BBDD" temporal implementando diccionarios a modo de JSONs. Llegados a este punto la cuestión es, ¿dónde implementarlo? Originalmente, se generaron clases de Python en el componente ```dms2223common``` que incluían los diccionarios mencionados y que, además, eran accesibles desde el _frontend_ directamente. Sin embargo, dado que posteriormente se deberá completar el _backend_, se ha decidido trasladar esas clases a la capa de presentación del _backend_ (```dms2223backend```). De esta forma, nos ahorramos el esfuerzo que supondría modificar el proyecto cuando la cantidad de código relaccionado con estas clases aumente.
-#### Aspecto reports
+### ***Aspecto reports***
 Finalmente, es preciso recordar que una vez que los reportes son aceptados o rechazados por el moderador, ya no se pueden volver a modificar (aunque no se eliminan del almacenamiento de la BBDD). Por lo tanto, se ha decidido ocultar el botón de aquellos reportes cuyo estado ya haya sido determinado.
 
-### De cara a la siguiente entrega
-A lo largo de esta práctica se han implementado tan solo los métodos GET, ya que solo se pretende completar el _frontend_ de la API. Como consecuencia, hay algunos botones y fromularios, así como otros elementos web que, aunque están presentes, no realizan ninguna acción. Los métodos POST serán implementados en la segunda entrega, ya que están estrechamente ligados a la implementación del _backend_. 
+### ***Votos***
+Se ha decidido eliminar la opción de votos negativos, dejándo solamnete un valor de "popularidad" de cada respuesta o comentario. Esta práctica es común en muchas plataformas, ya que evita conflictos entre los usuarios.
 
-Por otra parte, se ha concedido menor importancia al aspecto de la página, puesto que se ha priorizado la funcionalidad de la misma. Por lo tanto, se propone como requisito extra para la siguiente entrega, implementar mejoras de estilo para las páginas web.
+<br/>
 
+## **De cara al futuro**
+Este apartado se completará en la última entrega.
 
+<br/>
+<br/>
 
+___
+---
 
+<br/>
+<br/>
 
-## BIBLIOGRAFÍA
+## **BIBLIOGRAFÍA**
 
-title: "Capas, cebollas y colmenas: arquitecturas en el backend."
+- title: "Capas, cebollas y colmenas: arquitecturas en el backend."
 author: "Cabrera, A.A."
 date: "2019"
 link: https://www.adictosaltrabajo.com/2019/07/02/capas-cebollas-y-colmenas-arquitecturas-en-el-backend/
 
-title: "Arquitectura de una API REST. Desarrollo de aplicaciones web."
+- title: "Arquitectura de una API REST. Desarrollo de aplicaciones web."
 author: "juanda.gitbooks"
 date: (n.d.)
 link: https://juanda.gitbooks.io/webapps/content/api/arquitectura-api-rest.html.
+
 
 
 
