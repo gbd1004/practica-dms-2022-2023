@@ -17,7 +17,7 @@ class ReportQuestion(Report):
     """ Definition and storage of reports ORM records.
     """
 
-    def __init__(self, qid:int, type:str, reason:str, status:ReportStatus):
+    def __init__(self, qid:int, reason:str, status:ReportStatus):
         """ Constructor method.
 
         Initializes a reports record.

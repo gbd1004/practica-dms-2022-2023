@@ -107,14 +107,14 @@ def get_comments_reports() -> tuple[dict, HTTPStatus]:
 
 # Report{rid} POST
 # TODO
-def set_question_report_status(qrid: int) -> tuple[dict, HTTPStatus]:
+def set_question_report_status(qrid: int, sentiment: ReportStatus) -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def set_answer_report_status(arid: int) -> tuple[dict, HTTPStatus]:
+def set_answer_report_status(arid: int, sentiment: ReportStatus) -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 
 # TODO
-def set_comment_report_status(crid: int) -> tuple[dict, HTTPStatus]:
+def set_comment_report_status(crid: int, sentiment: ReportStatus) -> tuple[dict, HTTPStatus]:
 	return {"TEMPORAL": 1}, HTTPStatus.OK
 

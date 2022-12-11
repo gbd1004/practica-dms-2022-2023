@@ -36,17 +36,26 @@ class ReportsAnswer():
         if not reason:
             raise ValueError('Reason is a required value')
 
-
         new_report = ReportAnswer(session, reason)
-
-        # TODO: no creo que con list_all valga
-        if not new_report.aid in Answers.list_all():
-            raise ValueError('No existe una respuesta con ese identificador')
         
         session.add(new_report)
         session.commit()
         return new_report
 
+    @staticmethod
+    def get_report(session: Session, arid:int) -> ReportAnswer:
+        """Gets a particular report.
+
+        Args:
+            - session (Session): The session object.
+            - arid (int): The report's id
+
+        Returns:
+            - Report: Expected `Report` register.
+        """
+        
+        query = session.query(ReportAnswer).where(ReportAnswer.id == arid)
+        return query
 
     @staticmethod
     def list_all(session: Session) -> List[ReportAnswer]:

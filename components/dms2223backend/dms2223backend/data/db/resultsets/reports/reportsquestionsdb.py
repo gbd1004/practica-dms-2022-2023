@@ -49,6 +49,22 @@ class ReportsQuestions():
 
 
     @staticmethod
+    def get_report(session: Session, qrid:int) -> ReportQuestion:
+        """Gets a particular report.
+
+        Args:
+            - session (Session): The session object.
+            - qrid (int): The report's id
+
+        Returns:
+            - Report: Expected `Report` register.
+        """
+        
+        query = session.query(ReportQuestion).where(ReportQuestion.id == qrid)
+        return query
+
+
+    @staticmethod
     def list_all(session: Session) -> List[ReportQuestion]:
         """Lists every comment report.
 

@@ -40,14 +40,26 @@ class ReportsComments():
 
         new_report = ReportComment(session, reason)
 
-        # TODO: no creo que con list_all valga
-        if not new_report.cid in Comments.list_all():
-            raise ValueError('No existe un comentario con ese identificador')
+
         
         session.add(new_report)
         session.commit()
         return new_report
 
+    @staticmethod
+    def get_report(session: Session, crid:int) -> ReportComment:
+        """Gets a particular report.
+
+        Args:
+            - session (Session): The session object.
+            - crid (int): The report's id
+
+        Returns:
+            - Report: Expected `Report` register.
+        """
+        
+        query = session.query(ReportComment).where(ReportComment.id == crid)
+        return query
 
     @staticmethod
     def list_all(session: Session) -> List[ReportComment]:
