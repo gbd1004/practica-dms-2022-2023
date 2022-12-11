@@ -1,7 +1,9 @@
+from ast import Dict
 from http import HTTPStatus
 import time
-
 from flask import current_app
+from dms2223backend.data.db import schema
+from dms2223backend.service.questionservice import QuestionServices
 
 class QuestionsDB():
 
@@ -9,72 +11,52 @@ class QuestionsDB():
 	def __init__(self) -> None:
 		pass
 
-	#------------------------#
-	# BASE DE DATOS TEMPORAL #
-	#------------------------#
-
-	# Definido en: schema QuestionFullModel
-QUESTIONS_DB = {
-
-	1: {
-		'qid': 1,
-		'title': 'Pregunta1',
-		'body': 'Contenido1',
-		'timestamp': 1665574089.0,
-		'owner': {
-				'username': 'user1'
-		}
-		
-	},
-
-	2: {
-		'qid': 2,
-		'title': 'Pregunta2',
-		'body': 'Contenido2',
-		'timestamp': 1665693009.12,
-		'owner': {
-				'username': 'user2'
-		}
-	}
-
-}
-
-
 	#---------------------------------------------------#
 	# POSIBLES OPERACIONES:     (definidas en spec.yml) #
 	#---------------------------------------------------#
 
 # Question GET (list)
-# def get_questions(self):
-# 	# Array de objetos: schema QuestionCoreModel
-# 	lista = []
-# 	for q in self.QUESTIONS_DB.values():
-# 		lista.append['qid']
-# 		lista.append['title']
-# 		lista.append['timestamp']
-# 	# Se devuelve la lista
-# 	return {'questions': lista}, HTTPStatus.OK
 def get_questions() -> tuple[dict, HTTPStatus]:
+	"""Lists the existing questions.
+
+    Returns:
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the questions' data and a code 200 OK.
+    """
 	with current_app.app_context():
-		return QUESTIONS_DB, HTTPStatus.OK
+		# Array de objetos: schema QuestionCoreModel
+		diccionario: Dict = QuestionServices.get_questions(schema) #TODO: current_app.db) ?
 
-
-# Question POST
-def new_question() -> tuple[dict, HTTPStatus]:
-	return {"TEMPORAL": 1}, HTTPStatus.OK
-
-	# NOTA: el parámetro entrada 'body' deberá tener: 
-	# Schema QuestionCreationModel: {title, body}
-	# ¡Falta obtener usuario propietario! -> schema UserCoreModel: {'username' : string}
-	# Revisar user_token[] para obtenerlo
+		# Se devuelve la lista
+		return diccionario, HTTPStatus.OK
 
 
 # Question{qid} GET
 # Recibe como parámetro: QuestionIdPathParam
 def get_question(qid: int) -> tuple[dict, HTTPStatus]:
-	# Si existe, la obtenemos
-	if qid in QUESTIONS_DB:
-		return QUESTIONS_DB.get(qid), HTTPStatus.OK
-	# Si no existe, no se puede devolver
-	return {}, HTTPStatus.NOT_FOUND
+	"""Gets an existing question with parameter qid.
+
+    Returns:
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the question data and a code 200 OK.
+    """
+	with current_app.app_context():
+		diccionario: Dict = QuestionServices.get_questions(schema) #TODO: current_app.db) ?
+		if qid in diccionario:
+			return diccionario.get(qid), HTTPStatus.OK
+		# Si no existe, no se puede devolver
+		return {}, HTTPStatus.NOT_FOUND
+
+
+
+# Question POST
+def new_question(title: str, body: str) -> tuple[dict, HTTPStatus]:
+	"""Creates a question
+
+	Returns:
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the question data and a code 200 OK.
+    """
+	with current_app.app_context():
+		new_question: Dict = QuestionServices.create_question(title, body, schema) #TODO: current_app.db) ?
+		return new_question, HTTPStatus.OK
+
+
 
