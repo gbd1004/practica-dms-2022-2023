@@ -1,4 +1,5 @@
 {% from "macros/list_answers.html" import list_answers %}
+{% from "macros/question.html" import question %}
 {% from "macros/buttons.html" import button %}
 {% extends "base_logged_in.html" %}
 {% block title %}Respuestas{% endblock %}
@@ -11,9 +12,9 @@
 	 -->
         <p> Respuesta </p>
         {{ button('bluebg', '/new_answer?qid=' + question['qid']|string(), 'Añadir respuesta', '#') }}
-        
+        {{ question(False, question_, True) }}
         {% if answers|length() > 0 %}
-            {{ list_answers(True, answers, question) }}
+            {{ list_answers(True, answers, question_) }}
         {% endif %}
     {% endblock %}
 {% endblock %}
