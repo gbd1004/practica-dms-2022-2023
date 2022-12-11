@@ -47,7 +47,7 @@ class AnswerEndpoints():
         WebUtils.flash_response_messages(responseQuest)
         question = responseQuest.get_content()
         # current_app.logger.info(answers)
-        return render_template('questions/answers.html', name=name, roles=session['roles'], answers=answers, question=question)
+        return render_template('questions/answers.html', name=name, roles=session['roles'], answers=answers, question_=question)
         
     @staticmethod
     def get_new_answer(backend_service: BackendService, auth_service: AuthService) -> Union[Response, Text]:
