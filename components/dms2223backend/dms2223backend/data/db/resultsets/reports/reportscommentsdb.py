@@ -8,6 +8,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment
 from dms2223backend.data.db.resultsets.commentsdb import Comments
+from dms2223backend.data.reportstatus import ReportStatus
 
 
 
@@ -16,7 +17,7 @@ class ReportsComments():
     """ Class responsible of table-level comment reports operations.
     """
     @staticmethod
-    def create(session: Session, reason: str) -> ReportComment:
+    def create(session: Session, cid:int, reason: str) -> ReportComment:
         """ Creates a new report record.
 
         Note:
@@ -38,7 +39,7 @@ class ReportsComments():
             raise ValueError('Reason is a required value')
 
 
-        new_report = ReportComment(session, reason)
+        new_report = ReportComment(session, cid, reason, ReportStatus.PENDING.name)
 
 
         

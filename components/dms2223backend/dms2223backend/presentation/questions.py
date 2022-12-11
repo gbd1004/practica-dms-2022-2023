@@ -1,6 +1,5 @@
 from ast import Dict
 from http import HTTPStatus
-import time
 from flask import current_app
 from dms2223backend.data.db import schema
 from dms2223backend.service.questionservice import QuestionServices

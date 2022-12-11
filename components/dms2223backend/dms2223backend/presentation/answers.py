@@ -1,6 +1,5 @@
 
 from http import HTTPStatus
-import time
 from dms2223backend.data.db import schema
 from dms2223backend.data.sentiment import Sentiment
 from typing import Dict, List

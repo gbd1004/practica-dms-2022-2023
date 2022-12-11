@@ -5,21 +5,14 @@ ReportServices class module.
 from ast import Dict
 from typing import List
 from sqlalchemy.orm.session import Session
-from dms2223backend.data.db.results.answerdb import Answer
-from dms2223backend.data.db.results.commentdb import Comment
-from dms2223backend.data.db.results.questiondb import Question
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
-from dms2223backend.data.db.resultsets.answersdb import Answers
-from dms2223backend.data.db.resultsets.commentsdb import Comments
-from dms2223backend.data.db.resultsets.questionsdb import Questions
 from dms2223backend.data.db.resultsets.reports.reportsanswersdb import ReportsAnswer
 from dms2223backend.data.db.resultsets.reports.reportscommentsdb import ReportsComments
 from dms2223backend.data.db.resultsets.reports.reportsquestionsdb import ReportsQuestions
 from dms2223backend.data.db.schema import Schema
-from dms2223backend.data.db.results.commentdb import Comment
 from dms2223backend.data.reportstatus import ReportStatus
 from dms2223backend.service.answerservice import AnswerServices
 from dms2223backend.service.commentservice import CommentServices
@@ -56,7 +49,7 @@ class ReportServices():
         schema.remove_session()
         return out
 
-    staticmethod
+    @staticmethod
     def get_reports_answers(schema: Schema) -> List[Dict]:
         """Lists the existing reports.
 
@@ -82,7 +75,7 @@ class ReportServices():
         return out
 
     
-    staticmethod
+    @staticmethod
     def get_reports_comments(schema: Schema) -> List[Dict]:
         """Lists the existing reports.
 
@@ -106,6 +99,82 @@ class ReportServices():
                 })
         schema.remove_session()
         return out
+    
+    @staticmethod
+    def get_report_question(schema: Schema, qrid:int) -> Dict:
+        """Gets an specific report
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+            - qrid (int): The report's id.
+
+        Returns:
+            - Dict: A dictionary with the report's data.
+        """
+        session: Session = schema.new_session()
+        report: ReportQuestion = ReportsQuestions.get_report(session, qrid)
+        out: Dict = {}
+        out['qrid'] = {
+                    'qrid': report.id,
+                    'qid': report.eid,
+                    'timestamp': report.timestamp,
+                    'reason' : report.reason,
+                    'status': report.status,
+                    'owner': {'username': report.owner}
+            }
+        schema.remove_session()
+        return out
+    
+    @staticmethod
+    def get_report_answer(schema: Schema, arid:int) -> Dict:
+        """Gets an specific report
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+            - arid (int): The report's id.
+
+        Returns:
+            - Dict: A dictionary with the report's data.
+        """
+        session: Session = schema.new_session()
+        report: ReportAnswer = ReportsAnswer.get_report(session, arid)
+        out: Dict = {}
+        out['arid'] = {
+                    'arid': report.id,
+                    'aid': report.eid,
+                    'timestamp': report.timestamp,
+                    'reason' : report.reason,
+                    'status': report.status,
+                    'owner': {'username': report.owner}
+            }
+        schema.remove_session()
+        return out
+    
+    @staticmethod
+    def get_report_comment(schema: Schema, crid:int) -> Dict:
+        """Gets an specific report
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+            - crid (int): The report's id.
+
+        Returns:
+            - Dict: A dictionary with the report's data.
+        """
+        session: Session = schema.new_session()
+        report: ReportComment = ReportsComments.get_report(session, crid)
+        out: Dict = {}
+        out['crid'] = {
+                    'crid': report.id,
+                    'cid': report.eid,
+                    'timestamp': report.timestamp,
+                    'reason' : report.reason,
+                    'status': report.status,
+                    'owner': {'username': report.owner}
+            }
+        schema.remove_session()
+        return out
+
 
     @staticmethod
     def set_question_report_status(schema: Schema, qrid: int, status: ReportStatus):
@@ -129,6 +198,7 @@ class ReportServices():
         session.commit()
 
         schema.remove_session()
+        
     
     @staticmethod
     def set_answer_report_status(schema: Schema, arid: int, status: ReportStatus):
@@ -178,7 +248,7 @@ class ReportServices():
 
 
     @staticmethod
-    def new_question_report(schema: Schema, reason: str) -> Dict:
+    def new_question_report(schema: Schema, qid:int, reason: str) -> Dict:
         """Creates a new report.
 
         Args:
@@ -192,7 +262,7 @@ class ReportServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: ReportQuestion = ReportsQuestions.create(session, reason)
+            new_report: ReportQuestion = ReportsQuestions.create(session, qid, reason)
             out['qrid'] = {
                     'qrid': new_report.id,
                     'qid': new_report.qid,
@@ -209,7 +279,7 @@ class ReportServices():
         return out
 
     @staticmethod
-    def new_answer_report(schema: Schema, reason: str) -> Dict:
+    def new_answer_report(schema: Schema, aid: int, reason: str) -> Dict:
         """Creates a new report.
 
         Args:
@@ -223,7 +293,7 @@ class ReportServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: ReportAnswer = ReportsAnswer.create(session, reason)
+            new_report: ReportAnswer = ReportsAnswer.create(session, aid, reason)
             out['arid'] = {
                     'arid': new_report.id,
                     'aid': new_report.aid,
@@ -240,7 +310,7 @@ class ReportServices():
         return out
     
     @staticmethod
-    def new_comment_report(schema: Schema, reason: str) -> Dict:
+    def new_comment_report(schema: Schema, cid:int, reason: str) -> Dict:
         """Creates a new report.
 
         Args:
@@ -254,7 +324,7 @@ class ReportServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: ReportComment = ReportsComments.create(session, reason)
+            new_report: ReportComment = ReportsComments.create(session,cid, reason)
             out['crid'] = {
                     'crid': new_report.id,
                     'cid': new_report.cid,

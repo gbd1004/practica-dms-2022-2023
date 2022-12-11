@@ -7,6 +7,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer
 from dms2223backend.data.db.resultsets.answersdb import Answers
+from dms2223backend.data.reportstatus import ReportStatus
 
 
 
@@ -15,7 +16,7 @@ class ReportsAnswer():
     """ Class responsible of table-level answer reports operations.
     """
     @staticmethod
-    def create(session: Session, reason: str) -> ReportAnswer:
+    def create(session: Session, aid:int, reason: str) -> ReportAnswer:
         """ Creates a new report record.
 
         Note:
@@ -36,7 +37,7 @@ class ReportsAnswer():
         if not reason:
             raise ValueError('Reason is a required value')
 
-        new_report = ReportAnswer(session, reason)
+        new_report = ReportAnswer(session, aid, reason, ReportStatus.PENDING.name)
         
         session.add(new_report)
         session.commit()

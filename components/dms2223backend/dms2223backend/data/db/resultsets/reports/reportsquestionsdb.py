@@ -7,6 +7,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
 from dms2223backend.data.db.resultsets.questionsdb import Questions
+from dms2223backend.data.reportstatus import ReportStatus
 
 
 
@@ -15,7 +16,7 @@ class ReportsQuestions():
     """ Class responsible of table-level question reports operations.
     """
     @staticmethod
-    def create(session: Session, reason: str) -> ReportQuestion:
+    def create(session: Session, qid:int, reason: str) -> ReportQuestion:
         """ Creates a new report record.
 
         Note:
@@ -37,11 +38,7 @@ class ReportsQuestions():
             raise ValueError('Reason is a required value')
 
 
-        new_report = ReportQuestion(session, reason)
-
-        # TODO: no creo que con list_all valga
-        if not new_report.qid in Questions.list_all():
-            raise ValueError('No existe una pregunta con ese identificador')
+        new_report = ReportQuestion(session, qid, reason, ReportStatus.PENDING.name)
         
         session.add(new_report)
         session.commit()
