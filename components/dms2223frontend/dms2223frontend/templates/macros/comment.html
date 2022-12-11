@@ -2,7 +2,7 @@
 {% macro comment(comment, qid) %}
     <div style="border:1px solid black;">
         <p> Respuesta: {{ comment['body']}}</p>
-        <p> Fecha: {{ comment['timestamp'] | ctime}}</p>  
+        <p> Fecha: {{ comment['timestamp'] }}</p>  
         <p>Sentimiento: {{ comment['sentiment'] }}</p>
         <p>Votos: {{ comment['votes'] }}</p>
         <p> Usuario que hizo la respuesta {{ comment['owner']['username'] }}</p>

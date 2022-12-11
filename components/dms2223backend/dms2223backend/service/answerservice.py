@@ -18,7 +18,7 @@ class AnswerServices():
     """
 
     @staticmethod
-    def get_answers(schema: Schema, qid:int) -> List[Dict]:
+    def get_answers(schema: Schema, qid:int) -> Dict:
         """Lists the existing answers.
 
         Args:
@@ -27,7 +27,7 @@ class AnswerServices():
         Returns:
             - List[Dict]: A list of dictionaries with the answers' data.
         """
-        out: List[Dict] = []
+        out: Dict[Dict] = []
         session: Session = schema.new_session()
         answers: List[Answer] = Answers.list_all(session,qid)
         for a in answers:
@@ -44,7 +44,7 @@ class AnswerServices():
         return out
 
     @staticmethod
-    def get_answer(schema: Schema, aid:int) -> Dict:
+    def get_answer(schema: Schema, aid:int) -> List:
         """Gets the answer with the same parameter aid.
 
         Args:
@@ -54,18 +54,18 @@ class AnswerServices():
         Returns:
             - Dict: A dictionary with the answer's data.
         """
-        out: Dict = {}
+        out: List = []
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session, aid)
         if answer.hidden == False:
-            out['aid'] = {
+            out.append({
                     'aid': answer.aid,
                     'qid': answer.qid,
                     'timestamp': answer.timestamp,
                     'body' : answer.body,
                     'owner': {'username':answer.owner},
                     'votes': answer.get_num_votes(session)
-            }
+            })
 
         schema.remove_session()
         return out
@@ -84,7 +84,7 @@ class AnswerServices():
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session,aid)
         if answer.hidden == False:
-            votes: VotesSet.list_all(session, "voteanswer", aid)
+            votes = VotesSet.list_all(session, "voteanswer", aid)
             for v in votes:
                 #TODO: revisar
                 out[v.user] = True
@@ -93,7 +93,7 @@ class AnswerServices():
 
 
     @staticmethod
-    def create_answer(qid: int, body: str,schema: Schema) -> Dict:
+    def create_answer(qid: int, body: str, owner: str, schema: Schema) -> Dict:
         """Creates a new answer.
 
         Args:
@@ -110,8 +110,8 @@ class AnswerServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_answer: Answer = Answers.create(session, qid, body)
-            out['aid'] = {
+            new_answer: Answer = Answers.create(session, qid, body, owner)
+            out = {
                     'aid': new_answer.aid,
                     'qid': new_answer.qid,
                     'timestamp': new_answer.timestamp,

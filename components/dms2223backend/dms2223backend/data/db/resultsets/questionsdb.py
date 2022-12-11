@@ -16,7 +16,7 @@ class Questions():
     """ Class responsible of table-level questions operations.
     """
     @staticmethod
-    def create(session: Session, title: str, body: str) -> Question:
+    def create(session: Session, title: str, body: str, owner: str) -> Question:
         """ Creates a new question record.
 
         Note:
@@ -37,7 +37,7 @@ class Questions():
         if not title :
             raise ValueError('El título es un campo obligatorio para crear una pregunta.')
 
-        new_question = Question(title, body)
+        new_question = Question(title, body, hidden=False, owner=owner)
         session.add(new_question)
         session.commit()
         return new_question
@@ -56,7 +56,7 @@ class Questions():
         """
         
         query = session.query(Question).where(Question.qid == qid)
-        return query
+        return query.first()
 
 
     @staticmethod

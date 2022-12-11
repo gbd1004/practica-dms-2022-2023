@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+
+
+from dms2223backend.data.config.backendconfiguration import BackendConfiguration
+from dms2223backend.data.db.schema import Schema
+from dms2223backend.service.questionservice import QuestionServices 
+from dms2223backend.service.answerservice import AnswerServices
+from dms2223backend.service.commentservice import CommentServices
+from dms2223backend.service.reportservice import ReportServices
+from dms2223backend.data import Sentiment
+
+
+cfg: BackendConfiguration = BackendConfiguration()
+cfg.load_from_file(cfg.default_config_file())
+db: Schema = Schema(cfg)
+
+
+QuestionServices.create_question("¿Quién descubrió América?", "Me quedé dormido durante la clase, ayuda.", "user1", db)
+QuestionServices.create_question("¿Qué son los agujeros negros?", "Me quedé dormido durante la clase, ayuda.", "user2", db)
+AnswerServices.create_answer(1,"Solo sé que no se nada", "user2",db)
+AnswerServices.create_answer(1,"Cistobal Colón", "user3", db)
+CommentServices.create_comment(1,"¡Gracias!", Sentiment.POSITIVE, "user1",db)
+ReportServices.new_answer_report(db, 1, "No me ayuda.")

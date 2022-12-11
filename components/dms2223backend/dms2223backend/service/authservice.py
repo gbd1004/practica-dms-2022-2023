@@ -3,6 +3,7 @@ import requests
 from dms2223common.data import Role
 from dms2223common.data.rest import ResponseData
 
+from flask import session
 
 
 class AuthService():

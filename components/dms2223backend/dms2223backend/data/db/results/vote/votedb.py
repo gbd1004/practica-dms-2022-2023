@@ -2,7 +2,7 @@
 Answer votes class module.
 """
 
-from sqlalchemy import Table, MetaData, Column, String, case  # type: ignore
+from sqlalchemy import Integer, Table, MetaData, Column, String, case  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 
@@ -38,7 +38,7 @@ class Votes(ResultBase):
         return Table(
             'votes',
             metadata,
-            Column('id', int, primary_key=True),
+            Column('id', Integer, primary_key=True),
             Column('type', String(24), primary_key=True),
             Column('user', String(64), nullable=False)
         )

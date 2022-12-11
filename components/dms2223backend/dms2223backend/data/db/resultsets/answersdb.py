@@ -17,7 +17,7 @@ class Answers():
     """ Class responsible of table-level answers operations.
     """
     @staticmethod
-    def create(session: Session, qid:int, body: str) -> Answer:
+    def create(session: Session, qid:int, body: str, owner: str) -> Answer:
         """ Creates a new answer record.
 
         Note:
@@ -32,7 +32,7 @@ class Answers():
             - Answer: The created `Answer` result.
         """
 
-        new_answer = Answer(qid, body)
+        new_answer = Answer(qid, body, hidden=False ,owner=owner)
 
         
         session.add(new_answer)
@@ -52,7 +52,7 @@ class Answers():
         """
         
         query = session.query(Answer).where(Answer.aid == aid)
-        return query
+        return query.first()
 
     @staticmethod
     def list_all(session: Session, qid:int) -> List[Answer]:

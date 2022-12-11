@@ -17,7 +17,7 @@ class Comments():
     """ Class responsible of table-level comments operations.
     """
     @staticmethod
-    def create(session: Session, aid:int, body: str, sentiment: enumerate) -> Comment:
+    def create(session: Session, aid:int, body: str, sentiment: enumerate, owner: str) -> Comment:
         """ Creates a new comment record.
 
         Note:
@@ -37,7 +37,7 @@ class Comments():
         if not sentiment :
             raise ValueError('El sentimentio es un campo obligatorio para crear un comentario.')
 
-        new_comm = Comment(aid, body, sentiment, False)
+        new_comm = Comment(aid, body, sentiment, False, owner=owner)
         
         session.add(new_comm)
         session.commit()

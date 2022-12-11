@@ -1,6 +1,4 @@
 """ Backend database-related modules.
 """
-from .schema import Schema
 
-
-
+from .votesdb import Votes

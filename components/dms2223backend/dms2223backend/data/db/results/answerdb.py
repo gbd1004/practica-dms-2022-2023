@@ -1,17 +1,15 @@
 """ 
 Answer class module.
 """
-import time
-from datetime import datetime
+
 from typing import Dict
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Table, MetaData, Column, String, func  # type: ignore
 from sqlalchemy.orm import relationship
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.db.results.vote.voteansdb import VotesAns
 from dms2223backend.data.db.results.commentdb import Comment
-from dms2223backend.service.authservice import AuthService
 
 
 
@@ -20,7 +18,7 @@ class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
     """
 
-    def __init__(self, qid: int, body: str, hidden: bool):
+    def __init__(self, qid: int, body: str, hidden: bool, owner: str):
         """ Constructor method.
 
         Initializes a answer record.
@@ -36,8 +34,7 @@ class Answer(ResultBase):
         self.aid: int
         self.qid: int = qid
         self.body: str = body
-        self.timestamp: datetime.timestamp
-        self.owner: str
+        self.owner: str = owner
         self.hidden: bool = hidden
 
     @staticmethod
@@ -52,12 +49,12 @@ class Answer(ResultBase):
         return Table(
             'answer',
             metadata,
-            Column('aid', int, primary_key=True, autoincrement=True),
-            Column('qid', int, ForeignKey('question.qid'), nullable=False), 
+            Column('aid', Integer, primary_key=True, autoincrement=True),
+            Column('qid', Integer, ForeignKey('question.qid'), nullable=False), 
             Column('body', String(200), nullable=True),
-            Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
-            Column('owner', String(64), nullable=False, default=AuthService.get_user()),
-            Column('hidden', bool, nullable=False, default=False)
+            Column('timestamp', DateTime, nullable=False, default=func.now()),
+            Column('owner', String(64), nullable=False),
+            Column('hidden', Boolean, nullable=False, default=False)
         )
     
 
@@ -67,9 +64,9 @@ class Answer(ResultBase):
         # Definimos la "relación" entre respuestas y comentarios
         # Definimos la "relación" entre respuestas y votos
         return {
-            'answer_comment': relationship(Comment, backref='aid'),
-            'answer_votes': relationship(VotesAns, backref='aid'),
-            'answer_reports': relationship(ReportAnswer, backref='aid')
+            'answer_comment': relationship(Comment, backref='answer'),
+            'answer_votes': relationship(VotesAns, backref='answer'),
+            'answer_reports': relationship(ReportAnswer, backref='answer')
         }
     
 

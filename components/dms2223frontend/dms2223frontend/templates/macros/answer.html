@@ -3,7 +3,7 @@
 {% macro answer(answ) %}
     <div style="border:1px solid black;">
         <p> Respuesta: {{ answ['body']}}</p>
-        <p> Fecha: {{ answ['timestamp'] | ctime }}</p>  
+        <p> Fecha: {{ answ['timestamp'] }}</p>  
         <p> Usuario que hizo la respuesta {{ answ['owner']['username'] }}</p>
         <p>{{ button('bluebg', '/new_comment?qid=' + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Añadir comentario', '#') }}</p>
         
@@ -13,7 +13,7 @@
             <input type="hidden" name="aid" value={{ answ['aid'] }}>
         </form> 
         <p>{{ button('bluebg', "/new_report_answer?qid=" + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Reportar',) }}</p>
-        <p>{{ list_comments(True, answ['comms'].values(), answ['qid']) }}</p>
+        <p>{{ list_comments(True, answ['comms'], answ['qid']) }}</p>
     </div>
     
 {% endmacro %}

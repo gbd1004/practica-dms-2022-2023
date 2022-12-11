@@ -3,7 +3,7 @@ Comments votes class module.
 """
 
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy import ForeignKey,Table, MetaData, Column, String  # type: ignore
+from sqlalchemy import ForeignKey, Integer,Table, MetaData, Column, String  # type: ignore
 from dms2223backend.data.db.results.vote.votedb import Votes
 
 
@@ -38,7 +38,7 @@ class VotesComm(Votes):
         return Table(
             'votecomment',
             metadata,
-            Column('id', int, ForeignKey('comment.id'),primary_key=True),
+            Column('id', Integer, ForeignKey('comment.id'),primary_key=True),
             Column('user', String(64), nullable=False)
         )
 

@@ -4,10 +4,10 @@ Quesssstion class module.
 import time
 from datetime import datetime
 from typing import Dict
-from sqlalchemy import Table, MetaData, Column, String  # type: ignore
+from sqlalchemy import Table, MetaData, Column, String, func  # type: ignore
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Table, MetaData, Column, String, TIMESTAMP
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
-from dms2223backend.service.authservice import AuthService
 from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
 
@@ -18,7 +18,7 @@ class Question(ResultBase):
     """ Definition and storage of question ORM records.
     """
 
-    def __init__(self, title: str, body: str, hidden: bool):
+    def __init__(self, title: str, body: str, hidden: bool, owner: str):
         """ Constructor method.
 
         Initializes a question record.
@@ -34,8 +34,7 @@ class Question(ResultBase):
         self.qid: int
         self.title: str = title
         self.body: str = body
-        self.timestamp: datetime.timestamp
-        self.owner: str
+        self.owner: str = owner
         self.hidden: bool = hidden
 
 
@@ -54,19 +53,19 @@ class Question(ResultBase):
         return Table(
             'question',
             metadata,
-            Column('qid', int, primary_key=True, autoincrement=True),
+            Column('qid', Integer, primary_key=True, autoincrement=True),
             Column('title', String(64), nullable=False),
             Column('body', String(200), nullable=True),
-            Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
-            Column('owner', String(64), nullable=False, default=AuthService.get_user()),
-            Column('hidden', bool, nullable=False, default=False)
+            Column('timestamp', DateTime, nullable=False, default=func.now()),
+            Column('owner', String(64), nullable=False),
+            Column('hidden', Boolean, nullable=False, default=False)
         )
 
     @staticmethod
     def _mapping_properties() -> Dict:
         # Definimos la "relación" entre preguntas y respuestas
         return {
-            'question_answer': relationship(Answer, backref='qid'),
-            'question_report': relationship(ReportQuestion, backref='qid')
+            'question_answer': relationship(Answer, backref='question'),
+            'question_report': relationship(ReportQuestion, backref='question')
         }
 

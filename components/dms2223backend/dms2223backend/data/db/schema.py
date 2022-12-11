@@ -6,9 +6,9 @@ from sqlalchemy.engine import Engine  # type: ignore
 from sqlalchemy.orm import sessionmaker, scoped_session, registry  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.config import BackendConfiguration
-from dms2223backend.data.db.resultsets import Answers, Questions, Reports
-from dms2223backend.data.db.results import Question
-
+from dms2223backend.data.db.results import Answer, Question, Comment
+from dms2223backend.data.db.results.report import Report, ReportAnswer, ReportComment, ReportQuestion
+from dms2223backend.data.db.results.vote import  Votes, VotesAns, VotesComm
 
 # Required for SQLite to enforce FK integrity when supported
 @event.listens_for(Engine, 'connect')
@@ -45,12 +45,19 @@ class Schema():
             )
         db_connection_string: str = config.get_db_connection_string() or ''
         self.__create_engine = create_engine(db_connection_string)
-        self.__session_maker = scoped_session(sessionmaker(bind=self.__create_engine))
+        self.__session_maker = scoped_session(
+            sessionmaker(bind=self.__create_engine))
 
-        Questions.map(self.__registry)
-        Answers.map(self.__registry)
-        Reports.map(self.__registry)
+        Answer.map(self.__registry)
+        Report.map(self.__registry)
         Question.map(self.__registry)
+        Comment.map(self.__registry)
+        Votes.map(self.__registry)
+        VotesAns.map(self.__registry)
+        VotesComm.map(self.__registry)
+        ReportAnswer.map(self.__registry)
+        ReportComment.map(self.__registry)
+        ReportQuestion.map(self.__registry)
         self.__registry.metadata.create_all(self.__create_engine)
 
     def new_session(self) -> Session:

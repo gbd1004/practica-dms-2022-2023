@@ -4,11 +4,10 @@ Comments reports class module.
 
 import time
 from datetime import datetime
-from sqlalchemy import ForeignKey, Table, MetaData, Column, String, Enum  # type: ignore
+from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String, Enum, DateTime  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.reportstatus import ReportStatus
-from dms2223backend.service.authservice import AuthService
 
 
 
@@ -17,7 +16,7 @@ class ReportComment(Report):
     """ Definition and storage of reports ORM records.
     """
 
-    def __init__(self, cid:int, reason:str, status:ReportStatus):
+    def __init__(self, cid:int, reason:str, status:ReportStatus, owner: str):
         """ Constructor method.
 
         Initializes a reports record.
@@ -35,7 +34,7 @@ class ReportComment(Report):
         self.timestamp: datetime.timestamp
         self.reason: str = reason
         self.status: ReportStatus = status
-        self.owner: str
+        self.owner: str = owner
 
 
     @staticmethod
@@ -50,12 +49,12 @@ class ReportComment(Report):
         return Table(
             'reportcomm',
             metadata,
-            Column('id', int, primary_key=True),
-            Column('cid', int, ForeignKey('comment.id'), nulleable=False),
+            Column('id', Integer, primary_key=True),
+            Column('cid', Integer, ForeignKey('comment.id'), nullable=False),
             Column('status', Enum(ReportStatus), default=ReportStatus.PENDING.name, nullable=False),#TODO: on-update?
             Column('reason', String(300), nullable=False),
-            Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
-            Column('owner', String(64), nullable=False, default=AuthService.get_user()) 
+            Column('timestamp', DateTime, nullable=False, default=time.time()),
+            Column('owner', String(64), nullable=False) 
         )
 
 

@@ -2,7 +2,7 @@
 Answer votes class module.
 """
 
-from sqlalchemy import ForeignKey, Table, MetaData, Column, String  # type: ignore
+from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String  # type: ignore
 from dms2223backend.data.db.results.vote.votedb import Votes
 
 
@@ -37,7 +37,7 @@ class VotesAns(Votes):
         return Table(
             'voteanswer',
             metadata,
-            Column('id', int, ForeignKey('answer.aid'), primary_key=True),
+            Column('id', Integer, ForeignKey('answer.aid'), primary_key=True),
             Column('user', String(64), nullable=False)
         )
 

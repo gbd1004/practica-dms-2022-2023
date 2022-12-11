@@ -35,8 +35,9 @@ class DiscussionEndpoints():
             
         name = session['user']
         response: ResponseData = backend_service.get_questions(session.get('token'))
+        current_app.logger.info(response.get_content())
         WebUtils.flash_response_messages(response)
-        questions = response.get_content().values()
+        questions = response.get_content()
         return render_template('discussion.html', name=name, roles=session['roles'], questions=questions)
 
 

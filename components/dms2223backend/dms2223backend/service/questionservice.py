@@ -9,6 +9,8 @@ from dms2223backend.data.db.resultsets.questionsdb import Questions
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.db.results.questiondb import Question
 
+from flask import current_app
+
 
 class QuestionServices():
     """ 
@@ -16,7 +18,7 @@ class QuestionServices():
     """
 
     @staticmethod
-    def get_questions(schema: Schema) -> List[Dict]:
+    def get_questions(schema: Schema) -> List:
         """Lists the existing questions.
 
         Args:
@@ -53,19 +55,19 @@ class QuestionServices():
         question: Question = Questions.get_question(session,qid)
         out: Dict = {}
         if question.hidden == False:
-            out['qid'] = {
-                        'qid': question.qid,
-                        'title': question.title,
-                        'body': question.body,
-                        'timestamp': question.timestamp,
-                        'owner': {'username': question.owner}
+            out = {
+                'qid': question.qid,
+                'title': question.title,
+                'body': question.body,
+                'timestamp': question.timestamp,
+                'owner': {'username': question.owner}
             }
         schema.remove_session()
         return out
 
 
     @staticmethod
-    def create_question(title: str, body: str,schema: Schema) -> Dict:
+    def create_question(title: str, body: str, owner: str, schema: Schema) -> Dict:
         """Creates a new question.
 
         Args:
@@ -84,7 +86,7 @@ class QuestionServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_question: Question = Question.create(session, title, body)
+            new_question: Question = Questions.create(session, title, body, owner)
             out['qid'] = {
                     'qid': new_question.qid,
                     'title': new_question.title,

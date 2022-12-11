@@ -39,9 +39,11 @@ class AnswerEndpoints():
         if(responseAnsw.get_content() == []):
             answers = []
         else:
-            answers = responseAnsw.get_content().values()
+            answers = responseAnsw.get_content()
         
         responseQuest: ResponseData = backend_service.get_question(session.get('token'), qid)
+
+        current_app.logger.info(responseQuest.get_content())
         WebUtils.flash_response_messages(responseQuest)
         question = responseQuest.get_content()
         # current_app.logger.info(answers)

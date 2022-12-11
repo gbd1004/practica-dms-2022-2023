@@ -4,7 +4,7 @@ Reports class module.
 
 import time
 from datetime import datetime
-from sqlalchemy import Table, MetaData, Column, String, Enum, case # type: ignore
+from sqlalchemy import Integer, Table, MetaData, Column, String, Enum, DateTime, case # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.reportstatus import ReportStatus
 from dms2223backend.service.authservice import AuthService
@@ -14,7 +14,7 @@ class Report(ResultBase):
     """ Definition and storage of reports ORM records.
     """
 
-    def __init__(self, eid:int, type:str, reason:str, status:ReportStatus):
+    def __init__(self, eid:int, type:str, reason:str, status:ReportStatus, owner: str):
         """ Constructor method.
 
         Initializes a reports record.
@@ -34,7 +34,7 @@ class Report(ResultBase):
         self.type: str = type
         self.reason: str = reason
         self.status: ReportStatus = status
-        self.owner: str
+        self.owner: str = owner
 
 
     @staticmethod
@@ -49,13 +49,13 @@ class Report(ResultBase):
         return Table(
             'report',
             metadata,
-            Column('id', int, primary_key=True),
-            Column('eid', int, nulleable=False),
+            Column('id', Integer, primary_key=True),
+            Column('eid', Integer, nullable=False),
             Column('type', String(24), primary_key=True),
             Column('status', Enum(ReportStatus), default=ReportStatus.PENDING.name, nullable=False),#TODO: on-update?
             Column('reason', String(300), nullable=False),
-            Column('timestamp', datetime.timestamp, nullable=False, default=time.time()),
-            Column('owner', String(64), nullable=False, default=AuthService.get_user())
+            Column('timestamp', DateTime, nullable=False, default=time.time()),
+            Column('owner', String(64), nullable=False)
         )
 
 

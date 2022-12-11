@@ -51,7 +51,7 @@ paths:
         Queries the storage to fetch the questions.
         Only question stubs are returned. Full information for each question
         should be fetched separately.
-      operationId: dms2223backend.presentation.questionsdb.get_questions
+      operationId: dms2223backend.presentation.questions.get_questions
       responses:
         '200':
           description: A list of questions.
@@ -78,7 +78,7 @@ paths:
         This operation creates a new question.
         The owner of the question will be automatically retrieved from the
         user token against the authorization server.
-      operationId: dms2223backend.presentation.questionsdb.new_question
+      operationId: dms2223backend.presentation.questions.new_question
       requestBody:
         content:
           'application/json':
@@ -110,7 +110,7 @@ paths:
   /questions/{qid}:
     get:
       summary: Gets a single question
-      operationId: dms2223backend.presentation.questionsdb.get_question
+      operationId: dms2223backend.presentation.questions.get_question
       parameters:
         - $ref: '#/components/parameters/QuestionIdPathParam'
       responses:

@@ -5,7 +5,7 @@
         {%- if body -%}
             <p>Contenido: {{ question['body']}} </p>
         {%- endif -%}
-        <p> Fecha: {{ question['timestamp'] | ctime }}</p>  
+        <p> Fecha: {{ question['timestamp'] }}</p>  
 
         {%- if ver_boton -%}
             <p>{{ button('bluebg', "/questions/answers?qid=" + question['qid']|string(), 'Ver respuestas',) }}</p>

@@ -31,7 +31,7 @@ class CommentServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        comments: List[Comment] = Comments.list_all(session,aid)
+        comments: List[Comment] = Comments.list_all(session)
         for c in comments:
             if c.hidden == False:
                 out.append({
@@ -100,7 +100,7 @@ class CommentServices():
         return out
 
     @staticmethod
-    def create_comment( aid:int, body: str, sentiment: Sentiment, schema: Schema) -> Dict:
+    def create_comment( aid:int, body: str, sentiment: Sentiment, owner: str, schema: Schema) -> Dict:
         """Creates a new comment.
 
         Args:
@@ -115,7 +115,7 @@ class CommentServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_comment: Comment = Comments.create(session, aid, body, sentiment)
+            new_comment: Comment = Comments.create(session, aid, body, sentiment, owner)
             out['aid'] = {
                     'cid': new_comment.id,
                     'aid': new_comment.aid,
