@@ -122,17 +122,19 @@ En esta página, el usuario puede visualizar la pregunta a la que ha accedido, j
 
 ##### 3.4. Menú de Moderador
 En el menú de moderador aparecerá una lista mostrando los elementos que hayan recibido reportes junto con dos botones de acción:
-![Ilustración 11: Menú para moderadores](img/reports.jpeg)
+![Ilustración 11: reportes](img/reports.jpeg)
 + Aceptar Reporte: Oculta este elemento para el resto de usuarios y lo hace inaccesible
 + Rechazar Reporte: Elimina el elemento de la lista de 
 
 ##### 3.5. Menú de Administrador
 En este menú la única opción disponible es el acceso a la gestión de usuarios "User managment", dentro del cuál se nos presentan más opciones.
-![Ilustración 11: Menú para moderadores](img/Admin_panel.jpeg)
+![Ilustración 12: Panel de administrador](img/admin_panel.jpeg)
 
 ###### Panel de Administración
 Página desde la que se pueden realizar las operaciones de gestión del administrador como tal. Los elementos que tiene son:
-![Ilustración 11: Menú para moderadores](img/user_management.jpeg)
+
+![Ilustración 13: administración de usuarios](img/user_management.jpeg)
+
 + Lista de Usuarios: Una lista con todos los usuarios registrados en la página
 + Botón "Edit": Desde este botón se accede a un submenú para la gestión de los roles del usuario en cuestión
 
