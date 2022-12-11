@@ -47,7 +47,7 @@ class QuestionServices():
             - schema (Schema): A database handler where the users are mapped into.
         
         Returns:
-            - Dict: A dictionary with the question's data.        
+            - Dict: A dictionary with the question's data.
         """
         session: Session = schema.new_session()
         question: Question = Questions.get_question(session,qid)

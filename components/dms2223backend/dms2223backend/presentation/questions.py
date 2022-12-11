@@ -25,7 +25,7 @@ def get_questions() -> tuple[dict, HTTPStatus]:
 	with current_app.app_context():
 		# Array de objetos: schema QuestionCoreModel
 		diccionario: Dict = QuestionServices.get_questions(schema) #TODO: current_app.db) ?
-
+	
 		# Se devuelve la lista
 		return diccionario, HTTPStatus.OK
 

@@ -44,6 +44,33 @@ class AnswerServices():
         return out
 
     @staticmethod
+    def get_answer(schema: Schema, aid:int) -> Dict:
+        """Gets the answer with the same parameter aid.
+
+        Args:
+            - aid (int): The answer aid.
+            - schema (Schema): A database handler where the answers are mapped into.
+
+        Returns:
+            - Dict: A dictionary with the answer's data.
+        """
+        out: Dict = {}
+        session: Session = schema.new_session()
+        answer: Answer = Answers.get_answer(session, aid)
+        if answer.hidden == False:
+            out['aid'] = {
+                    'aid': answer.aid,
+                    'qid': answer.qid,
+                    'timestamp': answer.timestamp,
+                    'body' : answer.body,
+                    'owner': {'username':answer.owner},
+                    'votes': answer.get_num_votes(session)
+            }
+
+        schema.remove_session()
+        return out
+
+    @staticmethod
     def get_votes(schema: Schema, aid:int) -> Dict:
         """Lists the existing answer's votes.
 

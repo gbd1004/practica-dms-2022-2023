@@ -11,6 +11,7 @@ from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
 from dms2223backend.data.db.results.vote.votedb import Votes
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.db.results.commentdb import Comment
+from dms2223backend.data.sentiment import Sentiment
 
 
 class CommentServices():
@@ -45,6 +46,34 @@ class CommentServices():
         schema.remove_session()
         return out
 
+    @staticmethod
+    def get_comment(schema: Schema, cid:int) -> Dict:
+        """Gets the comment with the same parameter cid.
+
+        Args:
+            - cid (int): The comment cid.
+            - schema (Schema): A database handler where the comment are mapped into.
+
+        Returns:
+            - Dict: A dictionary with the comment's data.
+        """
+        out: Dict = {}
+        session: Session = schema.new_session()
+        comment: Comment = Comments.get_comment(session, cid)
+        if comment.hidden == False:
+            out['cid'] = {
+                    'cid': comment.id,
+                    'aid': comment.aid,
+                    'timestamp': comment.timestamp,
+                    'body' : comment.body,
+                    'sentiment': comment.sentiment,
+                    'owner': {'username': comment.owner},
+                    'votes': comment.get_num_votes(session)
+            }
+
+        schema.remove_session()
+        return out
+
 
 
     @staticmethod
@@ -71,7 +100,7 @@ class CommentServices():
         return out
 
     @staticmethod
-    def create_comment( body: str, sentiment: enumerate, schema: Schema) -> Dict:
+    def create_comment( aid:int, body: str, sentiment: Sentiment, schema: Schema) -> Dict:
         """Creates a new comment.
 
         Args:
@@ -86,7 +115,7 @@ class CommentServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_comment: Comment = Comments.create(session, body, sentiment)
+            new_comment: Comment = Comments.create(session, aid, body, sentiment)
             out['aid'] = {
                     'cid': new_comment.id,
                     'aid': new_comment.aid,
