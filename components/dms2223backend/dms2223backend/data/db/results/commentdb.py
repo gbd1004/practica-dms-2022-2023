@@ -35,6 +35,7 @@ class Comment(ResultBase):
         self.owner: str = owner
         self.sentiment: Sentiment = sentiment
         self.hidden: bool = hidden
+        self.timestamp: DateTime
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:

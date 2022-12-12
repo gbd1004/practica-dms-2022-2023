@@ -27,7 +27,7 @@ class QuestionServices():
         Returns:
             - List[Dict]: A list of dictionaries with the questions' data.
         """
-        out: List[Dict] = []
+        out: List = []
         session: Session = schema.new_session()
         questions: List[Question] = Questions.list_all(session)
         for question in questions:
@@ -41,7 +41,7 @@ class QuestionServices():
         return out
 
     @staticmethod
-    def get_question(schema: Schema, qid: int) -> Dict:
+    def get_question(schema: Schema, qid: int) -> dict:
         """Gets the question with the same parameter qid.
 
         Args:
@@ -53,7 +53,7 @@ class QuestionServices():
         """
         session: Session = schema.new_session()
         question: Question = Questions.get_question(session,qid)
-        out: Dict = {}
+        out = {}
         if question.hidden is False:
             out = {
                 'qid': question.qid,
@@ -67,7 +67,7 @@ class QuestionServices():
 
 
     @staticmethod
-    def create_question(title: str, body: str, owner: str, schema: Schema) -> Dict:
+    def create_question(title: str, body: str, owner: str, schema: Schema) -> dict:
         """Creates a new question.
 
         Args:
@@ -84,7 +84,7 @@ class QuestionServices():
         """
 
         session: Session = schema.new_session()
-        out: Dict = {}
+        out = {}
         try:
             new_question: Question = Questions.create(session, title, body, owner)
             out = {

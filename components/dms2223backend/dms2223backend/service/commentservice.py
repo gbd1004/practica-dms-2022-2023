@@ -2,7 +2,6 @@
 CommentServices class module.
 """
 
-from ast import Dict
 from typing import List
 from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.vote.votecommdb import VotesComm
@@ -19,16 +18,16 @@ class CommentServices():
     """
 
     @staticmethod
-    def get_comments(schema: Schema, aid:int) -> List[Dict]:
+    def get_comments(schema: Schema, aid:int) -> List[dict]:
         """Lists the existing comments.
 
         Args:
             - schema (Schema): A database handler where the comments are mapped into.
 
         Returns:
-            - List[Dict]: A list of dictionaries with the comments' data.
+            - List[dict]: A list of dictionaries with the comments' data.
         """
-        out: List[Dict] = []
+        out: List[dict] = []
         session: Session = schema.new_session()
         comments: List[Comment] = Comments.list_all(session, aid)
         for comment in comments:
@@ -46,7 +45,7 @@ class CommentServices():
         return out
 
     @staticmethod
-    def get_comment(schema: Schema, cid:int) -> Dict:
+    def get_comment(schema: Schema, cid:int) -> dict:
         """Gets the comment with the same parameter cid.
 
         Args:
@@ -54,9 +53,9 @@ class CommentServices():
             - schema (Schema): A database handler where the comment are mapped into.
 
         Returns:
-            - Dict: A dictionary with the comment's data.
+            - dict: A dictionary with the comment's data.
         """
-        out: Dict = {}
+        out = {}
         session: Session = schema.new_session()
         comment: Comment = Comments.get_comment(session, cid)
         if comment.hidden is False:
@@ -76,7 +75,7 @@ class CommentServices():
 
 
     @staticmethod
-    def get_votes(schema: Schema, cid:int) -> Dict:
+    def get_votes(schema: Schema, cid:int) -> dict:
         """Lists the existing comment's votes.
 
         Args:
@@ -84,9 +83,9 @@ class CommentServices():
             - cid (int): Comment identifier
 
         Returns:
-            - Dict: A dictionary with the votes' data.
+            - dict: A dictionary with the votes' data.
         """
-        out: Dict = {}
+        out = {}
         # votes: List = [Votes]
         session: Session = schema.new_session()
         comment: Comment = Comments.get_comment(session,cid)
@@ -98,7 +97,7 @@ class CommentServices():
         return out
 
     @staticmethod
-    def create_comment(aid:int,body: str,sentiment: Sentiment,owner: str,schema: Schema) -> Dict:
+    def create_comment(aid:int,body: str,sentiment: Sentiment,owner: str,schema: Schema) -> dict:
         """Creates a new comment.
 
         Args:
@@ -107,11 +106,11 @@ class CommentServices():
             - sentiment (str): The comment sentiment.
 
         Returns:
-            - Dict: A dictionary with the new comment's data.
+            - dict: A dictionary with the new comment's data.
         """
 
         session: Session = schema.new_session()
-        out: Dict = {}
+        out = {}
         try:
             new_comment: Comment = Comments.create(session, aid, body, sentiment, owner)
             out = {

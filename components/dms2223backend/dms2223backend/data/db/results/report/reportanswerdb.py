@@ -29,6 +29,7 @@ class ReportAnswer(Report):
         self.reason: str = reason
         self.status: ReportStatus = status
         self.owner: str = owner
+        self.timestamp: DateTime
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:

@@ -2,7 +2,6 @@
 AnswerServices class module.
 """
 
-from ast import Dict
 from typing import List
 from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.vote.voteansdb import VotesAns
@@ -17,16 +16,16 @@ class AnswerServices():
     """
 
     @staticmethod
-    def get_answers(schema: Schema, qid:int) -> Dict:
+    def get_answers(schema: Schema, qid:int) -> List:
         """Lists the existing answers.
 
         Args:
             - schema (Schema): A database handler where the answers are mapped into.
 
         Returns:
-            - List[Dict]: A list of dictionaries with the answers' data.
+            - List[dict]: A list of dictionaries with the answers' data.
         """
-        out: Dict[Dict] = []
+        out = []
         session: Session = schema.new_session()
         answers: List[Answer] = Answers.list_all(session,qid)
         for answ in answers:
@@ -43,7 +42,7 @@ class AnswerServices():
         return out
 
     @staticmethod
-    def get_answer(schema: Schema, aid:int) -> Dict:
+    def get_answer(schema: Schema, aid:int) -> dict:
         """Gets the answer with the same parameter aid.
 
         Args:
@@ -51,35 +50,35 @@ class AnswerServices():
             - schema (Schema): A database handler where the answers are mapped into.
 
         Returns:
-            - Dict: A dictionary with the answer's data.
+            - dict: A dictionary with the answer's data.
         """
-        out: List = []
+        out = {}
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session, aid)
         if answer.hidden is False:
             out = {
-                    'aid': answer.aid,
-                    'qid': answer.qid,
-                    'timestamp': answer.timestamp,
-                    'body' : answer.body,
-                    'owner': {'username':answer.owner},
-                    'votes': answer.get_num_votes(session)
+                'aid': answer.aid,
+                'qid': answer.qid,
+                'timestamp': answer.timestamp,
+                'body' : answer.body,
+                'owner': {'username':answer.owner},
+                'votes': answer.get_num_votes(session)
             }
 
         schema.remove_session()
         return out
 
     @staticmethod
-    def get_votes(schema: Schema, aid:int) -> Dict:
+    def get_votes(schema: Schema, aid:int) -> dict:
         """Lists the existing answer's votes.
 
         Args:
             - schema (Schema): A database handler where the answers are mapped into.
 
         Returns:
-            - Dict: A dictionary with the votes' data.
+            - dict: A dictionary with the votes' data.
         """
-        out: Dict = {}
+        out = {}
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session,aid)
         if answer.hidden is False:
@@ -91,7 +90,7 @@ class AnswerServices():
 
 
     @staticmethod
-    def create_answer(qid: int, body: str, owner: str, schema: Schema) -> Dict:
+    def create_answer(qid: int, body: str, owner: str, schema: Schema) -> dict:
         """Creates a new answer.
 
         Args:
@@ -102,11 +101,11 @@ class AnswerServices():
             - ValueError: If either the username or the password_hash is empty.
 
         Returns:
-            - Dict: A dictionary with the new answer's data.
+            - dict: A dictionary with the new answer's data.
         """
 
         session: Session = schema.new_session()
-        out: Dict = {}
+        out = {}
         try:
             new_answer: Answer = Answers.create(session, qid, body, owner)
             out = {

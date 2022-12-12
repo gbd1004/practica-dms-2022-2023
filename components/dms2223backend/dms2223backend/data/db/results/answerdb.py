@@ -34,6 +34,7 @@ class Answer(ResultBase):
         self.body: str = body
         self.owner: str = owner
         self.hidden: bool = hidden
+        self.timestamp: DateTime
 
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
