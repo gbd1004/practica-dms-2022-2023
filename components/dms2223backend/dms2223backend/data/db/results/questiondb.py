@@ -1,18 +1,13 @@
-""" 
+"""
 Quesssstion class module.
 """
-import time
-from datetime import datetime
 from typing import Dict
 from sqlalchemy import Table, MetaData, Column, String, func  # type: ignore
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Table, MetaData, Column, String, TIMESTAMP
+from sqlalchemy import Boolean, DateTime, Integer # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
-
-
-
 
 class Question(ResultBase):
     """ Definition and storage of question ORM records.

@@ -6,9 +6,6 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import ForeignKey, Integer,Table, MetaData, Column, String  # type: ignore
 from dms2223backend.data.db.results.vote.votedb import Votes
 
-
-
-
 class VotesComm(Votes):
     """ Definition and storage of comments votes ORM records.
     """
@@ -42,20 +39,3 @@ class VotesComm(Votes):
             Column('cid', Integer, ForeignKey('comment.id')),
             Column('user', String(64), nullable=False)
         )
-
-
-
-    # El discriminante "type" se decanta por "comment"
-    # __mapper_args__ = {
-    #     'polymorphic_identity': 'votecomment', 
-    # }
-
-
-    
-
-        
-
-
-
-    
-

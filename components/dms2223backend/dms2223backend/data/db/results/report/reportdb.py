@@ -1,14 +1,10 @@
-""" 
+"""
 Reports class module.
 """
-
-import time
-from datetime import datetime
-from sqlalchemy import Integer, Table, MetaData, Column, String, Enum, DateTime, case, func # type: ignore
+from sqlalchemy import Integer, Table, MetaData, Column, String, Enum # type: ignore
+from sqlalchemy import DateTime, case, func # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.reportstatus import ReportStatus
-from dms2223backend.service.authservice import AuthService
-
 
 class Report(ResultBase):
     """ Definition and storage of reports ORM records.
@@ -35,7 +31,6 @@ class Report(ResultBase):
         self.status: ReportStatus = status
         self.owner: str = owner
 
-
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -51,12 +46,11 @@ class Report(ResultBase):
             Column('id', Integer, primary_key=True),
             Column('eid', Integer, nullable=False),
             Column('type', String(24), primary_key=True),
-            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING.name, nullable=False),#TODO: on-update?
+            Column('status', Enum(ReportStatus),default=ReportStatus.PENDING.name,nullable=False),
             Column('reason', String(300), nullable=False),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False)
         )
-
 
     __mapper_args__ = {
         "polymorphic_on":case(
@@ -67,15 +61,3 @@ class Report(ResultBase):
             ]
          )
     }
-
-
-
-
-
-
-        
-
-
-
-    
-

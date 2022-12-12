@@ -12,7 +12,7 @@ from typing import Dict
 from flask.logging import default_handler
 from dms2223backend.data.config.backendconfiguration import BackendConfiguration
 from dms2223backend.data.db.schema import Schema
-from dms2223backend.service.authservice import AuthService
+# from dms2223backend.service.authservice import AuthService
 
 if __name__ == '__main__':
     cfg: BackendConfiguration = BackendConfiguration()
@@ -21,12 +21,12 @@ if __name__ == '__main__':
 
     cfg.load_from_file(cfg.default_config_file())
     auth_service_cfg: Dict = cfg.get_auth_service()
-    auth_service: AuthService = AuthService(
-        host=auth_service_cfg['host'],
-        port=auth_service_cfg['port'],
-        apikey_header='X-ApiKey-Auth',
-        apikey_secret=auth_service_cfg['apikey_secret']
-    )
+    # auth_service: AuthService = AuthService(
+    #     host=auth_service_cfg['host'],
+    #     port=auth_service_cfg['port'],
+    #     apikey_header='X-ApiKey-Auth',
+    #     apikey_secret=auth_service_cfg['apikey_secret']
+    # )
 
     db: Schema = Schema(cfg)
     # while True:

@@ -1,21 +1,18 @@
-""" 
+"""
 AnswerServices class module.
 """
 
 from ast import Dict
 from typing import List
-from flask import current_app
-from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.vote.voteansdb import VotesAns
-from dms2223backend.data.db.results.vote.votedb import Votes  # type: ignore
 from dms2223backend.data.db.resultsets.answersdb import Answers
 from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.db.results.answerdb import Answer
 
-
 class AnswerServices():
-    """ 
+    """
     Monostate class that provides high-level services to handle Answers' use cases.
     """
 
@@ -32,15 +29,15 @@ class AnswerServices():
         out: Dict[Dict] = []
         session: Session = schema.new_session()
         answers: List[Answer] = Answers.list_all(session,qid)
-        for a in answers:
-            if a.hidden == False:
+        for answ in answers:
+            if answ.hidden is False:
                 out.append({
-                    'aid': a.aid,
-                    'qid': a.qid,
-                    'timestamp': a.timestamp,
-                    'body' : a.body,
-                    'owner': {'username':a.owner},
-                    'votes': a.get_num_votes(session)
+                    'aid': answ.aid,
+                    'qid': answ.qid,
+                    'timestamp': answ.timestamp,
+                    'body' : answ.body,
+                    'owner': {'username':answ.owner},
+                    'votes': answ.get_num_votes(session)
                 })
         schema.remove_session()
         return out
@@ -59,7 +56,7 @@ class AnswerServices():
         out: List = []
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session, aid)
-        if answer.hidden == False:
+        if answer.hidden is False:
             out = {
                     'aid': answer.aid,
                     'qid': answer.qid,
@@ -85,11 +82,10 @@ class AnswerServices():
         out: Dict = {}
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session,aid)
-        if answer.hidden == False:
+        if answer.hidden is False:
             votes = VotesSet.list_all_ans(session, aid)
-            current_app.logger.info(votes)
-            for v in votes:
-                out[v.user] = True
+            for vote in votes:
+                out[vote.user] = True
         schema.remove_session()
         return out
 
@@ -121,7 +117,7 @@ class AnswerServices():
                     'owner': {'username':new_answer.owner},
                     'votes': new_answer.get_num_votes(session)
             }
-            
+
         except Exception as ex:
             raise ex
         finally:
@@ -136,10 +132,10 @@ class AnswerServices():
         Args:
             - aid (int): The answer's aid.
             - schema (Schema): A database handler where the answers are mapped into.
-        
+
         """
         session: Session = schema.new_session()
-        
+
         answer: Answer = Answers.get_answer(session,aid)
         answer.hidden = True
 
@@ -148,7 +144,7 @@ class AnswerServices():
         session.commit()
 
         schema.remove_session()
-    
+
     @staticmethod
     def vote_answer(schema: Schema, aid: int) -> bool:
         """Add a vote to the answer with the same parameter aid.
@@ -156,10 +152,10 @@ class AnswerServices():
         Args:
             - aid (int): The answer's aid.
             - schema (Schema): A database handler where the answers are mapped into.
-        
+
         """
         session: Session = schema.new_session()
-        
+
         # Se guarda el número inicial de votos para comprobar que la operación es exitosa
         answer: Answer = Answers.get_answer(session,aid)
         prev_vote = answer.get_num_votes(session)
@@ -171,11 +167,8 @@ class AnswerServices():
         exito = False
 
         # Comprobamos que la operación es exitosa
-        if(answer.get_num_votes(session) != prev_vote):
+        if answer.get_num_votes(session) != prev_vote:
             exito = True
 
         schema.remove_session()
         return exito
-    
-
-        

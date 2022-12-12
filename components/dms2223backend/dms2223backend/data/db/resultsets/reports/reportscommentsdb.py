@@ -1,17 +1,11 @@
-""" 
+"""
 Comments reports class module.
 """
 
 from typing import List
-from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment
-from dms2223backend.data.db.resultsets.commentsdb import Comments
 from dms2223backend.data.reportstatus import ReportStatus
-
-
-
 
 class ReportsComments():
     """ Class responsible of table-level comment reports operations.
@@ -38,11 +32,8 @@ class ReportsComments():
         if not reason:
             raise ValueError('Reason is a required value')
 
-
         new_report = ReportComment(cid, reason, ReportStatus.PENDING, owner)
 
-
-        
         session.add(new_report)
         session.commit()
         return new_report
@@ -58,7 +49,7 @@ class ReportsComments():
         Returns:
             - Report: Expected `Report` register.
         """
-        
+
         query = session.query(ReportComment).where(ReportComment.id == crid)
         return query.first()
 
@@ -72,8 +63,6 @@ class ReportsComments():
         Returns:
             - List[ReportComment]: A list of `Reports` registers.
         """
-        
+
         query = session.query(ReportComment)
         return query.all()
-
-

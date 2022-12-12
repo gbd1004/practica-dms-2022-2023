@@ -1,16 +1,10 @@
-""" 
+"""
 Questions class module.
 """
 
-import hashlib
 from typing import List
-from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.questiondb import Question
-
-
-
 
 class Questions():
     """ Class responsible of table-level questions operations.
@@ -42,7 +36,6 @@ class Questions():
         session.commit()
         return new_question
 
-
     @staticmethod
     def get_question(session: Session, qid:int) -> Question:
         """Gets a particular question.
@@ -54,10 +47,9 @@ class Questions():
         Returns:
             - Question: Expected `Question` register.
         """
-        
+
         query = session.query(Question).where(Question.qid == qid)
         return query.first()
-
 
     @staticmethod
     def list_all(session: Session) -> List[Question]:
@@ -69,8 +61,6 @@ class Questions():
         Returns:
             - List[Question]: A list of `Question` registers.
         """
-        
+
         query = session.query(Question)
         return query.all()
-
-

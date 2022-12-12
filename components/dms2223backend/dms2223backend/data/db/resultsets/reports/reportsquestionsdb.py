@@ -1,16 +1,12 @@
-""" 
+"""
 Questions reports class module.
 """
 
 from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
 from dms2223backend.data.db.resultsets.questionsdb import Questions
 from dms2223backend.data.reportstatus import ReportStatus
-
-
-
 
 class ReportsQuestions():
     """ Class responsible of table-level question reports operations.
@@ -37,13 +33,11 @@ class ReportsQuestions():
         if not reason:
             raise ValueError('Reason is a required value')
 
-
         new_report = ReportQuestion(qid, reason, ReportStatus.PENDING, owner)
         
         session.add(new_report)
         session.commit()
         return new_report
-
 
     @staticmethod
     def get_report(session: Session, qrid:int) -> ReportQuestion:
@@ -56,10 +50,9 @@ class ReportsQuestions():
         Returns:
             - Report: Expected `Report` register.
         """
-        
+
         query = session.query(ReportQuestion).where(ReportQuestion.id == qrid)
         return query.first()
-
 
     @staticmethod
     def list_all(session: Session) -> List[ReportQuestion]:
@@ -71,8 +64,6 @@ class ReportsQuestions():
         Returns:
             - List[ReportQuestion]: A list of `Reports` registers.
         """
-        
+
         query = session.query(ReportQuestion)
         return query.all()
-
-

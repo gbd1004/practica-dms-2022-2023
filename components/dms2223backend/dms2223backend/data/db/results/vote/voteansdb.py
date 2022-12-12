@@ -1,12 +1,9 @@
-""" 
+"""
 Answer votes class module.
 """
 
 from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String  # type: ignore
 from dms2223backend.data.db.results.vote.votedb import Votes
-
-
-
 
 class VotesAns(Votes):
     """ Definition and storage of answer votes ORM records.
@@ -24,7 +21,6 @@ class VotesAns(Votes):
         self.aid: int = aid
         self.user: str = user
 
-
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -41,18 +37,3 @@ class VotesAns(Votes):
             Column('aid', Integer, ForeignKey('answer.aid')),
             Column('user', String(64), nullable=False)
         )
-
-
-    # El discriminante "type" se decanta por "answer"
-    # __mapper_args__ = {
-    #     'polymorphic_identity': 'voteanswer', 
-    # }
-
-    
-
-        
-
-
-
-    
-

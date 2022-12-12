@@ -1,18 +1,16 @@
-""" 
+"""
 Answer class module.
 """
 
 from typing import Dict
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Table, MetaData, Column, String, func  # type: ignore
-from sqlalchemy.orm import relationship
+from sqlalchemy import Table, MetaData, Column, String, func # type: ignore
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer # type: ignore
+from sqlalchemy.orm import relationship # type: ignore
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.db.results.vote.voteansdb import VotesAns
 from dms2223backend.data.db.results.commentdb import Comment
-
-
-
 
 class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
@@ -50,14 +48,12 @@ class Answer(ResultBase):
             'answer',
             metadata,
             Column('aid', Integer, primary_key=True, autoincrement=True),
-            Column('qid', Integer, ForeignKey('question.qid'), nullable=False), 
+            Column('qid', Integer, ForeignKey('question.qid'), nullable=False),
             Column('body', String(200), nullable=True),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False),
             Column('hidden', Boolean, nullable=False, default=False)
         )
-    
-
 
     @staticmethod
     def _mapping_properties() -> Dict:
@@ -68,14 +64,8 @@ class Answer(ResultBase):
             'answer_votes': relationship(VotesAns, backref='answer'),
             'answer_reports': relationship(ReportAnswer, backref='answer')
         }
-    
 
-    # Método con el que posteriormente se puede actualizar el número de votos 
+    # Método con el que posteriormente se puede actualizar el número de votos
     def get_num_votes(self, session: Session) -> int:
         num_votes = session.query(VotesAns).filter(VotesAns.id == self.aid)
         return num_votes.count()
-
-
-
-    
-

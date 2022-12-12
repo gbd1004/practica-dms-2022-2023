@@ -1,20 +1,15 @@
-""" 
+"""
 Comment class module.
 """
-import time
-from datetime import datetime
 from typing import Dict
 from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import ForeignKey, Table, MetaData, Column, String, Enum, func  # type: ignore
-from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Table, MetaData, Column, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, DateTime, Integer  # type: ignore
+from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.db.results.vote.votecommdb import VotesComm
 from dms2223backend.data.sentiment import Sentiment
-
-
-
 
 class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
@@ -54,11 +49,11 @@ class Comment(ResultBase):
             'comment',
             metadata,
             Column('id', Integer, primary_key=True, autoincrement=True),
-            Column('aid', Integer, ForeignKey('answer.aid'), nullable=False), 
+            Column('aid', Integer, ForeignKey('answer.aid'), nullable=False),
             Column('body', String(200), nullable=True),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False),
-            Column('sentiment', Enum(Sentiment), nullable=True), 
+            Column('sentiment', Enum(Sentiment), nullable=True),
             Column('hidden', Boolean, nullable=False, default=False)
         )
 
@@ -70,17 +65,7 @@ class Comment(ResultBase):
             'comment_report': relationship(ReportComment, backref='comment')
         }
 
-    # Método con el que posteriormente se puede actualizar el número de votos 
+    # Método con el que posteriormente se puede actualizar el número de votos
     def get_num_votes(self, session: Session) -> int:
         num_votes = session.query(VotesComm).filter(VotesComm.id == self.id)
         return num_votes.count()
-
-
-    
-
-        
-
-
-
-    
-

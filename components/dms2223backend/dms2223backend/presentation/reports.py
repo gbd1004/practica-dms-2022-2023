@@ -1,12 +1,8 @@
 from http import HTTPStatus
 from typing import Dict
 from dms2223backend.data.reportstatus import ReportStatus
-
 from flask import current_app
-
 from dms2223backend.service.reportservice import ReportServices
-
-
 
 #---------------------------------------------------#
 # POSIBLES OPERACIONES:     (definidas en spec.yml) #
@@ -16,41 +12,44 @@ from dms2223backend.service.reportservice import ReportServices
 def new_question_report(qid: int, body: dict, token_info: dict) -> tuple[dict, HTTPStatus]:
     """Creates a question report
 
-	Returns:
+    Returns:
         - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200 OK.
     """
     with current_app.app_context():
         # Definido en: QuestionReportFullModel
         owner = token_info['user_token']['username']
-        new_report: Dict = ReportServices.new_question_report(current_app.db, qid, body['reason'], owner) 
+        new_report: Dict = ReportServices.new_question_report(
+            current_app.db, qid, body['reason'], owner
+        ) 
         return new_report, HTTPStatus.OK
 
 # Report POST
 def new_answer_report(aid: int, body: dict, token_info: dict) -> tuple[dict, HTTPStatus]:
     """Creates an answer report
 
-	Returns:
+    Returns:
         - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200 OK.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
-        new_report: Dict = ReportServices.new_answer_report(current_app.db, aid, body['reason'], owner)
+        new_report: Dict = ReportServices.new_answer_report(
+            current_app.db, aid, body['reason'], owner
+        )
         return new_report, HTTPStatus.OK
 
 # Report POST
 def new_comment_report(cid: int, body: dict, token_info: dict) -> tuple[dict, HTTPStatus]:
     """Creates a comment report
 
-	Returns:
+    Returns:
         - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200 OK.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
-        new_report: Dict = ReportServices.new_comment_report(current_app.db, cid, body['reason'], owner) 
+        new_report: Dict = ReportServices.new_comment_report(
+            current_app.db, cid, body['reason'], owner
+        )
         return new_report, HTTPStatus.OK
-
-
-
 
 # Report GET (list)
 def get_questions_reports() -> tuple[list, HTTPStatus]:
@@ -85,8 +84,6 @@ def get_comments_reports() -> tuple[list, HTTPStatus]:
     with current_app.app_context():
         diccionario: list = ReportServices.get_reports_comments(current_app.db) 
         return diccionario, HTTPStatus.OK
-	
-
 
 # Report{rid} POST
 def set_question_report_status(qrid: int, body: dict) -> tuple[dict, HTTPStatus]:
@@ -123,4 +120,3 @@ def set_comment_report_status(crid: int, body: dict) -> tuple[dict, HTTPStatus]:
         ReportServices.set_comment_report_status(current_app.db, crid, body['status'])
         report: Dict = ReportServices.get_report_comment(current_app.db, crid)
         return report, HTTPStatus.OK
-

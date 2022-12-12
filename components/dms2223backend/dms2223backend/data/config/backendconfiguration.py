@@ -45,7 +45,6 @@ class BackendConfiguration(ServiceConfiguration):
 
         if 'auth_service' in values:
             self.set_auth_service(values['auth_service'])
-        
 
     def set_auth_service(self, auth_service: Dict) -> None:
         """Sets the connection parameters for the authentication service.
@@ -66,7 +65,7 @@ class BackendConfiguration(ServiceConfiguration):
         """
 
         return self._values['auth_service']
-    
+
     def set_db_connection_string(self, db_connection_string: str) -> None:
         """ Sets the db_connection_string configuration value.
 

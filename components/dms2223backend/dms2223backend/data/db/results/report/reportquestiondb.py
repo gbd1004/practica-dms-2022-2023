@@ -4,14 +4,11 @@ Question reports class module.
 
 import time
 from datetime import datetime
-from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String, Enum, DateTime, func  # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
+from sqlalchemy import ForeignKey, Integer, Table # type: ignore
+from sqlalchemy import MetaData, Column, String, Enum, DateTime, func # type: ignore
+from sqlalchemy.orm import relationship # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.reportstatus import ReportStatus
-from dms2223backend.service.authservice import AuthService
-
-
-
 
 class ReportQuestion(Report):
     """ Definition and storage of reports ORM records.
@@ -36,7 +33,6 @@ class ReportQuestion(Report):
         self.status: ReportStatus = status
         self.owner: str = owner
 
-
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -51,24 +47,13 @@ class ReportQuestion(Report):
             metadata,
             Column('id', Integer, primary_key=True),
             Column('qid', Integer, ForeignKey('question.qid'), nullable=False),
-            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),#TODO: on-update?
+            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),
             Column('reason', String(300), nullable=False),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False)
         )
 
-
     # El discriminante "type" se decanta por "comment"
     __mapper_args__ = {
         'polymorphic_identity': 'reportque', 
     }
-
-
-    
-
-        
-
-
-
-    
-

@@ -1,18 +1,11 @@
-""" 
-Comments class module.
+""" Comments class module.
 """
 
-import hashlib
 from typing import List
-from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.data.db.results.commentdb import Comment
 from dms2223backend.data.sentiment import Sentiment
-
-
-
 
 class Comments():
     """ Class responsible of table-level comments operations.
@@ -39,7 +32,7 @@ class Comments():
             raise ValueError('El sentimentio es un campo obligatorio para crear un comentario.')
 
         new_comm = Comment(aid, body, sentiment, False, owner=owner)
-        
+
         session.add(new_comm)
         session.commit()
         return new_comm
@@ -55,7 +48,7 @@ class Comments():
         Returns:
             - Comment: Expected `Comment` register.
         """
-        
+
         query = session.query(Comment).where(Comment.id == cid)
         return query.first()
 
@@ -69,8 +62,6 @@ class Comments():
         Returns:
             - List[Comment]: A list of `Comment` registers.
         """
-        
+
         query = session.query(Comment).filter(Comment.aid == aid)
         return query.all()
-
-

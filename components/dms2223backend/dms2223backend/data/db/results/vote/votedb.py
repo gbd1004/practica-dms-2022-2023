@@ -2,10 +2,8 @@
 Answer votes class module.
 """
 
-from sqlalchemy import Integer, Table, MetaData, Column, String, case  # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
+from sqlalchemy import Integer, Table, MetaData, Column, String  # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
-
 
 class Votes(ResultBase):
     """ Definition and storage of votes ORM records.
@@ -42,25 +40,3 @@ class Votes(ResultBase):
             Column('type', String(24), primary_key=True),
             Column('user', String(64), nullable=False)
         )
-
-    # __mapper_args__ = {
-    #     #'polymorphic_identity':'votes',
-    #     "polymorphic_on":case(
-    #         [
-    #             (type == "voteanswer", "voteanswer"),
-    #             (type == "votecomment", "votecomment")
-    #         ]
-    #      )
-    # }
-
-
-
-
-
-
-        
-
-
-
-    
-

@@ -1,6 +1,5 @@
 
 from http import HTTPStatus
-from dms2223backend.data.sentiment import Sentiment
 from typing import Dict, List
 from flask import current_app
 
@@ -14,20 +13,19 @@ from dms2223backend.service.commentservice import CommentServices
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
 def get_answers(qid: int) -> tuple[list, HTTPStatus]:
-     with current_app.app_context():
+    with current_app.app_context():
         # Si la pregunta existe, se podrá tratar de obtener sus respuestas
         answers: List = AnswerServices.get_answers(current_app.db, qid)
-        
+
         # Si existen respuestas a la pregunta, se devolverá la pregunta completa
-        if (len(answers ) != 0):
+        if len(answers ) != 0:
             for ans in answers:
                 votes = AnswerServices.get_votes(current_app.db, ans['aid'])
                 comments = get_comments(ans['aid'])
                 ans['user_votes'] = votes
                 ans['comms'] = comments
             return answers , HTTPStatus.OK
-        else:
-            return [], HTTPStatus.NOT_FOUND
+        return [], HTTPStatus.NOT_FOUND
 
 # Función auxiliar: completa los comentarios con sus respectivos votos
 def get_comments(aid: int) -> List[Dict]:
@@ -36,7 +34,6 @@ def get_comments(aid: int) -> List[Dict]:
         for comment in comments:
             comment['user_votes'] = CommentServices.get_votes(current_app.db, comment['cid'])
         return comments
-
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
@@ -65,7 +62,9 @@ def new_comment(aid: int, body: Dict, token_info: Dict) -> tuple[dict, HTTPStatu
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
-        new_comm: Dict = CommentServices.create_comment(aid, body['body'], body['sentiment'], owner, current_app.db) 
+        new_comm: Dict = CommentServices.create_comment(
+            aid, body['body'], body['sentiment'], owner, current_app.db
+        )
 
         usr_votes: Dict = CommentServices.get_votes(current_app.db, new_comm['cid'])
         new_comm['user_votes'] = usr_votes

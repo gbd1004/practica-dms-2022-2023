@@ -2,17 +2,10 @@
 Answer reports class module.
 """
 
-import time
-from datetime import datetime
-from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String, Enum, DateTime, func  # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
+from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String # type: ignore
+from sqlalchemy import Enum, DateTime, func # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.reportstatus import ReportStatus
-from dms2223backend.service.authservice import AuthService
-
-
-
 
 class ReportAnswer(Report):
     """ Definition and storage of reports ORM records.
@@ -37,7 +30,6 @@ class ReportAnswer(Report):
         self.status: ReportStatus = status
         self.owner: str = owner
 
-
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -52,24 +44,13 @@ class ReportAnswer(Report):
             metadata,
             Column('id', Integer, primary_key=True),
             Column('aid', Integer, ForeignKey('answer.aid'), nullable=False),
-            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),#TODO: on-update?
+            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),
             Column('reason', String(300), nullable=False),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False) 
         )
 
-
     # El discriminante "type" se decanta por "answer"
     __mapper_args__ = {
         'polymorphic_identity': 'reportans', 
     }
-
-
-    
-
-        
-
-
-
-    
-

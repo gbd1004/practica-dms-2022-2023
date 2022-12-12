@@ -4,13 +4,10 @@ Comments reports class module.
 
 import time
 from datetime import datetime
-from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String, Enum, DateTime, func  # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
+from sqlalchemy import ForeignKey, Integer, Table, MetaData #type: ignore
+from sqlalchemy import Column, String, Enum, DateTime, func  # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.reportstatus import ReportStatus
-
-
-
 
 class ReportComment(Report):
     """ Definition and storage of reports ORM records.
@@ -35,7 +32,6 @@ class ReportComment(Report):
         self.status: ReportStatus = status
         self.owner: str = owner
 
-
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -50,24 +46,13 @@ class ReportComment(Report):
             metadata,
             Column('id', Integer, primary_key=True),
             Column('cid', Integer, ForeignKey('comment.id'), nullable=False),
-            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),#TODO: on-update?
+            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),
             Column('reason', String(300), nullable=False),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
-            Column('owner', String(64), nullable=False) 
+            Column('owner', String(64), nullable=False)
         )
-
 
     # El discriminante "type" se decanta por "comment"
     __mapper_args__ = {
         'polymorphic_identity': 'reportcomm', 
     }
-
-
-    
-
-        
-
-
-
-    
-

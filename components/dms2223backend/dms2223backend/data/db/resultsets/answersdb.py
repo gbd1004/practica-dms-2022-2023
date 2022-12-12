@@ -1,11 +1,9 @@
-""" 
+"""
 Answers class module.
 """
-import hashlib
+
 from typing import List
-from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.data.db.resultsets.questionsdb import Questions
 
@@ -30,7 +28,6 @@ class Answers():
 
         new_answer = Answer(qid, body, hidden=False ,owner=owner)
 
-        
         session.add(new_answer)
         session.commit()
         return new_answer
@@ -46,7 +43,7 @@ class Answers():
         Returns:
             - Answer: Expected `Answer` register.
         """
-        
+
         query = session.query(Answer).where(Answer.aid == aid)
         return query.first()
 
@@ -61,6 +58,6 @@ class Answers():
         Returns:
             - List[Answer]: A list of `Answer` registers.
         """
-        
+
         query = session.query(Answer).filter(Answer.qid == qid)
         return query.all()

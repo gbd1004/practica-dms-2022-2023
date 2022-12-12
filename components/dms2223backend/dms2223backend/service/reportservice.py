@@ -1,11 +1,10 @@
-""" 
+"""
 ReportServices class module.
 """
 
 from ast import Dict
 from typing import List
-from flask import current_app
-from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment
 from dms2223backend.data.db.results.report.reportdb import Report
@@ -21,7 +20,7 @@ from dms2223backend.service.questionservice import QuestionServices
 
 
 class ReportServices():
-    """ 
+    """
     Monostate class that provides high-level services to handle Reports' use cases.
     """
 
@@ -38,14 +37,14 @@ class ReportServices():
         out: List[Dict] = []
         session: Session = schema.new_session()
         reports: List[ReportQuestion] = ReportsQuestions.list_all(session)
-        for r in reports:
+        for report in reports:
             out.append({
-                'qrid': r.id,
-                'qid': r.qid,
-                'timestamp': r.timestamp,
-                'reason' : r.reason,
-                'status': r.status.name,
-                'owner': {'username': r.owner}
+                'qrid': report.id,
+                'qid': report.qid,
+                'timestamp': report.timestamp,
+                'reason' : report.reason,
+                'status': report.status.name,
+                'owner': {'username': report.owner}
             })
         schema.remove_session()
         return out
@@ -63,19 +62,18 @@ class ReportServices():
         out: List[Dict] = []
         session: Session = schema.new_session()
         reports: List[ReportAnswer] = ReportsAnswer.list_all(session)
-        for r in reports:
+        for report in reports:
             out.append({
-                'arid': r.id,
-                'aid': r.aid,
-                'timestamp': r.timestamp,
-                'reason' : r.reason,
-                'status': r.status.name,
-                'owner': {'username': r.owner}
+                'arid': report.id,
+                'aid': report.aid,
+                'timestamp': report.timestamp,
+                'reason' : report.reason,
+                'status': report.status.name,
+                'owner': {'username': report.owner}
             })
         schema.remove_session()
         return out
 
-    
     @staticmethod
     def get_reports_comments(schema: Schema) -> List[Dict]:
         """Lists the existing reports.
@@ -89,18 +87,18 @@ class ReportServices():
         out: List[Dict] = []
         session: Session = schema.new_session()
         reports: List[ReportComment] = ReportsComments.list_all(session)
-        for r in reports:
+        for report in reports:
             out.append({
-                'crid': r.id,
-                'cid': r.cid,
-                'timestamp': r.timestamp,
-                'reason' : r.reason,
-                'status': r.status.name,
-                'owner': {'username': r.owner}
+                'crid': report.id,
+                'cid': report.cid,
+                'timestamp': report.timestamp,
+                'reason' : report.reason,
+                'status': report.status.name,
+                'owner': {'username': report.owner}
             })
         schema.remove_session()
         return out
-    
+
     @staticmethod
     def get_report_question(schema: Schema, qrid:int) -> Dict:
         """Gets an specific report
@@ -125,7 +123,7 @@ class ReportServices():
         }
         schema.remove_session()
         return out
-    
+
     @staticmethod
     def get_report_answer(schema: Schema, arid:int) -> Dict:
         """Gets an specific report
@@ -150,7 +148,7 @@ class ReportServices():
         }
         schema.remove_session()
         return out
-    
+
     @staticmethod
     def get_report_comment(schema: Schema, crid:int) -> Dict:
         """Gets an specific report
@@ -176,7 +174,6 @@ class ReportServices():
         schema.remove_session()
         return out
 
-
     @staticmethod
     def set_question_report_status(schema: Schema, qrid: int, status: str):
         """Changes the status of the report
@@ -184,10 +181,9 @@ class ReportServices():
         Args:
             - qrid (int): The report's id.
             - schema (Schema): A database handler where the reports are mapped into.
-        
         """
         session: Session = schema.new_session()
-        
+
         report: ReportQuestion = ReportsQuestions.get_report(session, qrid)
 
         report.status = ReportStatus[status]
@@ -199,8 +195,7 @@ class ReportServices():
         session.commit()
 
         schema.remove_session()
-        
-    
+
     @staticmethod
     def set_answer_report_status(schema: Schema, arid: int, status: str):
         """Changes the status of the report
@@ -208,10 +203,9 @@ class ReportServices():
         Args:
             - arid (int): The report's id.
             - schema (Schema): A database handler where the reports are mapped into.
-        
         """
         session: Session = schema.new_session()
-        
+
         report: ReportAnswer = ReportsAnswer.get_report(session, arid)
 
         report.status = ReportStatus[status]
@@ -231,10 +225,9 @@ class ReportServices():
         Args:
             - crid (int): The report's id.
             - schema (Schema): A database handler where the reports are mapped into.
-        
         """
         session: Session = schema.new_session()
-        
+
         report: ReportComment = ReportsComments.get_report(session, crid)
 
         report.status = ReportStatus[status]
@@ -272,7 +265,7 @@ class ReportServices():
                 'status': new_report.status.name,
                 'owner': {'username': new_report.owner}
             }
-            
+
         except Exception as ex:
             raise ex
         finally:
@@ -286,7 +279,6 @@ class ReportServices():
         Args:
             - reason (str): The report's reason.
             - schema (Schema): A database handler where the reports are mapped into.
-
         Returns:
             - Dict: A dictionary with the new report's data.
         """
@@ -303,13 +295,13 @@ class ReportServices():
                 'status': new_report.status.name,
                 'owner': {'username': new_report.owner}
             }
-            
+
         except Exception as ex:
             raise ex
         finally:
             schema.remove_session()
         return out
-    
+
     @staticmethod
     def new_comment_report(schema: Schema, cid:int, reason: str, owner: str) -> Dict:
         """Creates a new report.
@@ -317,7 +309,6 @@ class ReportServices():
         Args:
             - reason (str): The report's reason.
             - schema (Schema): A database handler where the reports are mapped into.
-
         Returns:
             - Dict: A dictionary with the new report's data.
         """
@@ -334,14 +325,9 @@ class ReportServices():
                 'status': new_report.status.name,
                 'owner': {'username': new_report.owner}
             }
-            
+
         except Exception as ex:
             raise ex
         finally:
             schema.remove_session()
         return out
-
-
-
-
-   

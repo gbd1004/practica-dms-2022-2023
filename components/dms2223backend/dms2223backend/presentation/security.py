@@ -1,9 +1,6 @@
-import json
-import time
-import logging
 from typing import Dict
 from flask import current_app
-import requests
+import requests # type: ignore
 from connexion.exceptions import Unauthorized  # type: ignore
 from dms2223backend.data.config.backendconfiguration import BackendConfiguration
 
@@ -36,7 +33,7 @@ def verify_token(token: str) -> Dict:
 
     Returns:
         - Dict: A dictionary with the user name (key `user`) if the credentials are correct.
-    """    
+    """
     with current_app.app_context():
         cfg = current_app.cfg.get_auth_service()
         base_url = f'http://{cfg["host"]}:{cfg["port"]}/api/v1'

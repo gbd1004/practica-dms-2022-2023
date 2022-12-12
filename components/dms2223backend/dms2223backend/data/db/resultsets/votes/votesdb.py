@@ -12,7 +12,7 @@ class VotesSet():
     """
 
     @staticmethod
-    def list_all_ans(session: Session, aid: int) -> List[VotesAns]:
+    def list_all_ans(session: Session, id: int) -> List[VotesAns]:
         """Lists every answer report.
 
         Args:
@@ -30,11 +30,11 @@ class VotesSet():
                 query = session.query(VotesComm).filter(VotesComm.id == id)
          """
 
-        query = session.query(VotesAns).filter(VotesAns.aid == aid)
+        query = session.query(VotesAns).filter(VotesAns.id == id)
         return query.all()
 
     @staticmethod
-    def list_all_comm(session: Session, cid: int )-> List[VotesComm]:
+    def list_all_comm(session: Session, id: int )-> List[VotesComm]:
         """Lists every answer report.
 
         Args:
@@ -51,6 +51,6 @@ class VotesSet():
             else:
                 query = session.query(VotesComm).filter(VotesComm.id == id)
          """
-        
-        query = session.query(VotesComm).filter(VotesComm.cid == cid)
+
+        query = session.query(VotesComm).filter(VotesComm.id == id)
         return query.all()
