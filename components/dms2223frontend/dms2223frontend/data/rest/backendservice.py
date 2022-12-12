@@ -38,8 +38,6 @@ class BackendService():
     def __base_url(self) -> str:
         return f'http://{self.__host}:{self.__port}{self.__api_base_path}'
 
-    # TODO: Implement
-
     def new_question(self, token, title: Optional[str], body: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(

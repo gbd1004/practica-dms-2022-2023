@@ -4,7 +4,9 @@ AnswerServices class module.
 
 from ast import Dict
 from typing import List
+from flask import current_app
 from sqlalchemy.orm.session import Session
+from dms2223backend.data.db.results.vote.voteansdb import VotesAns
 from dms2223backend.data.db.results.vote.votedb import Votes  # type: ignore
 from dms2223backend.data.db.resultsets.answersdb import Answers
 from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
@@ -44,7 +46,7 @@ class AnswerServices():
         return out
 
     @staticmethod
-    def get_answer(schema: Schema, aid:int) -> List:
+    def get_answer(schema: Schema, aid:int) -> Dict:
         """Gets the answer with the same parameter aid.
 
         Args:
@@ -58,14 +60,14 @@ class AnswerServices():
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session, aid)
         if answer.hidden == False:
-            out.append({
+            out = {
                     'aid': answer.aid,
                     'qid': answer.qid,
                     'timestamp': answer.timestamp,
                     'body' : answer.body,
                     'owner': {'username':answer.owner},
                     'votes': answer.get_num_votes(session)
-            })
+            }
 
         schema.remove_session()
         return out
@@ -84,9 +86,9 @@ class AnswerServices():
         session: Session = schema.new_session()
         answer: Answer = Answers.get_answer(session,aid)
         if answer.hidden == False:
-            votes = VotesSet.list_all(session, "voteanswer", aid)
+            votes = VotesSet.list_all_ans(session, aid)
+            current_app.logger.info(votes)
             for v in votes:
-                #TODO: revisar
                 out[v.user] = True
         schema.remove_session()
         return out
@@ -163,16 +165,17 @@ class AnswerServices():
         prev_vote = answer.get_num_votes(session)
 
         # Se añade el nuevo voto
-        new_vote: Votes = Votes(aid, "voteanswer", answer.owner)
+        new_vote: VotesAns = VotesAns(aid, answer.owner)
         session.add(new_vote)
         session.commit()
-        schema.remove_session()
+        exito = False
 
         # Comprobamos que la operación es exitosa
-        if(answer.get_num_votes == prev_vote):
-            return True
-        else:
-            return False
+        if(answer.get_num_votes(session) != prev_vote):
+            exito = True
+
+        schema.remove_session()
+        return exito
     
 
         

@@ -33,16 +33,20 @@ class ModeratorEndpoints():
         name = session['user']
         response_qr: ResponseData = backend_service.get_questions_reports(session.get('token'))
         WebUtils.flash_response_messages(response_qr)
-        question_reports = response_qr.get_content().values()
+        question_reports = response_qr.get_content()
 
         response_ar: ResponseData = backend_service.get_answers_reports(session.get('token'))
         WebUtils.flash_response_messages(response_ar)
-        answer_reports = response_ar.get_content().values()
+        answer_reports = response_ar.get_content()
 
         response_cr: ResponseData = backend_service.get_comments_reports(session.get('token'))
         WebUtils.flash_response_messages(response_cr)
-        comment_reports = response_cr.get_content().values()
+        comment_reports = response_cr.get_content()
         
+        current_app.logger.info(question_reports)
+        current_app.logger.info(answer_reports)
+        current_app.logger.info(comment_reports)
+
 
         return render_template('moderator.html', name=name, roles=session['roles'], 
             question_reports=question_reports, answer_reports=answer_reports, comment_reports=comment_reports)

@@ -4,7 +4,7 @@ Comments reports class module.
 
 import time
 from datetime import datetime
-from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String, Enum, DateTime  # type: ignore
+from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String, Enum, DateTime, func  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.reportstatus import ReportStatus
@@ -31,7 +31,6 @@ class ReportComment(Report):
         """
         self.id: int
         self.cid: int = cid
-        self.timestamp: datetime.timestamp
         self.reason: str = reason
         self.status: ReportStatus = status
         self.owner: str = owner
@@ -51,9 +50,9 @@ class ReportComment(Report):
             metadata,
             Column('id', Integer, primary_key=True),
             Column('cid', Integer, ForeignKey('comment.id'), nullable=False),
-            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING.name, nullable=False),#TODO: on-update?
+            Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),#TODO: on-update?
             Column('reason', String(300), nullable=False),
-            Column('timestamp', DateTime, nullable=False, default=time.time()),
+            Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False) 
         )
 

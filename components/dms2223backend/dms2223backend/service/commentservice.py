@@ -4,7 +4,9 @@ CommentServices class module.
 
 from ast import Dict
 from typing import List
+from flask import current_app
 from sqlalchemy.orm.session import Session
+from dms2223backend.data.db.results.vote.votecommdb import VotesComm
 from dms2223backend.data.db.results.vote.votedb import Votes  # type: ignore
 from dms2223backend.data.db.resultsets.commentsdb import Comments
 from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
@@ -31,7 +33,7 @@ class CommentServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        comments: List[Comment] = Comments.list_all(session)
+        comments: List[Comment] = Comments.list_all(session, aid)
         for c in comments:
             if c.hidden == False:
                 out.append({
@@ -39,7 +41,7 @@ class CommentServices():
                     'aid': c.aid,
                     'timestamp': c.timestamp,
                     'body' : c.body,
-                    'sentiment': c.sentiment,
+                    'sentiment': c.sentiment.name,
                     'owner': {'username': c.owner},
                     'votes': c.get_num_votes(session)
                 })
@@ -61,14 +63,14 @@ class CommentServices():
         session: Session = schema.new_session()
         comment: Comment = Comments.get_comment(session, cid)
         if comment.hidden == False:
-            out['cid'] = {
-                    'cid': comment.id,
-                    'aid': comment.aid,
-                    'timestamp': comment.timestamp,
-                    'body' : comment.body,
-                    'sentiment': comment.sentiment,
-                    'owner': {'username': comment.owner},
-                    'votes': comment.get_num_votes(session)
+            out = {
+                'cid': comment.id,
+                'aid': comment.aid,
+                'timestamp': comment.timestamp,
+                'body' : comment.body,
+                'sentiment': comment.sentiment.name,
+                'owner': {'username': comment.owner},
+                'votes': comment.get_num_votes(session)
             }
 
         schema.remove_session()
@@ -88,13 +90,12 @@ class CommentServices():
             - Dict: A dictionary with the votes' data.
         """
         out: Dict = {}
-        votes: List = [Votes]
+        # votes: List = [Votes]
         session: Session = schema.new_session()
         comment: Comment = Comments.get_comment(session,cid)
         if comment.hidden == False:
-            votes: VotesSet.list_all(session, "votecomment", cid)
+            votes = VotesSet.list_all_comm(session, cid)
             for v in votes:
-                #TODO: revisar
                 out[v.user] = True
         schema.remove_session()
         return out
@@ -116,12 +117,12 @@ class CommentServices():
         out: Dict = {}
         try:
             new_comment: Comment = Comments.create(session, aid, body, sentiment, owner)
-            out['aid'] = {
+            out = {
                     'cid': new_comment.id,
                     'aid': new_comment.aid,
                     'timestamp': new_comment.timestamp,
                     'body' : new_comment.body,
-                    'sentiment': new_comment.sentiment,
+                    'sentiment': new_comment.sentiment.name,
                     'owner': {'username': new_comment.owner},
                     'votes': new_comment.get_num_votes(session)
             }
@@ -169,15 +170,16 @@ class CommentServices():
         prev_vote = comment.get_num_votes(session)
 
         # Se añade el nuevo voto
-        new_vote: Votes = Votes(id, "votecomment", comment.owner)
+        new_vote: VotesComm = VotesComm(id, comment.owner)
         session.add(new_vote)
         session.commit()
-        schema.remove_session()
+        exito = False
 
         # Comprobamos que la operación es exitosa
-        if(comment.get_num_votes == prev_vote):
-            return True
-        else:
-            return False
+        if(comment.get_num_votes(session) != prev_vote):
+            exito = True
+
+        schema.remove_session()
+        return exito
 
         

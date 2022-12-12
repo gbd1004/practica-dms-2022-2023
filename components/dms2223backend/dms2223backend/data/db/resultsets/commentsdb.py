@@ -9,6 +9,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.data.db.results.commentdb import Comment
+from dms2223backend.data.sentiment import Sentiment
 
 
 
@@ -17,7 +18,7 @@ class Comments():
     """ Class responsible of table-level comments operations.
     """
     @staticmethod
-    def create(session: Session, aid:int, body: str, sentiment: enumerate, owner: str) -> Comment:
+    def create(session: Session, aid:int, body: str, sentiment: Sentiment, owner: str) -> Comment:
         """ Creates a new comment record.
 
         Note:
@@ -56,11 +57,11 @@ class Comments():
         """
         
         query = session.query(Comment).where(Comment.id == cid)
-        return query
+        return query.first()
 
     @staticmethod
-    def list_all(session: Session) -> List[Comment]:
-        """Lists every comment.
+    def list_all(session: Session, aid: int) -> List[Comment]:
+        """Lists every comment of an anser.
 
         Args:
             - session (Session): The session object.
@@ -69,7 +70,7 @@ class Comments():
             - List[Comment]: A list of `Comment` registers.
         """
         
-        query = session.query(Comment)
+        query = session.query(Comment).filter(Comment.aid == aid)
         return query.all()
 
 

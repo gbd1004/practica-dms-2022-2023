@@ -16,7 +16,7 @@ class ReportsAnswer():
     """ Class responsible of table-level answer reports operations.
     """
     @staticmethod
-    def create(session: Session, aid:int, reason: str) -> ReportAnswer:
+    def create(session: Session, aid:int, reason: str, owner: str) -> ReportAnswer:
         """ Creates a new report record.
 
         Note:
@@ -37,7 +37,7 @@ class ReportsAnswer():
         if not reason:
             raise ValueError('Reason is a required value')
 
-        new_report = ReportAnswer(session, aid, reason, ReportStatus.PENDING.name)
+        new_report = ReportAnswer(aid, reason, ReportStatus.PENDING, owner)
         
         session.add(new_report)
         session.commit()
@@ -56,7 +56,7 @@ class ReportsAnswer():
         """
         
         query = session.query(ReportAnswer).where(ReportAnswer.id == arid)
-        return query
+        return query.first()
 
     @staticmethod
     def list_all(session: Session) -> List[ReportAnswer]:

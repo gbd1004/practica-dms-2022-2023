@@ -13,7 +13,7 @@ class VotesComm(Votes):
     """ Definition and storage of comments votes ORM records.
     """
 
-    def __init__(self, id:int, type:str, user:str):
+    def __init__(self, cid:int, user:str):
         """ Constructor method.
 
         Initializes a vote record.
@@ -22,7 +22,7 @@ class VotesComm(Votes):
             - id (int) : A integer with the identifier of the comment
             - owner (str) : A string with the vote's owner.
         """
-        self.id: int = id
+        self.cid: int = cid
         self.user: str = user
 
 
@@ -38,16 +38,17 @@ class VotesComm(Votes):
         return Table(
             'votecomment',
             metadata,
-            Column('id', Integer, ForeignKey('comment.id'),primary_key=True),
+            Column('id', Integer,primary_key=True, autoincrement=True),
+            Column('cid', Integer, ForeignKey('comment.id')),
             Column('user', String(64), nullable=False)
         )
 
 
 
     # El discriminante "type" se decanta por "comment"
-    __mapper_args__ = {
-        'polymorphic_identity': 'votecomment', 
-    }
+    # __mapper_args__ = {
+    #     'polymorphic_identity': 'votecomment', 
+    # }
 
 
     

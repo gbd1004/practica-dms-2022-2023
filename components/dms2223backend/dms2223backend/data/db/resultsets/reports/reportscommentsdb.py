@@ -17,7 +17,7 @@ class ReportsComments():
     """ Class responsible of table-level comment reports operations.
     """
     @staticmethod
-    def create(session: Session, cid:int, reason: str) -> ReportComment:
+    def create(session: Session, cid:int, reason: str, owner: str) -> ReportComment:
         """ Creates a new report record.
 
         Note:
@@ -39,7 +39,7 @@ class ReportsComments():
             raise ValueError('Reason is a required value')
 
 
-        new_report = ReportComment(session, cid, reason, ReportStatus.PENDING.name)
+        new_report = ReportComment(cid, reason, ReportStatus.PENDING, owner)
 
 
         
@@ -60,7 +60,7 @@ class ReportsComments():
         """
         
         query = session.query(ReportComment).where(ReportComment.id == crid)
-        return query
+        return query.first()
 
     @staticmethod
     def list_all(session: Session) -> List[ReportComment]:

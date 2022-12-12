@@ -12,7 +12,7 @@ class VotesAns(Votes):
     """ Definition and storage of answer votes ORM records.
     """
 
-    def __init__(self, id:int, user:str):
+    def __init__(self, aid:int, user:str):
         """ Constructor method.
 
         Initializes a vote record.
@@ -21,7 +21,7 @@ class VotesAns(Votes):
             - id (int) : A integer with the identifier of the answer.
             - owner (str) : A string with the vete's owner.
         """
-        self.id: int = id
+        self.aid: int = aid
         self.user: str = user
 
 
@@ -37,15 +37,16 @@ class VotesAns(Votes):
         return Table(
             'voteanswer',
             metadata,
-            Column('id', Integer, ForeignKey('answer.aid'), primary_key=True),
+            Column('id', Integer, primary_key=True, autoincrement=True),
+            Column('aid', Integer, ForeignKey('answer.aid')),
             Column('user', String(64), nullable=False)
         )
 
 
     # El discriminante "type" se decanta por "answer"
-    __mapper_args__ = {
-        'polymorphic_identity': 'voteanswer', 
-    }
+    # __mapper_args__ = {
+    #     'polymorphic_identity': 'voteanswer', 
+    # }
 
     
 

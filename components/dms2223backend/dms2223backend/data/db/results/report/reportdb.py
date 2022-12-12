@@ -4,7 +4,7 @@ Reports class module.
 
 import time
 from datetime import datetime
-from sqlalchemy import Integer, Table, MetaData, Column, String, Enum, DateTime, case # type: ignore
+from sqlalchemy import Integer, Table, MetaData, Column, String, Enum, DateTime, case, func # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase
 from dms2223backend.data.reportstatus import ReportStatus
 from dms2223backend.service.authservice import AuthService
@@ -30,7 +30,6 @@ class Report(ResultBase):
         """
         self.id: int
         self.eid: int = eid
-        self.timestamp: datetime.timestamp
         self.type: str = type
         self.reason: str = reason
         self.status: ReportStatus = status
@@ -54,7 +53,7 @@ class Report(ResultBase):
             Column('type', String(24), primary_key=True),
             Column('status', Enum(ReportStatus), default=ReportStatus.PENDING.name, nullable=False),#TODO: on-update?
             Column('reason', String(300), nullable=False),
-            Column('timestamp', DateTime, nullable=False, default=time.time()),
+            Column('timestamp', DateTime, nullable=False, default=func.now()),
             Column('owner', String(64), nullable=False)
         )
 

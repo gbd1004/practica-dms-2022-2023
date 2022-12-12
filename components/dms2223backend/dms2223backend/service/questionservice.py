@@ -87,7 +87,7 @@ class QuestionServices():
         out: Dict = {}
         try:
             new_question: Question = Questions.create(session, title, body, owner)
-            out['qid'] = {
+            out = {
                     'qid': new_question.qid,
                     'title': new_question.title,
                     'body': new_question.body,

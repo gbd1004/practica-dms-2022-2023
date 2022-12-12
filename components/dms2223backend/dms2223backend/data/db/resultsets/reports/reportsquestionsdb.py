@@ -16,7 +16,7 @@ class ReportsQuestions():
     """ Class responsible of table-level question reports operations.
     """
     @staticmethod
-    def create(session: Session, qid:int, reason: str) -> ReportQuestion:
+    def create(session: Session, qid:int, reason: str, owner: str) -> ReportQuestion:
         """ Creates a new report record.
 
         Note:
@@ -38,7 +38,7 @@ class ReportsQuestions():
             raise ValueError('Reason is a required value')
 
 
-        new_report = ReportQuestion(session, qid, reason, ReportStatus.PENDING.name)
+        new_report = ReportQuestion(qid, reason, ReportStatus.PENDING, owner)
         
         session.add(new_report)
         session.commit()
@@ -58,7 +58,7 @@ class ReportsQuestions():
         """
         
         query = session.query(ReportQuestion).where(ReportQuestion.id == qrid)
-        return query
+        return query.first()
 
 
     @staticmethod

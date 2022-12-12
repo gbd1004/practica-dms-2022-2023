@@ -4,6 +4,7 @@ ReportServices class module.
 
 from ast import Dict
 from typing import List
+from flask import current_app
 from sqlalchemy.orm.session import Session
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment
@@ -40,12 +41,12 @@ class ReportServices():
         for r in reports:
             out.append({
                 'qrid': r.id,
-                'qid': r.eid,
+                'qid': r.qid,
                 'timestamp': r.timestamp,
                 'reason' : r.reason,
-                'status': r.status,
+                'status': r.status.name,
                 'owner': {'username': r.owner}
-                })
+            })
         schema.remove_session()
         return out
 
@@ -65,12 +66,12 @@ class ReportServices():
         for r in reports:
             out.append({
                 'arid': r.id,
-                'aid': r.eid,
+                'aid': r.aid,
                 'timestamp': r.timestamp,
                 'reason' : r.reason,
-                'status': r.status,
+                'status': r.status.name,
                 'owner': {'username': r.owner}
-                })
+            })
         schema.remove_session()
         return out
 
@@ -91,12 +92,12 @@ class ReportServices():
         for r in reports:
             out.append({
                 'crid': r.id,
-                'cid': r.eid,
+                'cid': r.cid,
                 'timestamp': r.timestamp,
                 'reason' : r.reason,
-                'status': r.status,
+                'status': r.status.name,
                 'owner': {'username': r.owner}
-                })
+            })
         schema.remove_session()
         return out
     
@@ -114,14 +115,14 @@ class ReportServices():
         session: Session = schema.new_session()
         report: ReportQuestion = ReportsQuestions.get_report(session, qrid)
         out: Dict = {}
-        out['qrid'] = {
-                    'qrid': report.id,
-                    'qid': report.eid,
-                    'timestamp': report.timestamp,
-                    'reason' : report.reason,
-                    'status': report.status,
-                    'owner': {'username': report.owner}
-            }
+        out = {
+            'qrid': report.id,
+            'qid': report.qid,
+            'timestamp': report.timestamp,
+            'reason' : report.reason,
+            'status': report.status.name,
+            'owner': {'username': report.owner}
+        }
         schema.remove_session()
         return out
     
@@ -139,14 +140,14 @@ class ReportServices():
         session: Session = schema.new_session()
         report: ReportAnswer = ReportsAnswer.get_report(session, arid)
         out: Dict = {}
-        out['arid'] = {
-                    'arid': report.id,
-                    'aid': report.eid,
-                    'timestamp': report.timestamp,
-                    'reason' : report.reason,
-                    'status': report.status,
-                    'owner': {'username': report.owner}
-            }
+        out = {
+            'arid': report.id,
+            'aid': report.aid,
+            'timestamp': report.timestamp,
+            'reason' : report.reason.name,
+            'status': report.status,
+            'owner': {'username': report.owner}
+        }
         schema.remove_session()
         return out
     
@@ -164,20 +165,20 @@ class ReportServices():
         session: Session = schema.new_session()
         report: ReportComment = ReportsComments.get_report(session, crid)
         out: Dict = {}
-        out['crid'] = {
-                    'crid': report.id,
-                    'cid': report.eid,
-                    'timestamp': report.timestamp,
-                    'reason' : report.reason,
-                    'status': report.status,
-                    'owner': {'username': report.owner}
-            }
+        out = {
+            'crid': report.id,
+            'cid': report.cid,
+            'timestamp': report.timestamp,
+            'reason' : report.reason,
+            'status': report.status.name,
+            'owner': {'username': report.owner}
+        }
         schema.remove_session()
         return out
 
 
     @staticmethod
-    def set_question_report_status(schema: Schema, qrid: int, status: ReportStatus):
+    def set_question_report_status(schema: Schema, qrid: int, status: str):
         """Changes the status of the report
 
         Args:
@@ -189,8 +190,8 @@ class ReportServices():
         
         report: ReportQuestion = ReportsQuestions.get_report(session, qrid)
 
-        report.status = status
-        if status.name == 'ACCEPTED':
+        report.status = ReportStatus[status]
+        if status == 'ACCEPTED':
             QuestionServices.hide_question(schema, report.qid)
 
         # Actualizamos el reporte
@@ -201,7 +202,7 @@ class ReportServices():
         
     
     @staticmethod
-    def set_answer_report_status(schema: Schema, arid: int, status: ReportStatus):
+    def set_answer_report_status(schema: Schema, arid: int, status: str):
         """Changes the status of the report
 
         Args:
@@ -213,8 +214,8 @@ class ReportServices():
         
         report: ReportAnswer = ReportsAnswer.get_report(session, arid)
 
-        report.status = status
-        if status.name == 'ACCEPTED':
+        report.status = ReportStatus[status]
+        if status == 'ACCEPTED':
             AnswerServices.hide_answer(schema, report.aid)
 
         # Actualizamos el reporte
@@ -224,7 +225,7 @@ class ReportServices():
         schema.remove_session()
 
     @staticmethod
-    def set_comment_report_status(schema: Schema, crid: int, status: ReportStatus):
+    def set_comment_report_status(schema: Schema, crid: int, status: str):
         """Changes the status of the report
 
         Args:
@@ -236,8 +237,8 @@ class ReportServices():
         
         report: ReportComment = ReportsComments.get_report(session, crid)
 
-        report.status = status
-        if status.name == 'ACCEPTED':
+        report.status = ReportStatus[status]
+        if status == 'ACCEPTED':
             CommentServices.hide_comment(schema, report.id)
 
         # Actualizamos el reporte
@@ -248,7 +249,7 @@ class ReportServices():
 
 
     @staticmethod
-    def new_question_report(schema: Schema, qid:int, reason: str) -> Dict:
+    def new_question_report(schema: Schema, qid:int, reason: str, owner: str) -> Dict:
         """Creates a new report.
 
         Args:
@@ -262,14 +263,14 @@ class ReportServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: ReportQuestion = ReportsQuestions.create(session, qid, reason)
-            out['qrid'] = {
-                    'qrid': new_report.id,
-                    'qid': new_report.qid,
-                    'timestamp': new_report.timestamp,
-                    'reason' : new_report.reason,
-                    'status': new_report.status,
-                    'owner': {'username': new_report.owner}
+            new_report: ReportQuestion = ReportsQuestions.create(session, qid, reason, owner)
+            out = {
+                'qrid': new_report.id,
+                'qid': new_report.qid,
+                'timestamp': new_report.timestamp,
+                'reason' : new_report.reason,
+                'status': new_report.status.name,
+                'owner': {'username': new_report.owner}
             }
             
         except Exception as ex:
@@ -279,7 +280,7 @@ class ReportServices():
         return out
 
     @staticmethod
-    def new_answer_report(schema: Schema, aid: int, reason: str) -> Dict:
+    def new_answer_report(schema: Schema, aid: int, reason: str, owner: str) -> Dict:
         """Creates a new report.
 
         Args:
@@ -293,14 +294,14 @@ class ReportServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: ReportAnswer = ReportsAnswer.create(session, aid, reason)
-            out['arid'] = {
-                    'arid': new_report.id,
-                    'aid': new_report.aid,
-                    'timestamp': new_report.timestamp,
-                    'reason' : new_report.reason,
-                    'status': new_report.status,
-                    'owner': {'username': new_report.owner}
+            new_report: ReportAnswer = ReportsAnswer.create(session, aid, reason, owner)
+            out = {
+                'arid': new_report.id,
+                'aid': new_report.aid,
+                'timestamp': new_report.timestamp,
+                'reason' : new_report.reason,
+                'status': new_report.status.name,
+                'owner': {'username': new_report.owner}
             }
             
         except Exception as ex:
@@ -310,7 +311,7 @@ class ReportServices():
         return out
     
     @staticmethod
-    def new_comment_report(schema: Schema, cid:int, reason: str) -> Dict:
+    def new_comment_report(schema: Schema, cid:int, reason: str, owner: str) -> Dict:
         """Creates a new report.
 
         Args:
@@ -324,14 +325,14 @@ class ReportServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: ReportComment = ReportsComments.create(session,cid, reason)
-            out['crid'] = {
-                    'crid': new_report.id,
-                    'cid': new_report.cid,
-                    'timestamp': new_report.timestamp,
-                    'reason' : new_report.reason,
-                    'status': new_report.status,
-                    'owner': {'username': new_report.owner}
+            new_report: ReportComment = ReportsComments.create(session,cid, reason, owner)
+            out = {
+                'crid': new_report.id,
+                'cid': new_report.cid,
+                'timestamp': new_report.timestamp,
+                'reason' : new_report.reason,
+                'status': new_report.status.name,
+                'owner': {'username': new_report.owner}
             }
             
         except Exception as ex:

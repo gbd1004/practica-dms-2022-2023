@@ -43,15 +43,15 @@ class Votes(ResultBase):
             Column('user', String(64), nullable=False)
         )
 
-    __mapper_args__ = {
-        #'polymorphic_identity':'votes',
-        "polymorphic_on":case(
-            [
-                (type == "voteanswer", "voteanswer"),
-                (type == "votecomment", "votecomment")
-            ]
-         )
-    }
+    # __mapper_args__ = {
+    #     #'polymorphic_identity':'votes',
+    #     "polymorphic_on":case(
+    #         [
+    #             (type == "voteanswer", "voteanswer"),
+    #             (type == "votecomment", "votecomment")
+    #         ]
+    #      )
+    # }
 
 
 

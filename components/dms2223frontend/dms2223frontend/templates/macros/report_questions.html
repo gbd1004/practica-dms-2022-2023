@@ -3,8 +3,8 @@
     <div style="border:1px solid black;">
         <p> qid: {{ report['qid']}}</p>
         <p> Motivo del reporte: {{ report['reason']}}</p>
-        <p> Fecha: {{ report['timestamp'] | ctime}}</p>  
-        <p> Usuario que hizo el reporte {{ report['owner']['username'] }}</p>
+        <p> Fecha: {{ report['timestamp'] }}</p>  
+        <p> Usuario que hizo el reporte: {{ report['owner']['username'] }}</p>
         <p> Estado: {{report['status']}}</p>
         {%- if report['status'] == "PENDING" -%}
             <form action="/accept_question_report" method="post">
