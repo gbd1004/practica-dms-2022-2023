@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
 import time
-from flask import Flask, request, redirect
 import inspect
 import os
-from typing import Dict
 import dms2223frontend
+from flask import Flask
+from typing import Dict
 from dms2223frontend.data.config import FrontendConfiguration
 from dms2223frontend.data.rest import AuthService, BackendService
-from dms2223frontend.presentation.web import AdminEndpoints, CommonEndpoints, SessionEndpoints, DiscussionEndpoints, ModeratorEndpoints, QuestionEndpoints, AnswerEndpoints
+from dms2223frontend.presentation.web import AdminEndpoints, CommonEndpoints, DiscussionEndpoints
+from dms2223frontend.presentation.web import ModeratorEndpoints, QuestionEndpoints, AnswerEndpoints
+from dms2223frontend.presentation.web import SessionEndpoints
 #, QuestionEndpoints
 cfg: FrontendConfiguration = FrontendConfiguration()
 cfg.load_from_file(cfg.default_config_file())
@@ -92,7 +94,7 @@ def get_questions_answers():
 
 @app.route("/new_question", methods=['GET'])
 def get_new_question():
-    return QuestionEndpoints.get_new_question(backend_service, auth_service)
+    return QuestionEndpoints.get_new_question(auth_service)
 
 @app.route("/new_question", methods=['POST'])
 def post_new_question():
@@ -100,7 +102,7 @@ def post_new_question():
 
 @app.route("/new_answer", methods=['GET'])
 def get_new_answer():
-    return AnswerEndpoints.get_new_answer(backend_service, auth_service)
+    return AnswerEndpoints.get_new_answer(auth_service)
 
 @app.route("/new_answer", methods=['POST'])
 def post_new_answer():
@@ -116,7 +118,7 @@ def get_new_comment():
 
 @app.route("/new_report_answer", methods=['GET'])
 def get_new_report_answer():
-    return AnswerEndpoints.get_new_report_answer(backend_service, auth_service)
+    return AnswerEndpoints.get_new_report_answer(auth_service)
 
 @app.route("/new_report_answer", methods=['POST'])
 def post_new_report_answer():
@@ -124,7 +126,7 @@ def post_new_report_answer():
 
 @app.route("/questions/new_report_question", methods=['GET'])
 def get_new_report_question():
-    return QuestionEndpoints.get_new_report_question(backend_service, auth_service)
+    return QuestionEndpoints.get_new_report_question(auth_service)
 
 @app.route("/questions/new_report_question", methods=['POST'])
 def post_new_report_question():
@@ -136,7 +138,7 @@ def post_new_report_comment():
 
 @app.route("/new_report_comment", methods=['GET'])
 def get_new_report_comment():
-    return AnswerEndpoints.get_new_report_comment(backend_service, auth_service)
+    return AnswerEndpoints.get_new_report_comment(auth_service)
 
 @app.route("/new_answer_vote", methods=['POST'])
 def post_new_answer_vote():

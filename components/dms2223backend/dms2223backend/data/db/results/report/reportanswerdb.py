@@ -47,10 +47,10 @@ class ReportAnswer(Report):
             Column('status', Enum(ReportStatus), default=ReportStatus.PENDING, nullable=False),
             Column('reason', String(300), nullable=False),
             Column('timestamp', DateTime, nullable=False, default=func.now()),
-            Column('owner', String(64), nullable=False) 
+            Column('owner', String(64), nullable=False)
         )
 
     # El discriminante "type" se decanta por "answer"
     __mapper_args__ = {
-        'polymorphic_identity': 'reportans', 
+        'polymorphic_identity': 'reportans',
     }

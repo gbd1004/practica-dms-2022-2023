@@ -44,7 +44,7 @@ class VotesSet():
 
         Returns:
             - List[Votes]: A list of `Votes` registers.
-       
+
         Alternativa:
             if type == "voteanswer":
                 query = session.query(VotesAns).filter(VotesAns.id == id)

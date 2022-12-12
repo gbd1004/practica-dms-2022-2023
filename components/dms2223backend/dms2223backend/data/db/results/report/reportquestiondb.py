@@ -2,8 +2,6 @@
 Question reports class module.
 """
 
-import time
-from datetime import datetime
 from sqlalchemy import ForeignKey, Integer, Table # type: ignore
 from sqlalchemy import MetaData, Column, String, Enum, DateTime, func # type: ignore
 from sqlalchemy.orm import relationship # type: ignore
@@ -55,5 +53,5 @@ class ReportQuestion(Report):
 
     # El discriminante "type" se decanta por "comment"
     __mapper_args__ = {
-        'polymorphic_identity': 'reportque', 
+        'polymorphic_identity': 'reportque',
     }

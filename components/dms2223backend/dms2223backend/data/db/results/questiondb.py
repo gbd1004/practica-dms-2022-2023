@@ -63,4 +63,3 @@ class Question(ResultBase):
             'question_answer': relationship(Answer, backref='question'),
             'question_report': relationship(ReportQuestion, backref='question')
         }
-

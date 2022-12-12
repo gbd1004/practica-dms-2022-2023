@@ -1,6 +1,5 @@
 from http import HTTPStatus
 from typing import Dict
-from dms2223backend.data.reportstatus import ReportStatus
 from flask import current_app
 from dms2223backend.service.reportservice import ReportServices
 
@@ -13,14 +12,14 @@ def new_question_report(qid: int, body: dict, token_info: dict) -> tuple[dict, H
     """Creates a question report
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200.
     """
     with current_app.app_context():
         # Definido en: QuestionReportFullModel
         owner = token_info['user_token']['username']
         new_report: Dict = ReportServices.new_question_report(
             current_app.db, qid, body['reason'], owner
-        ) 
+        )
         return new_report, HTTPStatus.OK
 
 # Report POST
@@ -28,7 +27,7 @@ def new_answer_report(aid: int, body: dict, token_info: dict) -> tuple[dict, HTT
     """Creates an answer report
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
@@ -42,7 +41,7 @@ def new_comment_report(cid: int, body: dict, token_info: dict) -> tuple[dict, HT
     """Creates a comment report
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the report data and a code 200.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
@@ -56,7 +55,7 @@ def get_questions_reports() -> tuple[list, HTTPStatus]:
     """Lists the existing questions reports.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200.
     """
     with current_app.app_context():
         diccionario: list = ReportServices.get_reports_questions(current_app.db)
@@ -68,10 +67,10 @@ def get_answers_reports() -> tuple[list, HTTPStatus]:
     """Lists the existing answers reports.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200.
     """
     with current_app.app_context():
-        diccionario: list = ReportServices.get_reports_answers(current_app.db) 
+        diccionario: list = ReportServices.get_reports_answers(current_app.db)
         return diccionario, HTTPStatus.OK
 
 # Report GET (list)
@@ -79,10 +78,10 @@ def get_comments_reports() -> tuple[list, HTTPStatus]:
     """Lists the existing comments reports.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200.
     """
     with current_app.app_context():
-        diccionario: list = ReportServices.get_reports_comments(current_app.db) 
+        diccionario: list = ReportServices.get_reports_comments(current_app.db)
         return diccionario, HTTPStatus.OK
 
 # Report{rid} POST
@@ -90,7 +89,7 @@ def set_question_report_status(qrid: int, body: dict) -> tuple[dict, HTTPStatus]
     """Sets the report's status.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200.
     """
     with current_app.app_context():
         ReportServices.set_question_report_status(current_app.db, qrid, body['status'])
@@ -102,7 +101,7 @@ def set_answer_report_status(arid: int, body: dict) -> tuple[dict, HTTPStatus]:
     """Sets the report's status.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200.
     """
     with current_app.app_context():
         ReportServices.set_answer_report_status(current_app.db, arid, body['status'])
@@ -114,7 +113,7 @@ def set_comment_report_status(crid: int, body: dict) -> tuple[dict, HTTPStatus]:
     """Sets the report's status.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the reports' data and a code 200.
     """
     with current_app.app_context():
         ReportServices.set_comment_report_status(current_app.db, crid, body['status'])

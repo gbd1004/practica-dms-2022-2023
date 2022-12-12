@@ -2,8 +2,6 @@
 Comments reports class module.
 """
 
-import time
-from datetime import datetime
 from sqlalchemy import ForeignKey, Integer, Table, MetaData #type: ignore
 from sqlalchemy import Column, String, Enum, DateTime, func  # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
@@ -54,5 +52,5 @@ class ReportComment(Report):
 
     # El discriminante "type" se decanta por "comment"
     __mapper_args__ = {
-        'polymorphic_identity': 'reportcomm', 
+        'polymorphic_identity': 'reportcomm',
     }

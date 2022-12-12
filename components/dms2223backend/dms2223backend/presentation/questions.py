@@ -34,7 +34,7 @@ def get_question(qid: int) -> tuple[list, HTTPStatus]:
     """Gets an existing question with parameter qid.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the question data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the question data and a code 200.
     """
     with current_app.app_context():
         pregunta: Dict = QuestionServices.get_question(current_app.db, qid)

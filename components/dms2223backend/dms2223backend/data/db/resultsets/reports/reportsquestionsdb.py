@@ -34,7 +34,7 @@ class ReportsQuestions():
             raise ValueError('Reason is a required value')
 
         new_report = ReportQuestion(qid, reason, ReportStatus.PENDING, owner)
-        
+
         session.add(new_report)
         session.commit()
         return new_report

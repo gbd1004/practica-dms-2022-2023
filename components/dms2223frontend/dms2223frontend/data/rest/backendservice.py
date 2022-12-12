@@ -1,8 +1,7 @@
 """ BackendService class module.
 """
-from sys import stdout
 from typing import Optional
-import requests
+import requests #type: ignore
 from dms2223common.data import Role
 from dms2223common.data.rest import ResponseData
 from flask import current_app
@@ -172,7 +171,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def new_comment(self, token, aid: Optional[str], content: Optional[str], sentiment: Optional[str]):
+    def new_comment(self,token,aid: Optional[str],content: Optional[str],sentiment: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/answers/{aid}/comments',
@@ -231,7 +230,7 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
         return response_data
-    
+
     def new_report_answer(self, token, aid: Optional[str], reason: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
@@ -251,13 +250,13 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
         return response_data
-    
+
     def new_report_comment(self, token, cid: Optional[str], reason: Optional[str]):
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
             self.__base_url() + f'/comments/{cid}/reports',
             json = {
-                'reason': reason    
+                'reason': reason
             },
             headers= {
                 'Authorization': f'Bearer {token}',
