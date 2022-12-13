@@ -9,7 +9,28 @@ Los autores de este manual de usuario son los listados a continuación:
 * Gadea Lucas  Pérez (glp1002@alu.ubu.es)
 
 ## Tabla de contenido
-[ ] TO DO
+## Tabla de contenido
+- [**API REST Práctica 01 (DMSW)**](#PI-REST-Práctica-01-(DMSW))
+  - [**Descarga e instalación**](#ADescarga-e-instalación)
+  - [**Ejecución**](#Ejecución)
+  - [**Contenido y Funciones de la Página**](#Contenido-y-Funciones-de-la-Página)
+	- [**1. Introducción y Consideraciones**](#1.-Introducción-y-Consideraciones)
+	- [**2. Roles y Funciones**](#2.-Roles-y-Funciones)
+		- [**2.1. Discusión**](#2.1.-Discusión)
+		- [**2.2. Moderación**](#2.2.-Moderación)
+		- [**2.3. Administrador**](#2.3.-Administrador)
+	- [**3. Páginas**](#3.-Páginas)
+		- [**3.1. Inicio de Sesión**](#3.1.-Inicio-de-Sesión)
+		- [**3.2. Página Principal Home**](#3.2.-Página-Principal-Home)
+			- [**Zona Central**](#Zona-Central)
+			- [**Zona Inferior**](#Zona-Inferior)
+		- [**3.3. Menú de Discusiones**](#3.3.Menú-de-Discusiones)
+			- [**Página de Answers**](#Página-de-Answers)
+		- [**3.4. Menú de Moderador**](#3.4.-Menú-de-Moderador)
+		- [**3.5. Menú de Administrador**](#3.5.-Menú-de-Administrador)
+			- [**Panel de Administración**](#Panel-de-Administración)
+
+
 
 ## API REST Práctica 01 (DMSW)
 ## Descarga e instalación
