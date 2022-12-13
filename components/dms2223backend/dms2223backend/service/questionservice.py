@@ -81,8 +81,6 @@ class QuestionServices():
 
         session: Session = schema.new_session()
         out = {}
-        if title == "":
-            return out
 
         try:
             new_question: Question = Questions.create(session, title, body, owner)

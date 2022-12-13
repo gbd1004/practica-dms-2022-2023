@@ -111,6 +111,10 @@ class CommentServices():
 
         session: Session = schema.new_session()
         out = {}
+        if body == "":
+            return out
+
+
         try:
             new_comment: Comment = Comments.create(session, aid, body, sentiment, owner)
             out = {

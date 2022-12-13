@@ -43,6 +43,9 @@ def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[dict, HTTPStatus]
 	Returns:
         - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the answer data and a code 200 OK.
     """
+    if body['body'] == "":
+        return {}, HTTPStatus.OK
+
     with current_app.app_context():
         owner = token_info['user_token']['username']
         new_answ = AnswerServices.create_answer(qid, body['body'], owner, current_app.db)
@@ -60,11 +63,16 @@ def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[dict, HTTPStatu
 	Returns:
         - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the comments data and a code 200 OK.
     """
+    if body['body'] == "":
+        return {}, HTTPStatus.OK
+
     with current_app.app_context():
         owner = token_info['user_token']['username']
         new_comm: Dict = CommentServices.create_comment(
             aid, body['body'], body['sentiment'], owner, current_app.db
         )
+
+        current_app.logger.info(new_comm)
 
         usr_votes: Dict = CommentServices.get_votes(current_app.db, new_comm['cid'])
         new_comm['user_votes'] = usr_votes

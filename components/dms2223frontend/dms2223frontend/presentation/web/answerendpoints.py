@@ -120,12 +120,13 @@ class AnswerEndpoints():
             return redirect(url_for('get_home'))
 
         aid = request.form.get('aid')
+        qid = request.form.get('qid')
         content = request.form.get('bodyText')
         sentiment = request.form.get('sent')
 
         new_comment = WebAnswer.new_comment(backend_service, aid, content, sentiment)
         if not new_comment:
-            return redirect(url_for('get_new_comment') + "?aid=" + str(aid))
+            return redirect(url_for('get_new_comment') + "?qid=" + str(qid) + "&aid=" + str(aid))
         redirect_to = request.form['redirect_to']
         if not redirect_to:
             redirect_to = url_for('get_answers')

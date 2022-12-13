@@ -43,8 +43,6 @@ def get_question(qid: int) -> Tuple[dict, HTTPStatus]:
         # Si no existe, no se puede devolver
         return {}, HTTPStatus.NOT_FOUND
 
-
-
 # Question POST
 def new_question(body: dict, token_info: dict) -> Tuple[dict, HTTPStatus]:
     """Creates a question
@@ -52,6 +50,9 @@ def new_question(body: dict, token_info: dict) -> Tuple[dict, HTTPStatus]:
     Returns:
         - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the question data and a code 200.
     """
+    if body['title'] == "":
+        return {}, HTTPStatus.OK
+
     with current_app.app_context():
         owner = token_info['user_token']['username']
         new_question = QuestionServices.create_question(
