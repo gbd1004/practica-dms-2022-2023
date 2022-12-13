@@ -1,6 +1,6 @@
 
 <div>
-    <font size = "20">
+    <font size = "50">
         <b>PRÁCTICA 01</b>
     </font>
 </div>
