@@ -5,6 +5,7 @@
         <p> Respuesta: {{ answ['body']}}</p>
         <p> Fecha: {{ answ['timestamp'] }}</p>  
         <p> Usuario que hizo la respuesta {{ answ['owner']['username'] }}</p>
+        <p>Votos: {{ answ['votes'] }}</p>
         <p>{{ button('bluebg', '/new_comment?qid=' + answ['qid']|string() + "&aid=" + answ['aid']|string(), 'Añadir comentario', '#') }}</p>
         
         <form action="/new_answer_vote" method="post">
