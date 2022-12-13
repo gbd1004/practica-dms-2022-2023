@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 from http import HTTPStatus
 from flask import current_app
 from dms2223backend.service.questionservice import QuestionServices
@@ -14,11 +14,11 @@ class QuestionsDB():
     #---------------------------------------------------#
 
 # Question GET (list)
-def get_questions() -> tuple[List, HTTPStatus]:
+def get_questions() -> Tuple[List, HTTPStatus]:
     """Lists the existing questions.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the questions'
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the questions'
             data and a code 200 OK.
     """
     with current_app.app_context():
@@ -30,11 +30,11 @@ def get_questions() -> tuple[List, HTTPStatus]:
 
 # Question{qid} GET
 # Recibe como parámetro: QuestionIdPathParam
-def get_question(qid: int) -> tuple[dict, HTTPStatus]:
+def get_question(qid: int) -> Tuple[dict, HTTPStatus]:
     """Gets an existing question with parameter qid.
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the question data and a code 200.
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the question data and a code 200.
     """
     with current_app.app_context():
         pregunta = QuestionServices.get_question(current_app.db, qid)
@@ -46,11 +46,11 @@ def get_question(qid: int) -> tuple[dict, HTTPStatus]:
 
 
 # Question POST
-def new_question(body: dict, token_info: dict) -> tuple[dict, HTTPStatus]:
+def new_question(body: dict, token_info: dict) -> Tuple[dict, HTTPStatus]:
     """Creates a question
 
     Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the question data and a code 200.
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the question data and a code 200.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']

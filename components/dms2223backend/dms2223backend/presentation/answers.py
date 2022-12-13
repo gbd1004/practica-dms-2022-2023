@@ -1,6 +1,6 @@
 
 from http import HTTPStatus
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from flask import current_app
 
 from dms2223backend.service.answerservice import AnswerServices
@@ -12,7 +12,7 @@ from dms2223backend.service.commentservice import CommentServices
 
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
-def get_answers(qid: int) -> tuple[list, HTTPStatus]:
+def get_answers(qid: int) -> Tuple[list, HTTPStatus]:
     with current_app.app_context():
         # Si la pregunta existe, se podrá tratar de obtener sus respuestas
         answers: List = AnswerServices.get_answers(current_app.db, qid)
@@ -37,11 +37,11 @@ def get_comments(aid: int) -> List[Dict]:
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
-def new_answer(qid:int, body: dict, token_info: Dict) -> tuple[dict, HTTPStatus]:
+def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[dict, HTTPStatus]:
     """Creates an answer
 
 	Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the answer data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the answer data and a code 200 OK.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
@@ -54,11 +54,11 @@ def new_answer(qid:int, body: dict, token_info: Dict) -> tuple[dict, HTTPStatus]
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
-def new_comment(aid: int, body: Dict, token_info: Dict) -> tuple[dict, HTTPStatus]:
+def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[dict, HTTPStatus]:
     """Creates a comment
 
 	Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the comments data and a code 200 OK.
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the comments data and a code 200 OK.
     """
     with current_app.app_context():
         owner = token_info['user_token']['username']
@@ -72,11 +72,11 @@ def new_comment(aid: int, body: Dict, token_info: Dict) -> tuple[dict, HTTPStatu
         return new_comm, HTTPStatus.OK
 
 # Métodos UPDATE para votar respuestas
-def vote_answer(aid: int) -> tuple[dict, HTTPStatus]:
+def vote_answer(aid: int) -> Tuple[dict, HTTPStatus]:
     """Votes an answer
 
 	Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the comments data and a code.
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the comments data and a code.
     """
     with current_app.app_context():
         voted_answer = {}
@@ -91,11 +91,11 @@ def vote_answer(aid: int) -> tuple[dict, HTTPStatus]:
 
 
 # Métodos UPDATE para votar comentarios
-def vote_comment(cid: int) -> tuple[dict, HTTPStatus]:
+def vote_comment(cid: int) -> Tuple[dict, HTTPStatus]:
     """Votes a comment
 
 	Returns:
-        - Tuple[Dict, HTTPStatus]: A tuple with a dictionary of the comments data and a code.
+        - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the comments data and a code.
     """
     with current_app.app_context():
         voted_comment = {}
