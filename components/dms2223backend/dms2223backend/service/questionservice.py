@@ -2,15 +2,11 @@
 QuestionServices class module.
 """
 
-from ast import Dict
 from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.db.resultsets.questionsdb import Questions
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.db.results.questiondb import Question
-
-from flask import current_app
-
 
 class QuestionServices():
     """
@@ -85,6 +81,9 @@ class QuestionServices():
 
         session: Session = schema.new_session()
         out = {}
+        if title == "":
+            return out
+
         try:
             new_question: Question = Questions.create(session, title, body, owner)
             out = {
