@@ -1,16 +1,10 @@
-
-<div>
-    <font size = "50">
-        <b>PRÁCTICA 01</b>
-    </font>
-</div>
-
+# **PRÁCTICA 01**
 
 <br/>
 <br/>
 
 ___
----
+
 
 <br/>
 <br/>
