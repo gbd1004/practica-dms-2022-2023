@@ -160,7 +160,7 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 
 Se proponen también otras mejoras que se escapan un poco de la línea de personalización del usuario mencionada hasta el momento.
 * Opción para "desvotar".
-* Posibilidad de modificar las pregunats, respuestas o comentarios (se marcará la fecha de la edición).
+* Posibilidad de modificar las preguntas, respuestas o comentarios (se marcará la fecha de la edición).
 * Filtro/buscador para encontrar discusiones a partir de palabras clave.
 * Posibilidad de ordenar las discusiones por identificador, fecha, polularidad, etc...
 * Posibilidad de establecer etiquetas (_tags_).
