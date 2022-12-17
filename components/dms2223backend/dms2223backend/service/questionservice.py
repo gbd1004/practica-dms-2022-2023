@@ -80,7 +80,7 @@ class QuestionServices():
         """
 
         session: Session = schema.new_session()
-        out = dict
+        out : dict
         if title == "":
             return out
 
