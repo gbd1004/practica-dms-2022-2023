@@ -8,7 +8,7 @@ ___
 
 En el presente documento se redactará el informe sobre la práctica 01 de la asignatura de Diseño y mantenimiento del software.
 
-**Alumnos**
+### **Alumnos**
 
 El grupo de alumnos que realizará la práctica está compuesto por:
 * Guillermo Arcal García (gag1005@alu.ubu.es)
@@ -16,7 +16,7 @@ El grupo de alumnos que realizará la práctica está compuesto por:
 * Santiago Díaz Gómez-Guillamón (sdg1002@alu.ubu.es)
 * Gadea Lucas  Pérez (glp1002@alu.ubu.es)
 
-**Tabla de contenido**
+### **Tabla de contenido**
 
 - [**Diseño Frontend**](#diseño-frontend)
   - [**Arquitectura de dos niveles (Documento-Vista)**](#arquitectura-de-dos-nivelesdocumento-vista)
@@ -30,7 +30,7 @@ El grupo de alumnos que realizará la práctica está compuesto por:
 - [**De cara al futuro**](#de-cara-al-futuro)
 - [**BIBLIOGRAFÍA**](#bibliografía)
   
-**Repositorio**
+### **Repositorio**
 
 El _fork_ del repoositorio usado por los alumnos es el siguiente:  https://github.com/gbd1004/practica-dms-2022-2023.
 
