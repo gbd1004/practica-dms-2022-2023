@@ -167,6 +167,8 @@ Se proponen también otras mejoras que se escapan un poco de la línea de person
 * Edición avanzada (markdown, html, etc..).
 * Anuncios personalizados que permitirán la monetización de la aplicación para invertir en futuras mejoras.
 * Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
+* [TODO (opcional): Capa lógica frontend para edicion avanzada y tapar contenido sensible]
+* [TODO (opcional): Posibles mejores para caso de que la página crezca mucho]
 
 
 
