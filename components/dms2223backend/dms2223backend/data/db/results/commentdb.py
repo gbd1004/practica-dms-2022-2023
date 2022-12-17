@@ -2,7 +2,6 @@
 Comment class module.
 """
 from typing import Dict
-from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import ForeignKey, Table, MetaData, Column, String, Enum, func  # type: ignore
 from sqlalchemy import Boolean, DateTime, Integer  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
@@ -66,7 +65,3 @@ class Comment(ResultBase):
             'comment_report': relationship(ReportComment, backref='comment')
         }
 
-    # Método con el que posteriormente se puede actualizar el número de votos
-    def get_num_votes(self, session: Session) -> int:
-        num_votes = session.query(VotesComm).filter(VotesComm.id == self.id)
-        return num_votes.count()

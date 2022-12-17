@@ -6,7 +6,7 @@ from typing import List
 from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.vote.voteansdb import VotesAns
 from dms2223backend.data.db.resultsets.answersdb import Answers
-from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
+from dms2223backend.data.db.resultsets.votes.votesAdb import VotesA
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.db.results.answerdb import Answer
 
@@ -36,7 +36,7 @@ class AnswerServices():
                     'timestamp': answ.timestamp,
                     'body' : answ.body,
                     'owner': {'username':answ.owner},
-                    'votes': answ.get_num_votes(session)
+                    'votes': Answers.get_num_votes(session,answ.aid)
                 })
         schema.remove_session()
         return out
@@ -62,7 +62,7 @@ class AnswerServices():
                 'timestamp': answer.timestamp,
                 'body' : answer.body,
                 'owner': {'username':answer.owner},
-                'votes': answer.get_num_votes(session)
+                'votes': Answers.get_num_votes(session,answer.aid)
             }
 
         schema.remove_session()
@@ -80,9 +80,9 @@ class AnswerServices():
         """
         out = {}
         session: Session = schema.new_session()
-        answer: Answer = Answers.get_answer(session,aid)
+        answer: Answer = Answers.get_answer(session, aid)
         if answer.hidden is False:
-            votes = VotesSet.list_all_ans(session, aid)
+            votes = VotesA.list_all_ans(session, aid)
             for vote in votes:
                 out[vote.user] = True
         schema.remove_session()
@@ -114,7 +114,7 @@ class AnswerServices():
                     'timestamp': new_answer.timestamp,
                     'body' : new_answer.body,
                     'owner': {'username':new_answer.owner},
-                    'votes': new_answer.get_num_votes(session)
+                    'votes': Answers.get_num_votes(session, new_answer.aid)
             }
 
         except Exception as ex:
@@ -157,17 +157,22 @@ class AnswerServices():
 
         # Se guarda el número inicial de votos para comprobar que la operación es exitosa
         answer: Answer = Answers.get_answer(session,aid)
-        prev_vote = answer.get_num_votes(session)
+        prev_vote = Answers.get_num_votes(session, answer.aid)
 
         # Se añade el nuevo voto
-        new_vote: VotesAns = VotesAns(aid, answer.owner)
-        session.add(new_vote)
-        session.commit()
-        exito = False
+        exito = True
+        try:
+            new_vote: VotesAns = VotesAns(aid, answer.owner)
+            session.add(new_vote)
+            session.commit()
+            # Comprobamos que la operación es exitosa
+            if Answers.get_num_votes(session, answer.aid) != prev_vote:
+                exito = True
+            else:
+                exito = False
+        except:
+            exito = False
 
-        # Comprobamos que la operación es exitosa
-        if answer.get_num_votes(session) != prev_vote:
-            exito = True
 
         schema.remove_session()
         return exito

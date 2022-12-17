@@ -5,9 +5,8 @@ CommentServices class module.
 from typing import List
 from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.vote.votecommdb import VotesComm
-from dms2223backend.data.db.results.vote.votedb import Votes # type: ignore
 from dms2223backend.data.db.resultsets.commentsdb import Comments
-from dms2223backend.data.db.resultsets.votes.votesdb import VotesSet
+from dms2223backend.data.db.resultsets.votes.votesCdb import VotesC
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.db.results.commentdb import Comment
 from dms2223backend.data.sentiment import Sentiment
@@ -39,7 +38,7 @@ class CommentServices():
                     'body' : comment.body,
                     'sentiment': comment.sentiment.name,
                     'owner': {'username': comment.owner},
-                    'votes': comment.get_num_votes(session)
+                    'votes': Comments.get_num_votes(session, comment.id)
                 })
         schema.remove_session()
         return out
@@ -66,7 +65,7 @@ class CommentServices():
                 'body' : comment.body,
                 'sentiment': comment.sentiment.name,
                 'owner': {'username': comment.owner},
-                'votes': comment.get_num_votes(session)
+                'votes': Comments.get_num_votes(session, comment.id)
             }
 
         schema.remove_session()
@@ -86,11 +85,10 @@ class CommentServices():
             - dict: A dictionary with the votes' data.
         """
         out = {}
-        # votes: List = [Votes]
         session: Session = schema.new_session()
         comment: Comment = Comments.get_comment(session,cid)
         if comment.hidden is False:
-            votes = VotesSet.list_all_comm(session, cid)
+            votes = VotesC.list_all_comm(session, cid)
             for v in votes:
                 out[v.user] = True
         schema.remove_session()
@@ -120,7 +118,7 @@ class CommentServices():
                 'body' : new_comment.body,
                 'sentiment': new_comment.sentiment.name,
                 'owner': {'username': new_comment.owner},
-                'votes': new_comment.get_num_votes(session)
+                'votes': Comments.get_num_votes(session, new_comment.id)
             }
 
         except Exception as ex:
@@ -161,17 +159,22 @@ class CommentServices():
 
         # Se guarda el número inicial de votos para comprobar que la operación es exitosa
         comment: Comment = Comments.get_comment(session,id)
-        prev_vote = comment.get_num_votes(session)
+        prev_vote = Comments.get_num_votes(session, comment.id)
 
         # Se añade el nuevo voto
-        new_vote: VotesComm = VotesComm(id, comment.owner)
-        session.add(new_vote)
-        session.commit()
-        exito = False
+        exito = True
+        try:
+            new_vote: VotesComm = VotesComm(id, comment.owner)
+            session.add(new_vote)
+            session.commit()
+            # Comprobamos que la operación es exitosa
+            if Comments.get_num_votes(session, comment.id) != prev_vote:
+                exito = True
+            else:
+                exito = False
+        except:
+            exito = False
 
-        # Comprobamos que la operación es exitosa
-        if comment.get_num_votes(session) != prev_vote:
-            exito = True
 
         schema.remove_session()
         return exito
