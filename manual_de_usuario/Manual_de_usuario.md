@@ -8,7 +8,7 @@ Los autores de este manual de usuario son los listados a continuación:
 * Santiago Díaz Gómez-Guillamón (sdg1002@alu.ubu.es)
 * Gadea Lucas  Pérez (glp1002@alu.ubu.es)
 
-## Tabla de contenido
+
 ## Tabla de contenido
 - [**API REST Práctica 01 (DMSW)**](#PI-REST-Práctica-01-(DMSW))
   - [**Descarga e instalación**](#ADescarga-e-instalación)
