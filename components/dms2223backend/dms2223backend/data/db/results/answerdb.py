@@ -3,7 +3,6 @@ Answer class module.
 """
 
 from typing import Dict
-from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy import Table, MetaData, Column, String, func # type: ignore
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer # type: ignore
 from sqlalchemy.orm import relationship # type: ignore
@@ -66,7 +65,4 @@ class Answer(ResultBase):
             'answer_reports': relationship(ReportAnswer, backref='answer')
         }
 
-    # Método con el que posteriormente se puede actualizar el número de votos
-    def get_num_votes(self, session: Session) -> int:
-        num_votes = session.query(VotesAns).filter(VotesAns.id == self.aid)
-        return num_votes.count()
+    
