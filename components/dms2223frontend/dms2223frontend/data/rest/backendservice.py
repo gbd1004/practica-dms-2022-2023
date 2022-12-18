@@ -2,7 +2,6 @@
 """
 from typing import Optional
 import requests #type: ignore
-from dms2223common.data import Role
 from dms2223common.data.rest import ResponseData
 from flask import current_app
 
