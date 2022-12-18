@@ -4,7 +4,6 @@ Question reports class module.
 
 from sqlalchemy import ForeignKey, Integer, Table # type: ignore
 from sqlalchemy import MetaData, Column, String, Enum, DateTime, func # type: ignore
-from sqlalchemy.orm import relationship # type: ignore
 from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.reportstatus import ReportStatus
 

@@ -1,7 +1,7 @@
 from typing import List, Tuple
 from http import HTTPStatus
 from flask import current_app
-from dms2223backend.service.questionservice import QuestionServices
+from dms2223backend.logic.questionservice import QuestionServices
 
 class QuestionsDB():
 
