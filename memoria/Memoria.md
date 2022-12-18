@@ -145,6 +145,9 @@ Se ha decidido eliminar la opción de votos negativos, dejándo solamnete un val
 ## **De cara al futuro**
 Las aplicaciones como la implementada a lo largo de la presente práctica tienen un sinfín de posibilidades de desarrollo y se pueden añadir muchas funcionalidades a cada uno de sus componentes. En nuestro caso, nos hemos centrado en el usuario y hemos decidido seguir una línea basada en el perfil personal del mismo, lo que nos permite atraer la atención de los posibles usuarios y lograr que se registren con el fin de personalizar sus perfiles. Para ello, se listan a continuación las mejoras posibles encontradas:
 
+[TODO: Justificar todas las mejoras respecto de nuestro código (Por donde extender)]
+
+* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO".
 * La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO: nombre".
 [TODO: imagen logo]
 Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda está reservada para los enlaces hacia las distintas secciones).
@@ -162,13 +165,15 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 
 Se proponen también otras mejoras que se escapan un poco de la línea de personalización del usuario mencionada hasta el momento.
 * Opción para "desvotar".
-* Posibilidad de modificar las pregunats, respuestas o comentarios (se marcará la fecha de la edición).
+* Posibilidad de modificar las preguntas, respuestas o comentarios (se marcará la fecha de la edición).
 * Filtro/buscador para encontrar discusiones a partir de palabras clave.
 * Posibilidad de ordenar las discusiones por identificador, fecha, polularidad, etc...
 * Posibilidad de establecer etiquetas (_tags_).
 * Edición avanzada (markdown, html, etc..).
 * Anuncios personalizados que permitirán la monetización de la aplicación para invertir en futuras mejoras.
 * Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
+* [TODO (opcional): Capa lógica frontend para edicion avanzada y tapar contenido sensible]
+* [TODO (opcional): Posibles mejores para caso de que la página crezca mucho]
 
 
 
