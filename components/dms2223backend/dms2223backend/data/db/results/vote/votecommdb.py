@@ -3,7 +3,7 @@ Comments votes class module.
 """
 
 
-from sqlalchemy import ForeignKey, Integer,Table, MetaData, Column, String
+from sqlalchemy import ForeignKey, Integer,Table, MetaData, Column, String # type: ignore
 from dms2223backend.data.db.results.resultsbase import ResultBase  # type: ignore
 
 
