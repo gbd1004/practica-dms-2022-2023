@@ -5,7 +5,7 @@ Answers class module.
 from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.db.results.answerdb import Answer
-from dms2223backend.data.db.resultsets.questionsdb import Questions
+from dms2223backend.data.db.results.vote.voteansdb import VotesAns
 
 class Answers():
     """ Class responsible of table-level answers operations.
@@ -61,3 +61,10 @@ class Answers():
 
         query = session.query(Answer).filter(Answer.qid == qid)
         return query.all()
+
+
+    # Método con el que posteriormente se puede actualizar el número de votos
+    @staticmethod
+    def get_num_votes(session: Session, aid: int) -> int:
+        num_votes = session.query(VotesAns).where(VotesAns.aid == aid).count()
+        return num_votes

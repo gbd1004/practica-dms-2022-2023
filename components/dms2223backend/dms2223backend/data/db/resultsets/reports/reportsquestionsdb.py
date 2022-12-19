@@ -5,7 +5,6 @@ Questions reports class module.
 from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
-from dms2223backend.data.db.resultsets.questionsdb import Questions
 from dms2223backend.data.reportstatus import ReportStatus
 
 class ReportsQuestions():

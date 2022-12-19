@@ -2,11 +2,12 @@
 Comments votes class module.
 """
 
-from sqlalchemy.orm.session import Session  # type: ignore
-from sqlalchemy import ForeignKey, Integer,Table, MetaData, Column, String  # type: ignore
-from dms2223backend.data.db.results.vote.votedb import Votes
 
-class VotesComm(Votes):
+from sqlalchemy import ForeignKey, Integer,Table, MetaData, Column, String # type: ignore
+from dms2223backend.data.db.results.resultsbase import ResultBase  # type: ignore
+
+
+class VotesComm(ResultBase):
     """ Definition and storage of comments votes ORM records.
     """
 
@@ -35,7 +36,6 @@ class VotesComm(Votes):
         return Table(
             'votecomment',
             metadata,
-            Column('id', Integer,primary_key=True, autoincrement=True),
-            Column('cid', Integer, ForeignKey('comment.id')),
-            Column('user', String(64), nullable=False)
+            Column('cid', Integer, ForeignKey('comment.id'), primary_key=True),
+            Column('user', String(64), primary_key=True)
         )

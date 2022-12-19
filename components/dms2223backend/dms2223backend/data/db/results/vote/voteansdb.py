@@ -3,9 +3,9 @@ Answer votes class module.
 """
 
 from sqlalchemy import ForeignKey, Integer, Table, MetaData, Column, String  # type: ignore
-from dms2223backend.data.db.results.vote.votedb import Votes
+from dms2223backend.data.db.results.resultsbase import ResultBase  # type: ignore
 
-class VotesAns(Votes):
+class VotesAns(ResultBase):
     """ Definition and storage of answer votes ORM records.
     """
 
@@ -33,7 +33,6 @@ class VotesAns(Votes):
         return Table(
             'voteanswer',
             metadata,
-            Column('id', Integer, primary_key=True, autoincrement=True),
-            Column('aid', Integer, ForeignKey('answer.aid')),
-            Column('user', String(64), nullable=False)
+            Column('aid', Integer, ForeignKey('answer.aid'), primary_key=True),
+            Column('user', String(64), primary_key=True)
         )

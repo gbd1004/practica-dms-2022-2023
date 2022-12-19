@@ -3,8 +3,8 @@
 
 from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
-from dms2223backend.data.db.results.answerdb import Answer
 from dms2223backend.data.db.results.commentdb import Comment
+from dms2223backend.data.db.results.vote.votecommdb import VotesComm
 from dms2223backend.data.sentiment import Sentiment
 
 class Comments():
@@ -65,3 +65,11 @@ class Comments():
 
         query = session.query(Comment).filter(Comment.aid == aid)
         return query.all()
+
+    
+    
+    # Método con el que posteriormente se puede actualizar el número de votos
+    @staticmethod
+    def get_num_votes(session: Session, cid: int) -> int:
+        num_votes = session.query(VotesComm).where(VotesComm.cid == cid).count()
+        return num_votes

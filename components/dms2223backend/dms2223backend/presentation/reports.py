@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Dict, Tuple
 from flask import current_app
-from dms2223backend.service.reportservice import ReportServices
+from dms2223backend.logic.reportservice import ReportServices
 
 #---------------------------------------------------#
 # POSIBLES OPERACIONES:     (definidas en spec.yml) #

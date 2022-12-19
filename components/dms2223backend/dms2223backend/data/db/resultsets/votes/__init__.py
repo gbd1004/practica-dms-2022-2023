@@ -1,4 +1,5 @@
 """ Backend database-related modules.
 """
 
-from .votesdb import Votes
+from .votesCdb import VotesC
+from .votesAdb import VotesA

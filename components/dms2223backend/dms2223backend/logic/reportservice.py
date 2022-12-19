@@ -6,16 +6,15 @@ from typing import List
 from sqlalchemy.orm.session import Session # type: ignore
 from dms2223backend.data.db.results.report.reportanswerdb import ReportAnswer
 from dms2223backend.data.db.results.report.reportcommentdb import ReportComment
-from dms2223backend.data.db.results.report.reportdb import Report
 from dms2223backend.data.db.results.report.reportquestiondb import ReportQuestion
 from dms2223backend.data.db.resultsets.reports.reportsanswersdb import ReportsAnswer
 from dms2223backend.data.db.resultsets.reports.reportscommentsdb import ReportsComments
 from dms2223backend.data.db.resultsets.reports.reportsquestionsdb import ReportsQuestions
 from dms2223backend.data.db.schema import Schema
 from dms2223backend.data.reportstatus import ReportStatus
-from dms2223backend.service.answerservice import AnswerServices
-from dms2223backend.service.commentservice import CommentServices
-from dms2223backend.service.questionservice import QuestionServices
+from dms2223backend.logic.answerservice import AnswerServices
+from dms2223backend.logic.commentservice import CommentServices
+from dms2223backend.logic.questionservice import QuestionServices
 
 
 class ReportServices():

@@ -80,7 +80,9 @@ class QuestionServices():
         """
 
         session: Session = schema.new_session()
-        out = {}
+        out : dict
+        if title == "":
+            return out
 
         try:
             new_question: Question = Questions.create(session, title, body, owner)

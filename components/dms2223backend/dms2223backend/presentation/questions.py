@@ -1,7 +1,7 @@
 from typing import List, Tuple, Dict, Union
 from http import HTTPStatus
 from flask import current_app
-from dms2223backend.service.questionservice import QuestionServices
+from dms2223backend.logic.questionservice import QuestionServices
 
 class QuestionsDB():
 
@@ -42,6 +42,8 @@ def get_question(qid: int) -> Tuple[dict, HTTPStatus]:
             return pregunta, HTTPStatus.OK
         # Si no existe, no se puede devolver
         return {}, HTTPStatus.NOT_FOUND
+
+
 
 # Question POST
 def new_question(body: dict, token_info: dict) -> Tuple[Union[Dict, str], HTTPStatus]:

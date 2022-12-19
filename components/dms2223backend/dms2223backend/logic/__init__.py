@@ -1,2 +1,2 @@
-""" Backend logic classes
+""" Backend service-layer classes
 """

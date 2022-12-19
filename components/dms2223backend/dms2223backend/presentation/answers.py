@@ -3,8 +3,8 @@ from http import HTTPStatus
 from typing import Dict, List, Tuple, Union
 from flask import current_app
 
-from dms2223backend.service.answerservice import AnswerServices
-from dms2223backend.service.commentservice import CommentServices
+from dms2223backend.logic.answerservice import AnswerServices
+from dms2223backend.logic.commentservice import CommentServices
 
 #---------------------------------------------------#
 # POSIBLES OPERACIONES:     (definidas en spec.yml) #

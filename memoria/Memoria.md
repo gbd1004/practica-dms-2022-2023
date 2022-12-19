@@ -1,29 +1,14 @@
-
-<div>
-    <font size = "50">
-        <b>PRÁCTICA 01</b>
-    </font>
-</div>
-
-
-<br/>
-<br/>
+# **PRÁCTICA 01**
 
 ___
----
+
 
 <br/>
 <br/>
 
 En el presente documento se redactará el informe sobre la práctica 01 de la asignatura de Diseño y mantenimiento del software.
 
-<div>
-     <font size = "5">
-    <b>
-    Alumnos
-    </b>
-    </font>
-</div>
+## **Alumnos**
 
 El grupo de alumnos que realizará la práctica está compuesto por:
 * Guillermo Arcal García (gag1005@alu.ubu.es)
@@ -31,31 +16,25 @@ El grupo de alumnos que realizará la práctica está compuesto por:
 * Santiago Díaz Gómez-Guillamón (sdg1002@alu.ubu.es)
 * Gadea Lucas  Pérez (glp1002@alu.ubu.es)
 
-<div>
-     <font size = "5">
-    <b>
-    Tabla de contenido
-    </b>
-    </font>
-</div>
+## **Tabla de contenido**
 
-- [**Diseño Frontend**](#diseño-frontend)
-  - [**Arquitectura de dos niveles (Documento-Vista)**](#arquitectura-de-dos-nivelesdocumento-vista)
-- [**Diseño Backend**](#diseño-backend)
-  - [**Arquitectura de tres capas**](#arquitectura-de-tres-capas)
-- [**Sobre Auth**](#sobre-auth)
-- [**Decisiones de diseño**](#decisiones-de-diseño)
-  - [***Patrón fachada***](#patrón-fachada)
-  - [***Aspecto reports***](#aspecto-reports)
-  - [***Votos***](#votos)
-- [**De cara al futuro**](#de-cara-al-futuro)
-- [**BIBLIOGRAFÍA**](#bibliografía)
+- [**PRÁCTICA 01**](#práctica-01)
+  - [**Alumnos**](#alumnos)
+  - [**Tabla de contenido**](#tabla-de-contenido)
+  - [**Repositorio**](#repositorio)
+  - [**Diseño Frontend**](#diseño-frontend)
+    - [**Arquitectura de dos niveles (Documento-Vista)**](#arquitectura-de-dos-nivelesdocumento-vista)
+  - [**Diseño Backend**](#diseño-backend)
+    - [**Arquitectura de tres capas**](#arquitectura-de-tres-capas)
+  - [**Sobre Auth**](#sobre-auth)
+  - [**Decisiones de diseño**](#decisiones-de-diseño)
+    - [***Patrón fachada***](#patrón-fachada)
+    - [***Aspecto reports***](#aspecto-reports)
+    - [***Votos***](#votos)
+  - [**De cara al futuro**](#de-cara-al-futuro)
+  - [**BIBLIOGRAFÍA**](#bibliografía)
   
-<div>
-    <font size = "5">
-        <b>Repositorio</b>
-    </font>
-</div>
+## **Repositorio**
 
 El _fork_ del repoositorio usado por los alumnos es el siguiente:  https://github.com/gbd1004/practica-dms-2022-2023.
 
@@ -164,30 +143,37 @@ Se ha decidido eliminar la opción de votos negativos, dejándo solamnete un val
 <br/>
 
 ## **De cara al futuro**
-Las aplicaciones como la implementada a lo largo de la presente práctica tienen un sinfín de posibilidades de desarrollo y se pueden añadir muchas funcionalidades a cada uno de sus componentes. En nuestro caso, nos hemos centrado en el usuario y hemos decidido seguir una línea basada en el perfil personal del mismo, lo que nos permite atraer la atención de los internautas y lograr que se registren con el fin de personalizar sus perfiles. Para ello, se listan a continuación las mejoras posibles encontradas:
+Las aplicaciones como la implementada a lo largo de la presente práctica tienen un sinfín de posibilidades de desarrollo y se pueden añadir muchas funcionalidades a cada uno de sus componentes. En nuestro caso, nos hemos centrado en el usuario y hemos decidido seguir una línea basada en el perfil personal del mismo, lo que nos permite atraer la atención de los posibles usuarios y lograr que se registren con el fin de personalizar sus perfiles. Para ello, se listan a continuación las mejoras posibles encontradas:
 
-* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: [TODO: nombre]. Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda está reservada para los enlaces hacia las distintas secciones).
-* Creación de un área personal. En la bara superior de la aplicación, se propone añadir una nueva sección centrada exclusivamente en la información relativa al usuario _loggeado_. En esta sección, se podrán distinguir los siguientes elementos:
+[TODO: Justificar todas las mejoras respecto de nuestro código (Por donde extender)]
+
+* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO".
+* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO: nombre".
+[TODO: imagen logo]
+Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda está reservada para los enlaces hacia las distintas secciones).
+* Creación de un área personal. En la bara superior de la aplicación, se propone añadir una nueva sección centrada exclusivamente en la información relativa al usuario registrado. En esta sección, se podrán distinguir los siguientes elementos:
 	- Perfil del usuario: modificación de credenciales, foto de perfil, descripción, etc...
 	- Sección en la que el usuario puede ver todos los elementos que ha publicado.
 	- Añadir un símbolo de "Ayuda" para que se pueda acceder al manual de usuario _online_.
 	- Gráfica de popularidad en función de las participaciones del usuario y los votos recibidos (se puede incluir también el número de visitas a las preguntas o respuestas).
 	- Además, se pretende personalizar aún más la aplicación con opciones multilenguaje. Es decir, se quiere internacionalizar la aplicación.
 	[TODO: imagen de la interfaz de esta sección]
-* Por otro lado, incluir en el registro de los usuarios un campo con un correo electrónico. De esta forma, se incrementa la seguridad con el sistema de doble confirmación y con el aviso de nuevos accesos desde dispositivos no registrados previamente. Sin embargo, el punto principal de esta medida es el envío de notificaciones cuando otro usuario interactúe con alguna de las preguntas, respuestas o comentarios realizados por el usuario en cuestión. Para dejar esta idea más clara se ha decidido diseñar un correo de prueba que se adjunta acontinuación: [TODO: imágen correo]
+* Por otro lado, incluir en el registro de los usuarios un campo con un correo electrónico. De esta forma, se incrementa la seguridad con el sistema de doble confirmación y con el aviso de nuevos accesos desde dispositivos no registrados previamente. También evitará el posible registro indebido de _bots_ en el sistema o multicuentas masivas. Sin embargo, el punto principal de esta medida es el envío de notificaciones cuando otro usuario interactúe con alguna de las preguntas, respuestas o comentarios realizados por el usuario en cuestión. Para dejar esta idea más clara se ha decidido diseñar un correo de prueba que se adjunta acontinuación: [TODO: imágen correo]
 * Se pretende también determinar (añadiendo un tipo de rol más) qué usuarios son expertos, de forma que puedan verificar respuestas dadas (lo cuál da prestigio y fiabilidad a la respuesta).
 * Sistema de recomendación basado en productos (puesto que la información que tenemos del usuario es limitada) de discusiones que puedan interesar en al usuario. Para ello se empleará un sencillo algoritmo donde se "cruzen" matrices de _ratings_ (teniendo en cuenta los votos y sentimientos registrados) y las relaciones temáticas de las preguntas, respuestas y comentarios. [TODO: ejemplo]
-* Otra medida es la creación de comunidades. [TODO: expliación más amplia]
+* Otra medida es la creación de comunidades, que podrían agrupar conjuntos de discusiones temáticas que atraigan a usuarios interesados en ese tema.
 
 Se proponen también otras mejoras que se escapan un poco de la línea de personalización del usuario mencionada hasta el momento.
 * Opción para "desvotar".
-* Posibilidad de modificar las pregunats, respuestas o comentarios (se maracrá la fecha de la edición).
+* Posibilidad de modificar las preguntas, respuestas o comentarios (se marcará la fecha de la edición).
 * Filtro/buscador para encontrar discusiones a partir de palabras clave.
 * Posibilidad de ordenar las discusiones por identificador, fecha, polularidad, etc...
 * Posibilidad de establecer etiquetas (_tags_).
 * Edición avanzada (markdown, html, etc..).
 * Anuncios personalizados que permitirán la monetización de la aplicación para invertir en futuras mejoras.
 * Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
+* [TODO (opcional): Capa lógica frontend para edicion avanzada y tapar contenido sensible]
+* [TODO (opcional): Posibles mejores para caso de que la página crezca mucho]
 
 
 

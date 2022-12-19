@@ -8,7 +8,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.config import BackendConfiguration
 from dms2223backend.data.db.results import Answer, Question, Comment
 from dms2223backend.data.db.results.report import Report, ReportAnswer, ReportComment, ReportQuestion
-from dms2223backend.data.db.results.vote import  Votes, VotesAns, VotesComm
+from dms2223backend.data.db.results.vote import VotesAns, VotesComm
 
 # Required for SQLite to enforce FK integrity when supported
 @event.listens_for(Engine, 'connect')
@@ -52,7 +52,7 @@ class Schema():
         Report.map(self.__registry)
         Question.map(self.__registry)
         Comment.map(self.__registry)
-        Votes.map(self.__registry)
+        #Votes.map(self.__registry)
         VotesAns.map(self.__registry)
         VotesComm.map(self.__registry)
         ReportAnswer.map(self.__registry)
