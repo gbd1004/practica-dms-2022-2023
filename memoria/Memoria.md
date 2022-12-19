@@ -147,25 +147,31 @@ Las aplicaciones como la implementada a lo largo de la presente práctica tienen
 
 [TODO: Justificar todas las mejoras respecto de nuestro código (Por donde extender)]
 
-* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO".
-* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO: nombre".
+* La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TechTalk". Se ha diseñado un logo simple que representa la aplicación.
+<br/>
+<img src="img/logo.png" width="200" />
+<br/>
+Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda esá reservada para los enlaces hacia las distintas secciones).
 
-![Ilustración 3: Logo de la página web](img/logo.png)
-
-Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda está reservada para los enlaces hacia las distintas secciones).
 * Creación de un área personal. En la bara superior de la aplicación, se propone añadir una nueva sección centrada exclusivamente en la información relativa al usuario registrado. En esta sección, se podrán distinguir los siguientes elementos:
 	- Perfil del usuario: modificación de credenciales, foto de perfil, descripción, etc...
 	- Sección en la que el usuario puede ver todos los elementos que ha publicado.
 	- Añadir un símbolo de "Ayuda" para que se pueda acceder al manual de usuario _online_.
 	- Gráfica de popularidad en función de las participaciones del usuario y los votos recibidos (se puede incluir también el número de visitas a las preguntas o respuestas).
 	- Además, se pretende personalizar aún más la aplicación con opciones multilenguaje. Es decir, se quiere internacionalizar la aplicación.
-	[TODO: imagen de la interfaz de esta sección]
-* Por otro lado, incluir en el registro de los usuarios un campo con un correo electrónico. De esta forma, se incrementa la seguridad con el sistema de doble confirmación y con el aviso de nuevos accesos desde dispositivos no registrados previamente. También evitará el posible registro indebido de _bots_ en el sistema o multicuentas masivas. Sin embargo, el punto principal de esta medida es el envío de notificaciones cuando otro usuario interactúe con alguna de las preguntas, respuestas o comentarios realizados por el usuario en cuestión. Para dejar esta idea más clara se ha decidido diseñar un correo de prueba que se adjunta acontinuación: [TODO: imágen correo]
+  <br/>
+  <img src="img/interfaz.png" width="200" />
+  <br/>
+* Por otro lado, incluir en el registro de los usuarios un campo con un correo electrónico. De esta forma, se incrementa la seguridad con el sistema de doble confirmación y con el aviso de nuevos accesos desde dispositivos no registrados previamente. También evitará el posible registro indebido de _bots_ en el sistema o multicuentas masivas. Sin embargo, el punto principal de esta medida es el envío de notificaciones cuando otro usuario interactúe con alguna de las preguntas, respuestas o comentarios realizados por el usuario en cuestión. Para dejar esta idea más clara se ha decidido diseñar un correo de prueba que se adjunta a continuación: 
+<br/>
+<img src="img/correo.jpeg" width="6000" />
+<br/>
 * Se pretende también determinar (añadiendo un tipo de rol más) qué usuarios son expertos, de forma que puedan verificar respuestas dadas (lo cuál da prestigio y fiabilidad a la respuesta).
 * Sistema de recomendación basado en productos (puesto que la información que tenemos del usuario es limitada) de discusiones que puedan interesar en al usuario. Para ello se empleará un sencillo algoritmo donde se "cruzen" matrices de _ratings_ (teniendo en cuenta los votos y sentimientos registrados) y las relaciones temáticas de las preguntas, respuestas y comentarios. [TODO: ejemplo]
 * Otra medida es la creación de comunidades, que podrían agrupar conjuntos de discusiones temáticas que atraigan a usuarios interesados en ese tema.
 
 Se proponen también otras mejoras que se escapan un poco de la línea de personalización del usuario mencionada hasta el momento.
+* Mejorar el diseño gráfico de la interfaz.
 * Opción para "desvotar".
 * Posibilidad de modificar las preguntas, respuestas o comentarios (se marcará la fecha de la edición).
 * Filtro/buscador para encontrar discusiones a partir de palabras clave.
