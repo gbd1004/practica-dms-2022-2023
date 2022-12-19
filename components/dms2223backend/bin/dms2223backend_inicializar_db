@@ -3,10 +3,10 @@
 
 from dms2223backend.data.config.backendconfiguration import BackendConfiguration
 from dms2223backend.data.db.schema import Schema
-from dms2223backend.service.questionservice import QuestionServices 
-from dms2223backend.service.answerservice import AnswerServices
-from dms2223backend.service.commentservice import CommentServices
-from dms2223backend.service.reportservice import ReportServices
+from dms2223backend.logic.questionservice import QuestionServices 
+from dms2223backend.logic.answerservice import AnswerServices
+from dms2223backend.logic.commentservice import CommentServices
+from dms2223backend.logic.reportservice import ReportServices
 from dms2223backend.data import Sentiment
 
 
