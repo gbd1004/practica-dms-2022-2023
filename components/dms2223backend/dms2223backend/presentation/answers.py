@@ -12,7 +12,7 @@ from dms2223backend.logic.commentservice import CommentServices
 
 # Answer{qid} GET (lista)
 # Recibe como parámetro: QuestionIdPathParam
-def get_answers(qid: int) -> Tuple[list, HTTPStatus]:
+def get_answers(qid: int) -> Tuple[list, int]:
     with current_app.app_context():
         # Si la pregunta existe, se podrá tratar de obtener sus respuestas
         answers: List = AnswerServices.get_answers(current_app.db, qid)
@@ -37,7 +37,7 @@ def get_comments(aid: int) -> List[Dict]:
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
-def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[Union[Dict, str], HTTPStatus]:
+def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[Union[Dict, str], int]:
     """Creates an answer
 
 	Returns:
@@ -57,7 +57,7 @@ def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[Union[Dict, str],
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
-def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[Union[Dict, str], HTTPStatus]:
+def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[Union[Dict, str], int]:
     """Creates a comment
 
 	Returns:
@@ -78,7 +78,7 @@ def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[Union[Dict, str
         return new_comm, HTTPStatus.OK
 
 # Métodos UPDATE para votar respuestas
-def vote_answer(aid: int) -> Tuple[dict, HTTPStatus]:
+def vote_answer(aid: int) -> Tuple[dict, int]:
     """Votes an answer
 
 	Returns:
@@ -97,7 +97,7 @@ def vote_answer(aid: int) -> Tuple[dict, HTTPStatus]:
 
 
 # Métodos UPDATE para votar comentarios
-def vote_comment(cid: int) -> Tuple[dict, HTTPStatus]:
+def vote_comment(cid: int) -> Tuple[dict, int]:
     """Votes a comment
 
 	Returns:

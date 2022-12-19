@@ -46,7 +46,7 @@ def get_question(qid: int) -> Tuple[dict, HTTPStatus]:
 
 
 # Question POST
-def new_question(body: dict, token_info: dict) -> Tuple[Union[Dict, str], HTTPStatus]:
+def new_question(body: dict, token_info: dict) -> Tuple[Union[Dict, str], int]:
     """Creates a question
 
     Returns:
