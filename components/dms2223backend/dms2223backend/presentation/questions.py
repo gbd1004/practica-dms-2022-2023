@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Union
 from http import HTTPStatus
 from flask import current_app
 from dms2223backend.service.questionservice import QuestionServices
@@ -44,14 +44,14 @@ def get_question(qid: int) -> Tuple[dict, HTTPStatus]:
         return {}, HTTPStatus.NOT_FOUND
 
 # Question POST
-def new_question(body: dict, token_info: dict) -> Tuple[dict, HTTPStatus]:
+def new_question(body: dict, token_info: dict) -> Tuple[Union[Dict, str], HTTPStatus]:
     """Creates a question
 
     Returns:
         - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the question data and a code 200.
     """
     if body['title'] == "":
-        return {}, HTTPStatus.OK
+        return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
 
     with current_app.app_context():
         owner = token_info['user_token']['username']

@@ -1,6 +1,6 @@
 
 from http import HTTPStatus
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Union
 from flask import current_app
 
 from dms2223backend.service.answerservice import AnswerServices
@@ -37,14 +37,14 @@ def get_comments(aid: int) -> List[Dict]:
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
-def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[dict, HTTPStatus]:
+def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[Union[Dict, str], HTTPStatus]:
     """Creates an answer
 
 	Returns:
         - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the answer data and a code 200 OK.
     """
     if body['body'] == "":
-        return {}, HTTPStatus.OK
+        return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
 
     with current_app.app_context():
         owner = token_info['user_token']['username']
@@ -57,22 +57,20 @@ def new_answer(qid:int, body: dict, token_info: Dict) -> Tuple[dict, HTTPStatus]
 
 # Answer POST
 # Solo es necesario el cuerpo de la pregunta -> current_app.db AnswerCreationModel
-def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[dict, HTTPStatus]:
+def new_comment(aid: int, body: Dict, token_info: Dict) -> Tuple[Union[Dict, str], HTTPStatus]:
     """Creates a comment
 
 	Returns:
         - Tuple[Dict, HTTPStatus]: A Tuple with a dictionary of the comments data and a code 200 OK.
     """
     if body['body'] == "":
-        return {}, HTTPStatus.OK
+        return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
 
     with current_app.app_context():
         owner = token_info['user_token']['username']
         new_comm: Dict = CommentServices.create_comment(
             aid, body['body'], body['sentiment'], owner, current_app.db
         )
-
-        current_app.logger.info(new_comm)
 
         usr_votes: Dict = CommentServices.get_votes(current_app.db, new_comm['cid'])
         new_comm['user_votes'] = usr_votes
