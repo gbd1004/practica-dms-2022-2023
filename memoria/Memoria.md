@@ -149,7 +149,9 @@ Las aplicaciones como la implementada a lo largo de la presente práctica tienen
 
 * La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO".
 * La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TODO: nombre".
-[TODO: imagen logo]
+
+![Ilustración 3: Logo de la página web](img/logo.png)
+
 Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda está reservada para los enlaces hacia las distintas secciones).
 * Creación de un área personal. En la bara superior de la aplicación, se propone añadir una nueva sección centrada exclusivamente en la información relativa al usuario registrado. En esta sección, se podrán distinguir los siguientes elementos:
 	- Perfil del usuario: modificación de credenciales, foto de perfil, descripción, etc...
