@@ -145,15 +145,13 @@ Se ha decidido eliminar la opción de votos negativos, dejándo solamnete un val
 ## **De cara al futuro**
 Las aplicaciones como la implementada a lo largo de la presente práctica tienen un sinfín de posibilidades de desarrollo y se pueden añadir muchas funcionalidades a cada uno de sus componentes. En nuestro caso, nos hemos centrado en el usuario y hemos decidido seguir una línea basada en el perfil personal del mismo, lo que nos permite atraer la atención de los posibles usuarios y lograr que se registren con el fin de personalizar sus perfiles. Para ello, se listan a continuación las mejoras posibles encontradas:
 
-[TODO: Justificar todas las mejoras respecto de nuestro código (Por donde extender)]
-
 * La primera medida a tomar es darle un nombre llamativo a la aplicación que atraiga a los usuarios. En este caso se ha decidido llamar: "TechTalk". Se ha diseñado un logo simple que representa la aplicación.
 <br/>
 <img src="img/logo.png" width="200" />
 <br/>
-Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda esá reservada para los enlaces hacia las distintas secciones).
+Este rótulo se situará en la parte superior derecha de las distintas interfaces (la parte izquierda está reservada para los enlaces hacia las distintas secciones).
 
-* Creación de un área personal. En la bara superior de la aplicación, se propone añadir una nueva sección centrada exclusivamente en la información relativa al usuario registrado. En esta sección, se podrán distinguir los siguientes elementos:
+* Creación de un área personal. En la barra superior de la aplicación, se propone añadir una nueva sección centrada exclusivamente en la información relativa al usuario registrado. En esta sección, se podrán distinguir los siguientes elementos:
 	- Perfil del usuario: modificación de credenciales, foto de perfil, descripción, etc...
 	- Sección en la que el usuario puede ver todos los elementos que ha publicado.
 	- Añadir un símbolo de "Ayuda" para que se pueda acceder al manual de usuario _online_.
@@ -167,9 +165,73 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 <img src="img/correo.jpeg" width="6000" />
 <br/>
 * Se pretende también determinar (añadiendo un tipo de rol más) qué usuarios son expertos, de forma que puedan verificar respuestas dadas (lo cuál da prestigio y fiabilidad a la respuesta).
-* Sistema de recomendación basado en productos (puesto que la información que tenemos del usuario es limitada) de discusiones que puedan interesar en al usuario. Para ello se empleará un sencillo algoritmo donde se "cruzen" matrices de _ratings_ (teniendo en cuenta los votos y sentimientos registrados) y las relaciones temáticas de las preguntas, respuestas y comentarios. [TODO: ejemplo]
-* Otra medida es la creación de comunidades, que podrían agrupar conjuntos de discusiones temáticas que atraigan a usuarios interesados en ese tema.
+* Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
 
+### **Opciones de diseño**
+Para las medidas anteriores, se propone realizar las siguientes implementaciones:
+* Para que el usuario pueda modificar sus credenciales, se utilizarán **formularios** en el _frontend_. Para ello se aprovecharán los _templates_ y _macros_ ya creados aprovechando el polimorfismo.
+* Para almacenar la información personal de los usuarios, se propone crear un nuevo _script_ en la carpeta ```resultset``` (dms2223backend/dms2223backend/data/db) de nombre ```statisticsdb.py```. En ella se implementarán los métodos estadísticos que se quiera mostrar.
+<br/>
+<div style="border-style: solid;text-align:justify" >
+ <ins> <b>NOTA</b></ins>:
+  En este caso, NO se creará una tabla de usuarios.
+  Puesto que no se crea una tabla de usuarios, sino que se sigue utilizando el servicio Auth (haciendo uso del token de usuario), estas estadísticas no quedan almacenadas, sino que se calculan cada vez. El generar y mostrar estas gráficas constantemente, podría suponer mucha carga computacional y, por ende, una desventaja. Por ello, estos métodos GET que muestran gráficas y estadísticas tendrán un comportamiento lazy, i.e.: solamente se mostrarán cuando el usuario acceda a la sección de estadísticas (situada en su área personal).
+</div>
+<br/>
+Algunos métodos posibles son los siguientes:
+
+  - Primero, se creará un método ```user_elements()``` que obtenga los elmentos del usuario en cuestión (pasando como parámetro solamente el _token_). Al contrario que el resto de estadísticas, se mostrarán estos resultados en el apartado de "mis elementos" (situada también en el área personal). Esto permitiirá al usuario acceder facilmente a su propio contenido.
+  <br/>
+  Ejemplo:
+  <br/>
+  ```
+  preguntas_user: list = query(Pregunta).where(Pregunta.owner == token).all()
+  ``` 
+  <br/>
+
+  - Actividad del usuario a lo largo del tiempo. Se obtendrá el número de elementos publicados por el usuarios (con ```owner == token```) teniendo en cuenta su atributo ```timestamp```.
+  <br/>
+  Este método tendrá como parámetros de entrada el intervalo de días en los que se quiere mostrar la actividad y los elementos que se quieren consultar, a saber, preguntas, respuestas, comentarios, votos o la combinación de varios de ellos. Se permitirá mostrar más de uno a la vez (parámetros de entrada de caracter _Optional_).
+  <br/>
+  Ejemplo:
+  <br/>
+  ```
+  actividad_preguntas_dia = query(Pregunta).where(Pregunta.owner == token, Pregunta.timestamp.day == timestamp).count()
+  ``` 
+  <br/>
+
+  - Cálculo de popularidad de los elementos en función de los votos recibidos. Para ello se recurrirá al método ```user_elements()``` que nos devuelve todos los elementos del usuario, y se obtendrá el número de votos de cada uno, iterando por los identificadores de dichos elementos.
+  <br/>
+  Ejemplo:
+  <br/>
+  ```
+  for elem in user_elements(token):
+    popularidad: int = query(Vote).where(Vote.eid == elem.id).count()
+  ``` 
+  <br/>
+
+* Para mostrar estos gráficos (en el _frontend_), se crearán ficheros en JavaScript. En la referencia [3] se muestran algunos ejemplos. Para hacer un diagrama de barras por ejemplo, se empleará este código:
+```
+new Chart("grafico_barras", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: ["red", "green","blue"],
+      data: yValues
+    }]
+  }
+});
+```
+
+* Para modificar la información personal de los usuarios, se propone realizar operaciones UPDATE en dms2223auth (además de añadir el correo electrónico en ```user```).
+
+* Para notificar a los usuarios de que alguno de sus elementos han sido votados, respondidos o reportados, se empleará el patrón **Observador**. Para ello, habrá un observador que observe estos cambios y los notifique. Recordemos que esta notificación llegará al usuario a través de su correo electrónico (previamente añadido).
+
+* Por otro lado, se pretende añadir una capa de lógica en el _frontend_, usando así una arquitectura de tres capas. Ahí se añadirán las opciones avanzadas de multilenguaje, _theme_, censura NSFW, etc...
+
+
+### **Otras medidas**
 Se proponen también otras mejoras que se escapan un poco de la línea de personalización del usuario mencionada hasta el momento.
 * Mejorar el diseño gráfico de la interfaz.
 * Opción para "desvotar".
@@ -179,9 +241,10 @@ Se proponen también otras mejoras que se escapan un poco de la línea de person
 * Posibilidad de establecer etiquetas (_tags_).
 * Edición avanzada (markdown, html, etc..).
 * Anuncios personalizados que permitirán la monetización de la aplicación para invertir en futuras mejoras.
-* Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
+* Otra medida es la creación de comunidades, que podrían agrupar conjuntos de discusiones temáticas que atraigan a usuarios interesados en ese tema.
 * [TODO (opcional): Capa lógica frontend para edicion avanzada y tapar contenido sensible]
 * [TODO (opcional): Posibles mejores para caso de que la página crezca mucho]
+
 
 
 
@@ -196,16 +259,20 @@ ___
 
 ## **BIBLIOGRAFÍA**
 
-- title: "Capas, cebollas y colmenas: arquitecturas en el backend."
+- [1] title: "Capas, cebollas y colmenas: arquitecturas en el backend."
 author: "Cabrera, A.A."
 date: "2019"
 link: https://www.adictosaltrabajo.com/2019/07/02/capas-cebollas-y-colmenas-arquitecturas-en-el-backend/
 
-- title: "Arquitectura de una API REST. Desarrollo de aplicaciones web."
+- [2] title: "Arquitectura de una API REST. Desarrollo de aplicaciones web."
 author: "juanda.gitbooks"
 date: (n.d.)
 link: https://juanda.gitbooks.io/webapps/content/api/arquitectura-api-rest.html.
 
+- [3] title: "Chart.js."
+author: "w3schools"
+date: (n.d.)
+link: https://www.w3schools.com/ai/ai_chartjs.asp.
 
 
 
