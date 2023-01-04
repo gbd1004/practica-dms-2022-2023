@@ -164,6 +164,7 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 <br/>
 <img src="img/correo.jpeg" width="6000" />
 <br/>
+
 * Se pretende también determinar (añadiendo un tipo de rol más) qué usuarios son expertos, de forma que puedan verificar respuestas dadas (lo cuál da prestigio y fiabilidad a la respuesta).
 * Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
 
@@ -178,12 +179,14 @@ Para las medidas anteriores, se propone realizar las siguientes implementaciones
   Puesto que no se crea una tabla de usuarios, sino que se sigue utilizando el servicio Auth (haciendo uso del token de usuario), estas estadísticas no quedan almacenadas, sino que se calculan cada vez. El generar y mostrar estas gráficas constantemente, podría suponer mucha carga computacional y, por ende, una desventaja. Por ello, estos métodos GET que muestran gráficas y estadísticas tendrán un comportamiento lazy, i.e.: solamente se mostrarán cuando el usuario acceda a la sección de estadísticas (situada en su área personal).
 </div>
 <br/>
-Algunos métodos posibles son los siguientes:
+
+* Algunos métodos posibles son los siguientes:
 
   - Primero, se creará un método ```user_elements()``` que obtenga los elmentos del usuario en cuestión (pasando como parámetro solamente el _token_). Al contrario que el resto de estadísticas, se mostrarán estos resultados en el apartado de "mis elementos" (situada también en el área personal). Esto permitiirá al usuario acceder facilmente a su propio contenido.
   <br/>
   Ejemplo:
   <br/>
+  
   ```
   preguntas_user: list = query(Pregunta).where(Pregunta.owner == token).all()
   ``` 
@@ -195,6 +198,7 @@ Algunos métodos posibles son los siguientes:
   <br/>
   Ejemplo:
   <br/>
+
   ```
   actividad_preguntas_dia = query(Pregunta).where(Pregunta.owner == token, Pregunta.timestamp.day == timestamp).count()
   ``` 
@@ -204,6 +208,7 @@ Algunos métodos posibles son los siguientes:
   <br/>
   Ejemplo:
   <br/>
+
   ```
   for elem in user_elements(token):
     popularidad: int = query(Vote).where(Vote.eid == elem.id).count()
