@@ -186,14 +186,13 @@ Para las medidas anteriores, se propone realizar las siguientes implementaciones
   <br/>
   Ejemplo:
   <br/>
-  
+
   ```
   preguntas_user: list = query(Pregunta).where(Pregunta.owner == token).all()
   ``` 
   <br/>
 
   - Actividad del usuario a lo largo del tiempo. Se obtendrá el número de elementos publicados por el usuarios (con ```owner == token```) teniendo en cuenta su atributo ```timestamp```.
-  <br/>
   Este método tendrá como parámetros de entrada el intervalo de días en los que se quiere mostrar la actividad y los elementos que se quieren consultar, a saber, preguntas, respuestas, comentarios, votos o la combinación de varios de ellos. Se permitirá mostrar más de uno a la vez (parámetros de entrada de caracter _Optional_).
   <br/>
   Ejemplo:
