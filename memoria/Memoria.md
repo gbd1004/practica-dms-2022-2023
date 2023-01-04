@@ -167,9 +167,11 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 	- Añadir un símbolo de "Ayuda" para que se pueda acceder al manual de usuario _online_.
 	- Gráfica de popularidad en función de las participaciones del usuario y los votos recibidos (se puede incluir también el número de visitas a las preguntas o respuestas).
 	- Además, se pretende personalizar aún más la aplicación con opciones multilenguaje. Es decir, se quiere internacionalizar la aplicación.
+
   <br/>
-  <img src="img/interfaz.png" width="200" />
+  <img src="img/interfaz.png" width="10000" />
   <br/>
+
 * Por otro lado, incluir en el registro de los usuarios un campo con un correo electrónico. De esta forma, se incrementa la seguridad con el sistema de doble confirmación y con el aviso de nuevos accesos desde dispositivos no registrados previamente. También evitará el posible registro indebido de _bots_ en el sistema o multicuentas masivas. Sin embargo, el punto principal de esta medida es el envío de notificaciones cuando otro usuario interactúe con alguna de las preguntas, respuestas o comentarios realizados por el usuario en cuestión. Para dejar esta idea más clara se ha decidido diseñar un correo de prueba que se adjunta a continuación: 
 <br/>
 <img src="img/correo.jpeg" width="6000" />
@@ -239,6 +241,8 @@ new Chart("grafico_barras", {
 ```
 
 * Para modificar la información personal de los usuarios, se propone realizar operaciones UPDATE en dms2223auth (además de añadir el correo electrónico en ```user```).
+
+* Además, el usuario podrá modificar su imagen de perfil. Para simplificar esto, se ofrecerá una serie de imágenes predeterminadas de entre las que el usuario puede elegir. Para ello se ha pensado añadir un atributo extra en ```user``` de tipo numérico que identificará la imagen en cuestión.
 
 * Para notificar a los usuarios de que alguno de sus elementos han sido votados, respondidos o reportados, se empleará el patrón **Observador**. Para ello, habrá un observador que observe estos cambios y los notifique. Recordemos que esta notificación llegará al usuario a través de su correo electrónico (previamente añadido).
 
