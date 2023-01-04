@@ -140,6 +140,12 @@ Finalmente, es preciso recordar que una vez que los reportes son aceptados o rec
 ### ***Votos***
 Se ha decidido eliminar la opción de votos negativos, dejándo solamnete un valor de "popularidad" de cada respuesta o comentario. Esta práctica es común en muchas plataformas, ya que evita conflictos entre los usuarios.
 
+### ***Patrón adaptador***
+En la capa de lógica del _backend_ ocurre una transformación de los datos de SQL a formato JSON, puesto que es lo que se espera recibir. Se puede identificar este comportamoento como adaptador, puesto que el formato original de los datos no es el que se esperaba, por lo que una capa intermedia se encara de formatearlos correctamente.
+
+### ***Patrón estado***
+En tiempo de ejecución, los reportes pueden cambiar de estado "pendiente" a "aceptado" y, de igual forma, los elementos pasarán de "visible" a "oculto". En un futuro podría implementarse un patrón observador que nos permita notificar y ligar los cambios entre el reporte y el elemento reportado (que actualmente solo cambia al recargar la página). 
+
 <br/>
 
 ## **De cara al futuro**
@@ -232,7 +238,9 @@ new Chart("grafico_barras", {
 
 * Para notificar a los usuarios de que alguno de sus elementos han sido votados, respondidos o reportados, se empleará el patrón **Observador**. Para ello, habrá un observador que observe estos cambios y los notifique. Recordemos que esta notificación llegará al usuario a través de su correo electrónico (previamente añadido).
 
-* Por otro lado, se pretende añadir una capa de lógica en el _frontend_, usando así una arquitectura de tres capas. Ahí se añadirán las opciones avanzadas de multilenguaje, _theme_, censura NSFW, etc...
+* Por otro lado, se pretende añadir una capa de lógica en el _frontend_, usando así una arquitectura de tres capas. Ahí se añadirán las opciones avanzadas de multilenguaje, _theme_, censura NSFW, etc... De esta forma se matiene el principio _Single Responsability_.
+En esta tesitura podría considerarse el uso de **patrones decoradores** y **patrones estrategia**.
+
 
 
 ### **Otras medidas**
@@ -246,11 +254,6 @@ Se proponen también otras mejoras que se escapan un poco de la línea de person
 * Edición avanzada (markdown, html, etc..).
 * Anuncios personalizados que permitirán la monetización de la aplicación para invertir en futuras mejoras.
 * Otra medida es la creación de comunidades, que podrían agrupar conjuntos de discusiones temáticas que atraigan a usuarios interesados en ese tema.
-* [TODO (opcional): Capa lógica frontend para edicion avanzada y tapar contenido sensible]
-* [TODO (opcional): Posibles mejores para caso de que la página crezca mucho]
-
-
-
 
 <br/>
 <br/>
