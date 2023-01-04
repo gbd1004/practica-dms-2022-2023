@@ -31,7 +31,11 @@ El grupo de alumnos que realizará la práctica está compuesto por:
     - [***Patrón fachada***](#patrón-fachada)
     - [***Aspecto reports***](#aspecto-reports)
     - [***Votos***](#votos)
+    - [***Patrón adaptador***](#patrón-adaptador)
+    - [***Patrón estado***](#patrón-estado)
   - [**De cara al futuro**](#de-cara-al-futuro)
+    - [**Opciones de diseño**](#opciones-de-diseño)
+    - [**Otras medidas**](#otras-medidas)
   - [**BIBLIOGRAFÍA**](#bibliografía)
   
 ## **Repositorio**
@@ -141,7 +145,7 @@ Finalmente, es preciso recordar que una vez que los reportes son aceptados o rec
 Se ha decidido eliminar la opción de votos negativos, dejándo solamnete un valor de "popularidad" de cada respuesta o comentario. Esta práctica es común en muchas plataformas, ya que evita conflictos entre los usuarios.
 
 ### ***Patrón adaptador***
-En la capa de lógica del _backend_ ocurre una transformación de los datos de SQL a formato JSON, puesto que es lo que se espera recibir. Se puede identificar este comportamoento como adaptador, puesto que el formato original de los datos no es el que se esperaba, por lo que una capa intermedia se encara de formatearlos correctamente.
+En la capa de lógica del _backend_ ocurre una transformación de los datos de SQL a formato JSON, puesto que es lo que se espera recibir. Se puede identificar este comportamiento como adaptador, puesto que el formato original de los datos no es el que se esperaba, por lo que una capa intermedia se encara de formatearlos correctamente.
 
 ### ***Patrón estado***
 En tiempo de ejecución, los reportes pueden cambiar de estado "pendiente" a "aceptado" y, de igual forma, los elementos pasarán de "visible" a "oculto". En un futuro podría implementarse un patrón observador que nos permita notificar y ligar los cambios entre el reporte y el elemento reportado (que actualmente solo cambia al recargar la página). 
