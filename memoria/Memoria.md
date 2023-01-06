@@ -169,7 +169,7 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 	- Además, se pretende personalizar aún más la aplicación con opciones multilenguaje. Es decir, se quiere internacionalizar la aplicación.
 
   <br/>
-  
+
   A continuación se muestra un ejemplo de cómo podría ser la interfaz del área personal de un usuario cualquiera.
 
   <img src="img/interfaz.png" width="10000" />
@@ -181,7 +181,7 @@ Este rótulo se situará en la parte superior derecha de las distintas interface
 <img src="img/correo.jpeg" width="6000" />
 <br/>
 
-* Se pretende también determinar (añadiendo un tipo de rol más) qué usuarios son expertos, de forma que puedan verificar respuestas dadas (lo cuál da prestigio y fiabilidad a la respuesta).
+* Se pretende también determinar (añadiendo un tipo de _rol_ más) qué usuarios son expertos, de forma que puedan verificar respuestas dadas (lo cual da prestigio y fiabilidad a la respuesta).
 * Tapar contenido sensible (NSFW) hasta que el usuario decida que quiere visualizarlo.
 
 ### **Opciones de diseño**
@@ -192,13 +192,13 @@ Para las medidas anteriores, se propone realizar las siguientes implementaciones
 <div style="border-style: solid;text-align:justify" >
  <ins> <b>NOTA</b></ins>:
   En este caso, NO se creará una tabla de usuarios.
-  Puesto que no se crea una tabla de usuarios, sino que se sigue utilizando el servicio Auth (haciendo uso del token de usuario), estas estadísticas no quedan almacenadas, sino que se calculan cada vez. El generar y mostrar estas gráficas constantemente, podría suponer mucha carga computacional y, por ende, una desventaja. Por ello, estos métodos GET que muestran gráficas y estadísticas tendrán un comportamiento lazy, i.e.: solamente se mostrarán cuando el usuario acceda a la sección de estadísticas (situada en su área personal).
+  Puesto que no se crea una tabla de usuarios, sino que se sigue utilizando el servicio Auth (haciendo uso del token de usuario), estas estadísticas no quedan almacenadas, sino que se calculan con cada ejecución. El generar y mostrar estas gráficas constantemente, podría suponer mucha carga computacional y, por tanto, una desventaja. Por ello, estos métodos GET que muestran gráficas y estadísticas tendrán un comportamiento <i>lazy</i>, i.e.: solamente se mostrarán cuando el usuario acceda a la sección de estadísticas (situada en su área personal).
 </div>
 <br/>
 
 * Algunos métodos posibles son los siguientes:
 
-  - Primero, se creará un método ```user_elements()``` que obtenga los elmentos del usuario en cuestión (pasando como parámetro solamente el _token_). Al contrario que el resto de estadísticas, se mostrarán estos resultados en el apartado de "mis elementos" (situada también en el área personal). Esto permitiirá al usuario acceder facilmente a su propio contenido.
+  - Primero, se creará un método ```user_elements()``` que obtenga los elementos del usuario en cuestión (pasando como parámetro solamente el _token_). Al contrario que el resto de estadísticas, se mostrarán estos resultados en el apartado de "mis elementos" (situada también en el área personal). Esto permitiirá al usuario acceder fácilmente a su propio contenido.
   <br/>
   Ejemplo:
   <br/>
@@ -248,7 +248,7 @@ new Chart("grafico_barras", {
 
 * Además, el usuario podrá modificar su imagen de perfil. Para simplificar esto, se ofrecerá una serie de imágenes predeterminadas de entre las que el usuario puede elegir. Para ello se ha pensado añadir un atributo extra en ```user``` de tipo numérico que identificará la imagen en cuestión.
 
-* Para notificar a los usuarios de que alguno de sus elementos han sido votados, respondidos o reportados, se empleará el patrón **Observador**. Para ello, habrá un observador que observe estos cambios y los notifique. Recordemos que esta notificación llegará al usuario a través de su correo electrónico (previamente añadido).
+* Para notificar a los usuarios de que alguno de sus elementos han sido votados, respondidos o reportados, se empleará el patrón **Observador**. Para ello, habrá un observador que vigile estos cambios y los notifique. Recordemos que esta notificación llegará al usuario a través de su correo electrónico (previamente añadido).
 
 * Por otro lado, se pretende añadir una capa de lógica en el _frontend_, usando así una arquitectura de tres capas. Ahí se añadirán las opciones avanzadas de multilenguaje, _theme_, censura NSFW, etc... De esta forma se matiene el principio _Single Responsability_.
 En esta tesitura podría considerarse el uso de **patrones decoradores** y **patrones estrategia**.
